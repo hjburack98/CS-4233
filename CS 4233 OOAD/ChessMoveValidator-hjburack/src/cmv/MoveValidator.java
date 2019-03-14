@@ -33,5 +33,9 @@ public class MoveValidator
 	public static boolean canMove(ChessBoard board, Square from, Square to)
 	{
 		throw new MethodNotImplementedException("MoveValidator.canMove");
+	} 
+	
+	public boolean test() {
+		return true;
 	}
 }
