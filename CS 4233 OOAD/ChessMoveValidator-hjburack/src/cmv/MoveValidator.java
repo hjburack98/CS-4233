@@ -35,7 +35,4 @@ public class MoveValidator
 		throw new MethodNotImplementedException("MoveValidator.canMove");
 	} 
 	
-	public boolean test() {
-		return true;
-	}
 }
