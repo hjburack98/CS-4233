@@ -1,0 +1,19 @@
+TASK LIST
+=========
+
+DD1:
+When the dog owner initializes the system the following occurs:
+• The dog door is put in the closed position if it is not already there.
+• The system is ready to accept signals from the remote.
+
+If there are any errors on initialization, the system makes three attempts to initialize. 
+If after the third retry (fourth attempt) the error persists, the system halts and must 
+be restarted (possibly after repairs).
+
+xT1: create a dog door
+xT2: the dog door when created should be closed
+xT3: handle errors
+	xT3-1: 1 failure and then success
+	xT3-2: 2 failures and then success
+	xT3-3: 3 failures and then success
+	xT3-4: 4 failures, throw an exception (or exit)
