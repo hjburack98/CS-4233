@@ -30,6 +30,8 @@ public final class SquareFactory
 	
 	/**
 	 * Constructor for creating a square
+	 * @param column 
+	 * @param row
 	 */
 	public SquareFactory(char column, int row)
 	{
