@@ -26,6 +26,20 @@ package cmv;
  */
 public final class SquareFactory
 {
+	
+	private char column;
+	private int row;
+	
+	/**
+	 * Constructor for creating a square
+	 */
+	public SquareFactory(char column, int row)
+	{
+		this.column = column;
+		this.row = row;
+	}
+	
+	
 	/**
 	 * Return the instance of the Square used in the project.
 	 * @param column
@@ -34,6 +48,6 @@ public final class SquareFactory
 	 */
 	public static Square makeSquare(char column, int row)
 	{
-		throw new MethodNotImplementedException("SquareFactory.makeSquare");
+		return new Square(column, row);
 	}
 }

@@ -25,5 +25,6 @@ public class CMVException extends RuntimeException
 	public CMVException(String message)
 	{
 		super(message);
+		System.out.println(message);
 	}
 }
