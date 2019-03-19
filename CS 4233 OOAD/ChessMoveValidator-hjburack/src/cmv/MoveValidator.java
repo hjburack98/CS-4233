@@ -90,133 +90,15 @@ public class MoveValidator
 	{
 		if(board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
 		{
-			//WHITE cannot have a pawn in row 1
-			if(from.getRow() > 1)
-			{
-				//WHITE pawn can only move forward
-				if(from.getColumn() == to.getColumn())
-				{
-					//make sure the requested move is only one space away
-					if(to.getRow() - from.getRow() == 1)
-					{
-						//can only move forward if the space isnt occupied
-						if(!board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-					//if the pawn is on the starting row, it is able to move up 2 rows if 
-					//there is no interference
-					else if(from.getRow() == 2)
-					{
-						for(int start = from.getRow() + 1; start <= start + 1; start++)
-						{
-							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-							if(!board.isSquareOccupied(interference))
-							{
-								return true;
-							}
-						}
-					}
-				}
-				
-				// program Diagonal movement for going up right 
-				//(pawns will only take movement if the square is occupied by an enemy
-				if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
-				{
-					//make sure it is only moving diagonal one space
-					if(to.getRow() - from.getRow() == 1)
-					{
-		
-						if(board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-				}
-				
-				// program Diagonal movement for going up left 
-				//(pawns will only take movement if the square is occupied by an enemy
-				
-				if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
-				{
-					if(to.getRow() - from.getRow() == 1)
-					{
-						if(board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-				}
-			}
+			return (validVerticalUpMove(board, from, to) || validDiagonalUpMove(board, from, to));
 		}
 		
 		else
 		{
-			//BLACK cannot have a pawn in row 8
-			if(from.getRow() < 8)
-			{
-				//BLACK pawn can only move backward
-				if(from.getColumn() == to.getColumn())
-				{
-					//make sure the requested move is only one space away
-					if(from.getColumn() - to.getColumn() == 1)
-					{
-						//can only move backwards if space isn't occupied
-						if(!board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-					
-					//if the pawn is on the starting row, it is able to move up 2 rows if 
-					//there is no interference
-					else if(from.getRow() == 7)
-					{
-						for(int start = from.getRow() + 1; start >= start - 1; start--)
-						{
-							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-							if(!board.isSquareOccupied(interference))
-							{
-								return true;
-							}
-						}
-					}
-				}
-				
-			}
-			
-			// program Diagonal movement for going down right 
-			// (pawns will only take movement if the square is occupied by an enemy)
-			if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
-			{
-				//make sure it is only moving diagonal one space
-				if(to.getRow() - from.getRow() == 1)
-				{
-	
-					if(board.isSquareOccupied(to))
-					{
-						return true;
-					}
-				}
-			}
-			
-			// program Diagonal movement for going down left
-			// (Pawns will only take movement if the square is occupied by an enemy)
-			if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
-			{
-				if(to.getRow() - from.getRow() == 1)
-				{
-					if(board.isSquareOccupied(to))
-					{
-						return true;
-					}
-				}
-			}
+			return (validVerticalDownMove(board, from, to) || validDiagonalDownMove(board, from, to));	
 		}
-		
-		return false;
 	};
+
 	
 
 	/**
