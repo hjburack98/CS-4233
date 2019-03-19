@@ -68,11 +68,7 @@ public class MoveValidator
 		boolean horizontalMove = validHorizontalMove(board, from, to);
 		boolean diagonalMove = validDiagonalMove(board, from, to);
 		
-		if(verticalMove == true || horizontalMove == true || diagonalMove == true) {
-			return true;
-		}
-		
-		return false;
+		return(verticalMove || horizontalMove || diagonalMove);
 	};
 	
 	/**
@@ -84,11 +80,7 @@ public class MoveValidator
 		boolean horizontalMove = validHorizontalMove(board, from, to);
 		boolean diagonalMove = validDiagonalMove(board, from, to);
 		
-		if(verticalMove == true || horizontalMove == true || diagonalMove == true) {
-			return true;
-		}
-		
-		return false;
+		return(verticalMove || horizontalMove || diagonalMove);
 	};
 	
 	/**
@@ -101,127 +93,33 @@ public class MoveValidator
 			//WHITE cannot have a pawn in row 1
 			if(from.getRow() > 1)
 			{
-				//WHITE pawn can only move forward
-				if(from.getColumn() == to.getColumn())
+				if(validDiagonalUpMove(board, from, to))
 				{
-					//make sure the requested move is only one space away
-					if(to.getRow() - from.getRow() == 1)
-					{
-						//can only move forward if the space isnt occupied
-						if(!board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-					//if the pawn is on the starting row, it is able to move up 2 rows if 
-					//there is no interference
-					else if(from.getRow() == 2)
-					{
-						for(int start = from.getRow() + 1; start <= start + 1; start++)
-						{
-							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-							if(!board.isSquareOccupied(interference))
-							{
-								return true;
-							}
-						}
-					}
+					return true;
 				}
 				
-				// program Diagonal movement for going up right 
-				//(pawns will only take movement if the square is occupied by an enemy
-				if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
+				else if(validVerticalUpMove(board, from, to))
 				{
-					//make sure it is only moving diagonal one space
-					if(to.getRow() - from.getRow() == 1)
-					{
-		
-						if(board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
+					return true;
 				}
 				
-				// program Diagonal movement for going up left 
-				//(pawns will only take movement if the square is occupied by an enemy
-				
-				if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
-				{
-					if(to.getRow() - from.getRow() == 1)
-					{
-						if(board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-				}
+				return false;
 			}
-		}
-		
 		else
 		{
-			//BLACK cannot have a pawn in row 8
-			if(from.getRow() < 8)
+			if(validDiagonalUpMove(board, from, to))
 			{
-				//BLACK pawn can only move backward
-				if(from.getColumn() == to.getColumn())
-				{
-					//make sure the requested move is only one space away
-					if(from.getColumn() - to.getColumn() == 1)
-					{
-						//can only move backwards if space isn't occupied
-						if(!board.isSquareOccupied(to))
-						{
-							return true;
-						}
-					}
-					
-					//if the pawn is on the starting row, it is able to move up 2 rows if 
-					//there is no interference
-					else if(from.getRow() == 7)
-					{
-						for(int start = from.getRow() + 1; start >= start - 1; start--)
-						{
-							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-							if(!board.isSquareOccupied(interference))
-							{
-								return true;
-							}
-						}
-					}
-				}
+				return true;
+			}
+			
+			else if(validVerticalUpMove(board, from, to))
+			{
+				return true;
+			}
+			
+			return false;
 				
 			}
-			
-			// program Diagonal movement for going down right 
-			// (pawns will only take movement if the square is occupied by an enemy)
-			if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
-			{
-				//make sure it is only moving diagonal one space
-				if(to.getRow() - from.getRow() == 1)
-				{
-	
-					if(board.isSquareOccupied(to))
-					{
-						return true;
-					}
-				}
-			}
-			
-			// program Diagonal movement for going down left
-			// (Pawns will only take movement if the square is occupied by an enemy)
-			if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
-			{
-				if(to.getRow() - from.getRow() == 1)
-				{
-					if(board.isSquareOccupied(to))
-					{
-						return true;
-					}
-				}
-			}
-		}
 	};
 	
 
@@ -269,7 +167,13 @@ public class MoveValidator
 		//if "to" is not in range, throw and exception
 		if(to.getColumn() < 'a' || to.getColumn() > 'h' || to.getRow() < 1 || to.getRow() > 8)
 		{
-			throw new CMVException("Starting point not on board.");
+			throw new CMVException("Ending point not on board.");
+		}
+		
+		//if "from" and "to" are the same square, throw exception
+		if(to.getColumn() == from.getColumn() && to.getRow() == from.getRow())
+		{
+			throw new CMVException("Starting and ending points are at the same square");
 		}
 
 		//If "from" is occupied, check what is in "from" and run appropriate validate
@@ -277,27 +181,27 @@ public class MoveValidator
 		{
 			if(board.getPieceAt(from).getPieceType() == PieceType.ROOK)
 			{
-				rook.validate(board, from, to);
+				return rook.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.KNIGHT)
 			{
-				knight.validate(board, from, to);
+				return knight.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.BISHOP)
 			{
-				bishop.validate(board, from, to);
+				return bishop.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.QUEEN)
 			{
-				queen.validate(board, from, to);
+				return queen.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.KING)
 			{
-				king.validate(board, from, to);
+				return king.validate(board, from, to);
 			}
 			else
 			{
-				pawn.validate(board, from, to);
+				return pawn.validate(board, from, to);
 			}
 		}
 		else
@@ -315,21 +219,41 @@ public class MoveValidator
 	 */
 	public static boolean validVerticalMove(ChessBoard board, Square from, Square to)
 	{
-		
+		return (validVerticalUpMove(board, from, to) || validVerticalDownMove(board, from, to));
+	}
+	
+	public static boolean validVerticalUpMove(ChessBoard board, Square from, Square to)
+	{
 		//TO MOVE VERTICAL
 		//column stays the same, rows change
 		if(from.getColumn() == to.getColumn())
 		{
-			//Make sure the king can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
+			//Make sure the king and pawn can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
 			{
+				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.BLACK)
+				{
+					return false;
+				}
+				
 				if(Math.abs(from.getRow() - to.getRow()) > 1)
 				{
+					//if it is a pawn and target is two spaces away, check color and row
+					if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && Math.abs(from.getRow() - to.getRow()) == 2)
+					{	
+						//if color is white and row is 2, return true
+						if(board.getPieceAt(from).getPieceColor() == PieceColor.WHITE && from.getRow() == 2)
+						{
+							return true;
+						}
+						
+					}
+					
 					return false;
 				}
 			}
 			
-			//for going forwards
+			//for going up
 			if(from.getRow() < to.getRow()) {
 				for(int start = from.getRow() + 1; start <= to.getRow(); start++)
 				{
@@ -354,34 +278,70 @@ public class MoveValidator
 					}
 				}
 			}
-			
-			//for going backwards
-			else
+		}
+		
+		return false;
+	}
+	
+	public static boolean validVerticalDownMove(ChessBoard board, Square from, Square to)
+	{
+		//TO MOVE VERTICAL
+		//column stays the same, rows change
+		if(from.getColumn() == to.getColumn())
+		{
+			//Make sure the king and pawn can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
 			{
-				for(int start = from.getRow() - 1; start >= to.getRow(); start--)
+				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
 				{
-					//check if there are any pieces in the path of the move, if there arent, return true
-					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-					if(!board.isSquareOccupied(interference))
+					return false;
+				}
+				
+				if(Math.abs(from.getRow() - to.getRow()) > 1)
+				{
+					//if it is a pawn and target is two spaces away, check color and row
+					if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && Math.abs(from.getRow() - to.getRow()) == 2)
 					{
-						if(start == to.getRow())
+						//if color is black and row is 7, return true
+						if(from.getRow() == 7)
 						{
 							return true;
 						}
+						
+						
 					}
 					
-					//if there is a piece at the target square, it is a valid move
-					else if(start == to.getRow())
+					return false;
+				}
+			}
+		}
+				
+		//for going down
+		if(from.getRow() > to.getRow())
+		{
+			for(int start = from.getRow() - 1; start >= to.getRow(); start--)
+			{
+				//check if there are any pieces in the path of the move, if there arent, return true
+				Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+				if(!board.isSquareOccupied(interference))
+				{
+					if(start == to.getRow())
 					{
-						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor()) 
-						{
-							return true;
-						}
+						return true;
+					}
+				}
+						
+				//if there is a piece at the target square, it is a valid move
+				else if(start == to.getRow())
+				{
+					if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor()) 
+					{
+						return true;
 					}
 				}
 			}
 		}
-			
+		
 		return false;
 	}
 	
@@ -407,7 +367,7 @@ public class MoveValidator
 			}
 			//for going forwards
 			if(from.getColumn() < to.getColumn()) {
-				for(char start = (char) (from.getColumn() + 1); start < to.getColumn(); start++)
+				for(char start = (char) (from.getColumn() + 1); start <= to.getColumn(); start++)
 				{
 					//check if there are any pieces in the path of the move, if there aren't, return true
 					Square interference = SquareFactory.makeSquare(start, from.getRow());
@@ -432,7 +392,7 @@ public class MoveValidator
 			//for going backwards
 			else
 			{
-				for(char start = (char) (from.getColumn() - 1); start > to.getColumn(); start--)
+				for(char start = (char) (from.getColumn() - 1); start >= to.getColumn(); start--)
 				{
 					//check if there are any pieces in the path of the move, if there arent, return true
 					Square interference = SquareFactory.makeSquare(start, from.getRow());
@@ -465,28 +425,256 @@ public class MoveValidator
 	 * @param to the square the piece is moving to
 	 * @return true if diagonal move can be made
 	 */
-	public static boolean validDiagonalMoves(ChessBoard board, Square from, Square to)
+	public static boolean validDiagonalMove(ChessBoard board, Square from, Square to)
 	{
-		//King is only allowed to move diagonal one space
-		if(board.getPieceAt(from).getPieceType() == PieceType.KING)
-		{
-			if(from.getColumn() - to.getColumn() > 1 || to.getColumn() - from.getColumn() > 1)
-			{
-				return false;
-			}
-		}
+		return (validDiagonalUpRight(board, from, to) || validDiagonalUpLeft(board, from, to) || validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
 	}
 	
 	/**
-	 * Determine if the move requested is diagonal
+	 * Determine if a valid diagonal up move can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if diagonal up move can be made
+	 */
+	public static boolean validDiagonalUpMove(ChessBoard board, Square from, Square to)
+	{
+		return (validDiagonalUpRight(board, from, to) || validDiagonalUpLeft(board, from, to));
+	}
+	
+	/**
+	 * Determine if a valid diagonal down move can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if diagonal down move can be made
+	 */
+	public static boolean validDiagonalDownMove(ChessBoard board, Square from, Square to)
+	{
+		return (validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
+	}
+	
+	
+	
+	/**
+	 * Determine if the move requested is a valid diagonal move up right
 	 * @param board
 	 * @param from
 	 * @param to
-	 * @return true if the move is a diagonal (meaning the piece's column changes at the same rate of its row
+	 * @return true if diagonal up right move can be made
 	 */
-	public static boolean isDiagonalMove(ChessBoard board, Square from, Square to)
+	public static boolean validDiagonalUpRight(ChessBoard board, Square from, Square to)
 	{
+		if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
+		{
+			//Pawns and Kings can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
+			{
+				if(Math.abs(to.getRow() - from.getRow()) != 1)
+				{
+					return false;
+				}
+			}
+			
+			//values to test if squares in the path of the move are taken
+			char incrementCol = (char) (from.getColumn() + 1);
+			int incrementRow = from.getRow() + 1;
+			
+			//used while loop to increment both col and row at the same time
+			while(incrementCol <= to.getColumn() && incrementRow <= to.getRow())
+			{
+				Square interference = SquareFactory.makeSquare(incrementCol, incrementRow);
+				//if the spot is empty, check if it is the target spot
+				if(!board.isSquareOccupied(interference))
+				{
+					//return true if target spot
+					if(incrementCol == to.getColumn() && incrementRow == to.getRow())
+					{
+						return true;
+					}
+				}
+				//if the spot isn't empty but is at the target spot, check to make sure the piece in target is an enemy piece
+				else if (incrementCol == to.getColumn() && incrementRow == to.getRow())
+				{
+					//if the spot is an enemy piece, return true
+					if(board.getPieceAt(interference).getPieceColor() != board.getPieceAt(from).getPieceColor())
+					{
+						return true;
+					}
+				}
+				
+				incrementCol ++;
+				incrementRow ++;
+			}
+		}
 		
+		return false;
+	}
+	
+	/**
+	 * Determine if the move requested is diagonal up left
+	 * @param board
+	 * @param from
+	 * @param to
+	 * @return true diagonal up left move can be made
+	 */
+	public static boolean validDiagonalUpLeft(ChessBoard board, Square from, Square to)
+	{
+		if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
+		{
+			//Pawns and Kings can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
+			{
+				if(Math.abs(to.getRow() - from.getRow()) != 1)
+				{
+					return false;
+				}
+			}
+			
+			//values to test if squares in the path of the move are taken
+			char incrementCol = (char) (from.getColumn() - 1);
+			int incrementRow = from.getRow() + 1;
+			
+			//used while loop to increment both col and row at the same time
+			while(incrementCol >= to.getColumn() && incrementRow <= to.getRow())
+			{
+				Square interference = SquareFactory.makeSquare(incrementCol, incrementRow);
+				//if the spot is empty, check if it is the target spot
+				if(!board.isSquareOccupied(interference))
+				{
+					//return true if target spot
+					if(incrementCol == to.getColumn() && incrementRow == to.getRow())
+					{
+						return true;
+					}
+				}
+				//if the spot isn't empty but is at the target spot, check to make sure the piece in target is an enemy piece
+				else if (incrementCol == to.getColumn() && incrementRow == to.getRow())
+				{
+					//if the spot is an enemy piece, return true
+					if(board.getPieceAt(interference).getPieceColor() != board.getPieceAt(from).getPieceColor())
+					{
+						return true;
+					}
+				}
+				
+				incrementCol --;
+				incrementRow ++;
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * Determine if the move requested is diagonal down right
+	 * @param board
+	 * @param from
+	 * @param to
+	 * @return true if diagonal down right move can be made
+	 */
+	public static boolean validDiagonalDownRight(ChessBoard board, Square from, Square to)
+	{
+		if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
+		{
+			//Pawns and Kings can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
+			{
+				if(Math.abs(to.getRow() - from.getRow()) != 1)
+				{
+					return false;
+				}
+			}
+			
+			//values to test if squares in the path of the move are taken
+			char incrementCol = (char) (from.getColumn() + 1);
+			int incrementRow = from.getRow() - 1;
+			
+			//used while loop to increment both col and row at the same time
+			while(incrementCol <= to.getColumn() && incrementRow >= to.getRow())
+			{
+				Square interference = SquareFactory.makeSquare(incrementCol, incrementRow);
+				//if the spot is empty, check if it is the target spot
+				if(!board.isSquareOccupied(interference))
+				{
+					//return true if target spot
+					if(incrementCol == to.getColumn() && incrementRow == to.getRow())
+					{
+						return true;
+					}
+				}
+				//if the spot isn't empty but is at the target spot, check to make sure the piece in target is an enemy piece
+				else if (incrementCol == to.getColumn() && incrementRow == to.getRow())
+				{
+					//if the spot is an enemy piece, return true
+					if(board.getPieceAt(interference).getPieceColor() != board.getPieceAt(from).getPieceColor())
+					{
+						return true;
+					}
+				}
+				
+				incrementCol ++;
+				incrementRow --;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Determine if the move requested is diagonal down left
+	 * @param board
+	 * @param from
+	 * @param to
+	 * @return true if diagonal down left move can be made
+	 */
+	public static boolean validDiagonalDownLeft(ChessBoard board, Square from, Square to)
+	{
+		if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
+		{
+			//Pawns and Kings can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
+			{
+				if(Math.abs(to.getRow() - from.getRow()) != 1)
+				{
+					return false;
+				}
+			}
+			
+			//values to test if squares in the path of the move are taken
+			char incrementCol = (char) (from.getColumn() - 1);
+			int incrementRow = from.getRow() - 1;
+			
+			//used while loop to increment both col and row at the same time
+			while(incrementCol >= to.getColumn() && incrementRow >= to.getRow())
+			{
+				Square interference = SquareFactory.makeSquare(incrementCol, incrementRow);
+				//if the spot is empty, check if it is the target spot
+				if(!board.isSquareOccupied(interference))
+				{
+					//return true if target spot
+					if(incrementCol == to.getColumn() && incrementRow == to.getRow())
+					{
+						return true;
+					}
+				}
+				//if the spot isn't empty but is at the target spot, check to make sure the piece in target is an enemy piece
+				else if (incrementCol == to.getColumn() && incrementRow == to.getRow())
+				{
+					//if the spot is an enemy piece, return true
+					if(board.getPieceAt(interference).getPieceColor() != board.getPieceAt(from).getPieceColor())
+					{
+						return true;
+					}
+				}
+				
+				incrementCol --;
+				incrementRow --;
+			}
+		}
+		
+		return false;
 	}
 	
 }
