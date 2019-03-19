@@ -93,33 +93,129 @@ public class MoveValidator
 			//WHITE cannot have a pawn in row 1
 			if(from.getRow() > 1)
 			{
-				if(validDiagonalUpMove(board, from, to))
+				//WHITE pawn can only move forward
+				if(from.getColumn() == to.getColumn())
 				{
-					return true;
+					//make sure the requested move is only one space away
+					if(to.getRow() - from.getRow() == 1)
+					{
+						//can only move forward if the space isnt occupied
+						if(!board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
+					//if the pawn is on the starting row, it is able to move up 2 rows if 
+					//there is no interference
+					else if(from.getRow() == 2)
+					{
+						for(int start = from.getRow() + 1; start <= start + 1; start++)
+						{
+							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+							if(!board.isSquareOccupied(interference))
+							{
+								return true;
+							}
+						}
+					}
 				}
 				
-				else if(validVerticalUpMove(board, from, to))
+				// program Diagonal movement for going up right 
+				//(pawns will only take movement if the square is occupied by an enemy
+				if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
 				{
-					return true;
+					//make sure it is only moving diagonal one space
+					if(to.getRow() - from.getRow() == 1)
+					{
+		
+						if(board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
 				}
 				
-				return false;
+				// program Diagonal movement for going up left 
+				//(pawns will only take movement if the square is occupied by an enemy
+				
+				if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
+				{
+					if(to.getRow() - from.getRow() == 1)
+					{
+						if(board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
+				}
 			}
+		}
+		
 		else
 		{
-			if(validDiagonalUpMove(board, from, to))
+			//BLACK cannot have a pawn in row 8
+			if(from.getRow() < 8)
 			{
-				return true;
-			}
-			
-			else if(validVerticalUpMove(board, from, to))
-			{
-				return true;
-			}
-			
-			return false;
+				//BLACK pawn can only move backward
+				if(from.getColumn() == to.getColumn())
+				{
+					//make sure the requested move is only one space away
+					if(from.getColumn() - to.getColumn() == 1)
+					{
+						//can only move backwards if space isn't occupied
+						if(!board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
+					
+					//if the pawn is on the starting row, it is able to move up 2 rows if 
+					//there is no interference
+					else if(from.getRow() == 7)
+					{
+						for(int start = from.getRow() + 1; start >= start - 1; start--)
+						{
+							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+							if(!board.isSquareOccupied(interference))
+							{
+								return true;
+							}
+						}
+					}
+				}
 				
 			}
+			
+			// program Diagonal movement for going down right 
+			// (pawns will only take movement if the square is occupied by an enemy)
+			if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
+			{
+				//make sure it is only moving diagonal one space
+				if(to.getRow() - from.getRow() == 1)
+				{
+	
+					if(board.isSquareOccupied(to))
+					{
+						return true;
+					}
+				}
+			}
+			
+			// program Diagonal movement for going down left
+			// (Pawns will only take movement if the square is occupied by an enemy)
+			if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
+			{
+				if(to.getRow() - from.getRow() == 1)
+				{
+					if(board.isSquareOccupied(to))
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
 	};
 	
 
@@ -231,11 +327,10 @@ public class MoveValidator
 			//Make sure the king and pawn can only move one space
 			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
 			{
-				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.BLACK)
+				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
 				{
 					return false;
 				}
-				
 				if(Math.abs(from.getRow() - to.getRow()) > 1)
 				{
 					//if it is a pawn and target is two spaces away, check color and row
