@@ -13,13 +13,13 @@ import cmv.ChessPiece.PieceType;
 
 public class ActualChessPiece implements ChessPiece
 {
-	public PieceType type;
 	public PieceColor color;
+	public PieceType type;
 	
-	public ActualChessPiece(PieceType type, PieceColor color)
+	public ActualChessPiece(PieceColor color, PieceType type)
 	{
-		this.type = type;
 		this.color = color;
+		this.type = type;
 	}
 	
 	/**

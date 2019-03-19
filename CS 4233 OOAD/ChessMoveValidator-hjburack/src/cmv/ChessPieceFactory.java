@@ -20,8 +20,22 @@ import cmv.ChessPiece.*;
  */
 public class ChessPieceFactory
 {
+	private final ActualChessPiece chessPiece;
+	
+	public ChessPieceFactory(PieceColor color, PieceType type) {
+		chessPiece = new ActualChessPiece(color, type);
+	}
+	
+	/**
+	 * Return an instance of an ActualChessPiece used in the project
+	 * @param color
+	 * @param type
+	 * @return the ActualChessPiece instance
+	 */
 	public static ChessPiece makePiece(PieceColor color, PieceType type)
 	{
-		throw new MethodNotImplementedException("ChessPieceFactory.makePiece");
+		ChessPieceFactory createdPiece = new ChessPieceFactory(color, type);
+		return createdPiece.chessPiece;
 	}
+	
 }
