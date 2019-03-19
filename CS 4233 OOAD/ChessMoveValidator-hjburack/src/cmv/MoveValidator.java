@@ -11,6 +11,8 @@
  *******************************************************************************/
 package cmv;
 
+import cmv.ChessPiece.PieceType;
+
 /**
  * The MoveValidator has a single method that takes a ChessBoard instance
  * and two squares. It validates that the piece on the first square can move to
@@ -23,6 +25,53 @@ package cmv;
 public class MoveValidator
 {
 	/**
+	 * lambda for checking validity of a rook's move
+	 */
+	private static Validate rook = (board,from,to) -> 
+	{
+		
+	};
+	
+	/**
+	 * lambda for checking validity of a knight's move
+	 */
+	private static Validate knight = (board,from,to) -> 
+	{
+		
+	};
+	
+	/**
+	 * lambda for checking validity of a bishop's move
+	 */
+	private static Validate bishop = (board,from,to) -> 
+	{
+		
+	};
+	
+	/**
+	 * lambda for checking validity of a queen's move
+	 */
+	private static Validate queen = (board,from,to) -> 
+	{
+		
+	};
+	
+	/**
+	 * lambda for checking validity of a king's move
+	 */
+	private static Validate king = (board,from,to) -> 
+	{
+		
+	};
+	
+	/**
+	 * lambda for checking validity of a pawn's move
+	 */
+	private static Validate pawn = (board,from,to) -> 
+	{
+		
+	};
+	/**
 	 * Determines if a move can be made
 	 * @param board the board state
 	 * @param from the square the piece is moving from
@@ -32,8 +81,9 @@ public class MoveValidator
 	 */
 	public static boolean canMove(ChessBoard board, Square from, Square to)
 	{
-		throw new MethodNotImplementedException("MoveValidator.canMove");
+		
 		/*
+		 * THOUGHT PROCESS / TASK LIST
 		 * Steps - MAY INCLUDE STEP 3 IN CLASS FOR EACH TYPE OF PIECE
 		 * 1: Determine if the squares are in the board's range. If not, return CMVException that squares not on board
 		 * 		THIS IS ALREADY IMPLEMENTED IN board.GetPieceAt(from)
@@ -55,6 +105,40 @@ public class MoveValidator
 		 *    
 		 * 4: Return true if the move is valid. Return false otherwise
 		 */
-	} 
+		
+		
+		//If "from" is occupied, check what is in "from" and run appropriate validate
+		if(board.isSquareOccupied(from))
+		{
+			if(board.getPieceAt(from).getPieceType() == PieceType.ROOK)
+			{
+				rook.validate(board, from, to);
+			}
+			else if(board.getPieceAt(from).getPieceType() == PieceType.KNIGHT)
+			{
+				knight.validate(board, from, to);
+			}
+			else if(board.getPieceAt(from).getPieceType() == PieceType.BISHOP)
+			{
+				bishop.validate(board, from, to);
+			}
+			else if(board.getPieceAt(from).getPieceType() == PieceType.QUEEN)
+			{
+				queen.validate(board, from, to);
+			}
+			else if(board.getPieceAt(from).getPieceType() == PieceType.KING)
+			{
+				king.validate(board, from, to);
+			}
+			else
+			{
+				pawn.validate(board, from, to);
+			}
+		}
+		else
+		{
+			throw new CMVException("ERROR. EMPTY SQUARE.");
+		}
+	}
 	
 }

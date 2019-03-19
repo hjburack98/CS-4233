@@ -26,17 +26,7 @@ package cmv;
  */
 public final class SquareFactory
 {
-	private final Square square;
-	
-	/**
-	 * Constructor for creating a square
-	 * @param column 
-	 * @param row
-	 */
-	public SquareFactory(char column, int row)
-	{
-		square = new Square(column, row);
-	}
+
 	
 	
 	/**
@@ -47,7 +37,6 @@ public final class SquareFactory
 	 */
 	public static Square makeSquare(char column, int row)
 	{
-		SquareFactory createdSquare = new SquareFactory(column, row);
-		return createdSquare.square;
+		return new Square(column, row);
 	}
 }

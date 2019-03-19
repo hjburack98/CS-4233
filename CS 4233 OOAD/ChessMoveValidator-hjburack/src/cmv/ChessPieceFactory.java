@@ -20,11 +20,6 @@ import cmv.ChessPiece.*;
  */
 public class ChessPieceFactory
 {
-	private final ActualChessPiece chessPiece;
-	
-	public ChessPieceFactory(PieceColor color, PieceType type) {
-		chessPiece = new ActualChessPiece(color, type);
-	}
 	
 	/**
 	 * Return an instance of an ActualChessPiece used in the project
@@ -34,8 +29,7 @@ public class ChessPieceFactory
 	 */
 	public static ChessPiece makePiece(PieceColor color, PieceType type)
 	{
-		ChessPieceFactory createdPiece = new ChessPieceFactory(color, type);
-		return createdPiece.chessPiece;
+		return new ActualChessPiece(color, type);
 	}
 	
 }
