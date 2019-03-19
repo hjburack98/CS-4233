@@ -44,7 +44,12 @@ public class MoveValidator
 		 *       This class would have a function of validMove for each piece. This is where the rules for 
 		 *       each type of piece will go. Using this strat will allow for a new class to be made if 
 		 *       for some reason a new piece was to be added to the game
-		 *       
+		 *     
+		 *    POTENTIAL LAMBDA
+		 *    	 Create a lambda for each piece that will access an interface with canMove
+		 *    	 Each of these lambdas would call from a "Validate" functional interface, and be implemented in canMove
+		 *    	 The function will call validate on the piece that is in square "from"  
+		 *    
 		 * 4: Return true if the move is valid. Return false otherwise
 		 */
 	} 
