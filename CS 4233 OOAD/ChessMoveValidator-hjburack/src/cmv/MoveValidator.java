@@ -11,6 +11,7 @@
  *******************************************************************************/
 package cmv;
 
+import cmv.ChessPiece.PieceColor;
 import cmv.ChessPiece.PieceType;
 
 /**
@@ -54,7 +55,7 @@ public class MoveValidator
 	 */
 	private static Validate bishop = (board,from,to) -> 
 	{
-		
+		return validDiagonalMove(board, from, to);
 	};
 	
 	/**
@@ -64,6 +65,13 @@ public class MoveValidator
 	{
 		boolean verticalMove = validVerticalMove(board, from, to);
 		boolean horizontalMove = validHorizontalMove(board, from, to);
+		boolean diagonalMove = validDiagonalMove(board, from, to);
+		
+		if(verticalMove == true || horizontalMove == true || diagonalMove == true) {
+			return true;
+		}
+		
+		return false;
 	};
 	
 	/**
@@ -71,7 +79,15 @@ public class MoveValidator
 	 */
 	private static Validate king = (board,from,to) -> 
 	{
+		boolean verticalMove = validVerticalMove(board, from, to);
+		boolean horizontalMove = validHorizontalMove(board, from, to);
+		boolean diagonalMove = validDiagonalMove(board, from, to);
 		
+		if(verticalMove == true || horizontalMove == true || diagonalMove == true) {
+			return true;
+		}
+		
+		return false;
 	};
 	
 	/**
@@ -79,7 +95,80 @@ public class MoveValidator
 	 */
 	private static Validate pawn = (board,from,to) -> 
 	{
-		
+		if(board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
+		{
+			//WHITE cannot have a pawn in row 1
+			if(from.getRow() > 1)
+			{
+				//WHITE pawn can only move forward
+				if(from.getColumn() == to.getColumn())
+				{
+					//make sure the requested move is only one space away
+					if(to.getRow() - from.getRow() == 1)
+					{
+						//can only move forward if the space isnt occupied
+						if(!board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
+					//if the pawn is on the starting row, it is able to move up 2 rows if 
+					//there is no interference
+					else if(from.getRow() == 2)
+					{
+						for(int start = from.getRow() + 1; start <= start + 1; start++)
+						{
+							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+							if(!board.isSquareOccupied(interference))
+							{
+								return true;
+							}
+						}
+					}
+				}
+				
+				//TODO: program Diagonal movements (pawns will only take two movements
+				//		if the square is occupied by an enemy
+			}
+		}
+		else
+		{
+			//BLACK cannot have a pawn in row 8
+			if(from.getRow() < 8)
+			{
+				//BLACK pawn can only move backward
+				if(from.getColumn() == to.getColumn())
+				{
+					//make sure the requested move is only one space away
+					if(from.getColumn() - to.getColumn() == 1)
+					{
+						//can only move backwards if space isn't occupied
+						if(!board.isSquareOccupied(to))
+						{
+							return true;
+						}
+					}
+					
+					//if the pawn is on the starting row, it is able to move up 2 rows if 
+					//there is no interference
+					else if(from.getRow() == 7)
+					{
+						for(int start = from.getRow() + 1; start >= start - 1; start--)
+						{
+							Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+							if(!board.isSquareOccupied(interference))
+							{
+								return true;
+							}
+						}
+					}
+				}
+				
+			}
+			
+			//TODO: program Diagonal movements (pawns will only take two movements
+			//		if the square is occupied by an enemy
+		}
 	};
 	
 
@@ -173,11 +262,23 @@ public class MoveValidator
 	 */
 	public static boolean validVerticalMove(ChessBoard board, Square from, Square to)
 	{
+		
+		//TO MOVE VERTICAL
+		//column stays the same, rows change
 		if(from.getColumn() == to.getColumn())
 		{
+			//Make sure the king can only move one space
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
+			{
+				if(from.getColumn() - to.getColumn() > 1 || to.getColumn() - from.getColumn() > 1)
+				{
+					return false;
+				}
+			}
+			
 			//for going forwards
 			if(from.getRow() < to.getRow()) {
-				for(int start = from.getRow(); start <= to.getRow(); start++)
+				for(int start = from.getRow() + 1; start <= to.getRow(); start++)
 				{
 					//check if there are any pieces in the path of the move, if there arent, return true
 					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
@@ -192,7 +293,11 @@ public class MoveValidator
 					//if there is a piece at the target square, it is a valid move
 					else if(start == to.getRow())
 					{
-						return true;
+						//makes sure the piece is not on the same team
+						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
+						{
+							return true;
+						}
 					}
 				}
 			}
@@ -200,7 +305,7 @@ public class MoveValidator
 			//for going backwards
 			else
 			{
-				for(int start = from.getRow(); start >= to.getRow(); start--)
+				for(int start = from.getRow() - 1; start >= to.getRow(); start--)
 				{
 					//check if there are any pieces in the path of the move, if there arent, return true
 					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
@@ -215,7 +320,10 @@ public class MoveValidator
 					//if there is a piece at the target square, it is a valid move
 					else if(start == to.getRow())
 					{
-						return true;
+						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor()) 
+						{
+							return true;
+						}
 					}
 				}
 			}
@@ -233,13 +341,22 @@ public class MoveValidator
 	 */
 	public static boolean validHorizontalMove(ChessBoard board, Square from, Square to)
 	{
-		//if the rows are the same, the column changes
+		//TO MOVE HORIZONTAL
+		//rows stay the same, the column changes
 		if(from.getRow() == to.getRow())
 		{
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
+			{
+				if(from.getColumn() - to.getColumn() > 1 || to.getColumn() - from.getColumn() > 1)
+				{
+					return false;
+				}
+			}
 			//for going forwards
 			if(from.getColumn() < to.getColumn()) {
-				for(char start = from.getColumn(); start <= to.getColumn(); start++)
+				for(char start = (char) (from.getColumn() + 1); start <= to.getColumn(); start++)
 				{
+					//check if there are any pieces in the path of the move, if there arent, return true
 					Square interference = SquareFactory.makeSquare(start, from.getRow());
 					if(!board.isSquareOccupied(interference))
 					{
@@ -250,7 +367,10 @@ public class MoveValidator
 					}
 					else if(start == to.getColumn())
 					{
-						return true;
+						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
+						{
+							return true;
+						}
 					}
 				}
 			}
@@ -258,7 +378,7 @@ public class MoveValidator
 			//for going backwards
 			else
 			{
-				for(char start = from.getColumn(); start >= to.getColumn(); start--)
+				for(char start = (char) (from.getColumn() + 1); start >= to.getColumn(); start--)
 				{
 					//check if there are any pieces in the path of the move, if there arent, return true
 					Square interference = SquareFactory.makeSquare(start, from.getRow());
@@ -272,7 +392,10 @@ public class MoveValidator
 					//if there is a piece at the target square, it is a valid move
 					else if(start == to.getColumn())
 					{
-						return true;
+						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
+						{
+							return true;
+						}
 					}
 				}
 			}
