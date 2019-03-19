@@ -29,7 +29,16 @@ public class MoveValidator
 	 */
 	private static Validate rook = (board,from,to) -> 
 	{
+		boolean verticalMove = validVerticalMove(board, from, to);
+		boolean horizontalMove = validHorizontalMove(board, from, to);
 		
+		if(verticalMove == true || horizontalMove == true)
+		{
+			return true;
+		}
+		
+		return false;
+
 	};
 	
 	/**
@@ -53,7 +62,8 @@ public class MoveValidator
 	 */
 	private static Validate queen = (board,from,to) -> 
 	{
-		
+		boolean verticalMove = validVerticalMove(board, from, to);
+		boolean horizontalMove = validHorizontalMove(board, from, to);
 	};
 	
 	/**
@@ -71,6 +81,8 @@ public class MoveValidator
 	{
 		
 	};
+	
+
 	/**
 	 * Determines if a move can be made
 	 * @param board the board state
@@ -150,6 +162,123 @@ public class MoveValidator
 		{
 			throw new CMVException("Empty square selected");
 		}
+	}
+	
+	/**
+	 * Determines if a vertical move can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if vertical move can be made
+	 */
+	public static boolean validVerticalMove(ChessBoard board, Square from, Square to)
+	{
+		if(from.getColumn() == to.getColumn())
+		{
+			//for going forwards
+			if(from.getRow() < to.getRow()) {
+				for(int start = from.getRow(); start <= to.getRow(); start++)
+				{
+					//check if there are any pieces in the path of the move, if there arent, return true
+					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+					if(!board.isSquareOccupied(interference))
+					{
+						if(start == to.getRow())
+						{
+							return true;
+						}
+					}
+					
+					//if there is a piece at the target square, it is a valid move
+					else if(start == to.getRow())
+					{
+						return true;
+					}
+				}
+			}
+			
+			//for going backwards
+			else
+			{
+				for(int start = from.getRow(); start >= to.getRow(); start--)
+				{
+					//check if there are any pieces in the path of the move, if there arent, return true
+					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+					if(!board.isSquareOccupied(interference))
+					{
+						if(start == to.getRow())
+						{
+							return true;
+						}
+					}
+					
+					//if there is a piece at the target square, it is a valid move
+					else if(start == to.getRow())
+					{
+						return true;
+					}
+				}
+			}
+		}
+			
+		return false;
+	}
+	
+	/**
+	 * Determines if a horizontal move can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if horizontal move can be made
+	 */
+	public static boolean validHorizontalMove(ChessBoard board, Square from, Square to)
+	{
+		//if the rows are the same, the column changes
+		if(from.getRow() == to.getRow())
+		{
+			//for going forwards
+			if(from.getColumn() < to.getColumn()) {
+				for(char start = from.getColumn(); start <= to.getColumn(); start++)
+				{
+					Square interference = SquareFactory.makeSquare(start, from.getRow());
+					if(!board.isSquareOccupied(interference))
+					{
+						if(start == to.getColumn())
+						{
+							return true;
+						}
+					}
+					else if(start == to.getColumn())
+					{
+						return true;
+					}
+				}
+			}
+			
+			//for going backwards
+			else
+			{
+				for(char start = from.getColumn(); start >= to.getColumn(); start--)
+				{
+					//check if there are any pieces in the path of the move, if there arent, return true
+					Square interference = SquareFactory.makeSquare(start, from.getRow());
+					if(!board.isSquareOccupied(interference))
+					{
+						if(start == to.getColumn())
+						{
+							return true;
+						}
+					}
+					//if there is a piece at the target square, it is a valid move
+					else if(start == to.getColumn())
+					{
+						return true;
+					}
+				}
+			}
+		}
+			
+		return false;
 	}
 	
 }
