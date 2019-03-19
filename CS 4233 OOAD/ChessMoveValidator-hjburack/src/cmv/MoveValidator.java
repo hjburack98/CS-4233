@@ -48,7 +48,131 @@ public class MoveValidator
 	 */
 	private static Validate knight = (board,from,to) -> 
 	{
+		//check two rows up
+		if(from.getRow() + 2 == to.getRow())
+		{
+			//check one row right
+			if(from.getColumn() + 1 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+			//check one row left
+			if(from.getColumn() - 1 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+		}
+
+		//check one row up
+		if(from.getRow() + 1 == to.getRow())
+		{
+			//check two rows right
+			if(from.getColumn() + 2 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+			//check two rows left
+			if(from.getColumn() - 2 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+		}
 		
+		//check two rows down
+		if(from.getRow() - 2 == to.getRow())
+		{
+			//check one row right
+			if(from.getColumn() + 1 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+			//check one row left
+			if(from.getColumn() - 1 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+		}
+		//check one row down and two rows right, one row down and two rows left
+		//Check one row down
+		if(from.getRow() + 1 == to.getRow())
+		{
+			//check two rows right
+			if(from.getColumn() + 2 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+			//check two rows left
+			if(from.getColumn() - 2 == to.getColumn())
+			{
+				if(!board.isSquareOccupied(to))
+				{
+					return true;
+				}
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				{
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
 	};
 	
 	/**
