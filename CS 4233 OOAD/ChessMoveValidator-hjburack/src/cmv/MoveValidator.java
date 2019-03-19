@@ -106,7 +106,18 @@ public class MoveValidator
 		 * 4: Return true if the move is valid. Return false otherwise
 		 */
 		
+		//if "from" is not in range, throw and exception
+		if(from.getColumn() < 'a' || from.getColumn() > 'h' || from.getRow() < 1 || from.getRow() > 8)
+		{
+			throw new CMVException("Starting point not on board.");
+		}
 		
+		//if "to" is not in range, throw and exception
+		if(to.getColumn() < 'a' || to.getColumn() > 'h' || to.getRow() < 1 || to.getRow() > 8)
+		{
+			throw new CMVException("Starting point not on board.");
+		}
+
 		//If "from" is occupied, check what is in "from" and run appropriate validate
 		if(board.isSquareOccupied(from))
 		{
@@ -137,7 +148,7 @@ public class MoveValidator
 		}
 		else
 		{
-			throw new CMVException("ERROR. EMPTY SQUARE.");
+			throw new CMVException("Empty square selected");
 		}
 	}
 	
