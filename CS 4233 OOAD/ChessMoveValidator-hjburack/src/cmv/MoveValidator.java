@@ -36,6 +36,8 @@ public class MoveValidator
 		/*
 		 * Steps - MAY INCLUDE STEP 3 IN CLASS FOR EACH TYPE OF PIECE
 		 * 1: Determine if the squares are in the board's range. If not, return CMVException that squares not on board
+		 * 		THIS IS ALREADY IMPLEMENTED IN board.GetPieceAt(from)
+		 * 
 		 * 2: Determine if/what piece is in "from" square. Return CMVException if no piece on "from" square
 		 * 3: Use the piece's move restrictions to determine if it is able to get to "to" square
 		 *    Note - this will also consider other pieces on the board and pieces in the path of the target piece
