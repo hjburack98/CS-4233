@@ -28,6 +28,9 @@ public interface ChessPiece
 	public enum PieceType {KING, QUEEN, BISHOP, KNIGHT, ROOK, PAWN};
 	public enum PieceColor {WHITE, BLACK};
 	
+	//NOTE FOR PAWN: make a restriction that a pawn cannot go in the back row of that color 
+	//				 This would be white pawn in first row and black pawn in last row
+	
 	/**
 	 * @return the piece type
 	 */
