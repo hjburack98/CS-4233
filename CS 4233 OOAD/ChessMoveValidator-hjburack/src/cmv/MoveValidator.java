@@ -47,7 +47,8 @@ public class MoveValidator
 		 *     
 		 *    POTENTIAL LAMBDA
 		 *    	 Create a lambda for each piece that will access an interface with canMove
-		 *    	 Each of these lambdas would call from a "Validate" functional interface, and be implemented in canMove
+		 *    	 Each of these lambdas would call from a "Validate" functional interface, 
+		 *    	 and be implemented in ActualChessPiece
 		 *    	 The function will call validate on the piece that is in square "from"  
 		 *    
 		 * 4: Return true if the move is valid. Return false otherwise
