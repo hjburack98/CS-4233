@@ -200,7 +200,7 @@ public class MoveValidator
 	 */
 	private static Validate king = (board,from,to) -> 
 	{
-		if(Math.abs(from.getRow() - to.getRow()) > 1 && Math.abs(from.getColumn() - to.getColumn()) > 1)
+		if(Math.abs(from.getRow() - to.getRow()) > 1 || Math.abs(from.getColumn() - to.getColumn()) > 1)
 			{
 				return false;
 			}
@@ -336,6 +336,11 @@ public class MoveValidator
 		if(to.getColumn() < 'a' || to.getColumn() > 'h' || to.getRow() < 1 || to.getRow() > 8)
 		{
 			throw new CMVException("Ending point not on board.");
+		}
+		
+		if(!board.isSquareOccupied(from))
+		{
+			throw new CMVException("Empty starting tile");
 		}
 		
 		//if "from" and "to" are the same square, throw exception
