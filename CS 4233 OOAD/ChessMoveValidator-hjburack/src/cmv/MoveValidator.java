@@ -631,6 +631,10 @@ public class MoveValidator
 						return true;
 					}
 				}
+				else
+				{
+					return false;
+				}
 				
 				incrementCol ++;
 				incrementRow ++;
@@ -675,6 +679,11 @@ public class MoveValidator
 					{
 						return true;
 					}
+				}
+				
+				else
+				{
+					return false;
 				}
 				
 				incrementCol --;
@@ -724,6 +733,11 @@ public class MoveValidator
 					}
 				}
 				
+				else
+				{
+					return false;
+				}
+				
 				incrementCol ++;
 				incrementRow --;
 			}
@@ -768,6 +782,11 @@ public class MoveValidator
 					{
 						return true;
 					}
+				}
+				
+				else
+				{
+					return false;
 				}
 				
 				incrementCol --;
