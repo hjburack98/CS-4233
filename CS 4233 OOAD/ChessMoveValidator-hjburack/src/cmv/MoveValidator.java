@@ -528,7 +528,7 @@ public class MoveValidator
 	 */
 	public static boolean validDiagonalMove(ChessBoard board, Square from, Square to)
 	{
-		return (validDiagonalUpRight(board, from, to) || validDiagonalUpLeft(board, from, to) || validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
+		return (validDiagonalUpMove(board, from, to) || validDiagonalDownMove(board, from, to) || validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
 	}
 	
 	/**
