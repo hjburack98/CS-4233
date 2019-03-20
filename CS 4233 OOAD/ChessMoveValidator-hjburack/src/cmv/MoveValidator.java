@@ -326,6 +326,8 @@ public class MoveValidator
 		 * 4: Return true if the move is valid. Return false otherwise
 		 */
 		
+		boolean valid = false;
+		
 		//if "from" is not in range, throw and exception
 		if(from.getColumn() < 'a' || from.getColumn() > 'h' || from.getRow() < 1 || from.getRow() > 8)
 		{
@@ -354,33 +356,30 @@ public class MoveValidator
 		{
 			if(board.getPieceAt(from).getPieceType() == PieceType.ROOK)
 			{
-				return rook.validate(board, from, to);
+				valid =  rook.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.KNIGHT)
 			{
-				return knight.validate(board, from, to);
+				valid =  knight.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.BISHOP)
 			{
-				return bishop.validate(board, from, to);
+				valid =  bishop.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.QUEEN)
 			{
-				return queen.validate(board, from, to);
+				valid =  queen.validate(board, from, to);
 			}
 			else if(board.getPieceAt(from).getPieceType() == PieceType.KING)
 			{
-				return king.validate(board, from, to);
+				valid =  king.validate(board, from, to);
 			}
 			else
 			{
-				return pawn.validate(board, from, to);
+				valid =  pawn.validate(board, from, to);
 			}
 		}
-		else
-		{
-			return false;
-		}
+		return valid;
 	}
 	
 	/**
