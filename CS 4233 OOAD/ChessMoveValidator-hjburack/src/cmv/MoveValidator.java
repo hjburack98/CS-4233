@@ -200,6 +200,11 @@ public class MoveValidator
 	 */
 	private static Validate king = (board,from,to) -> 
 	{
+		if(Math.abs(from.getRow() - to.getRow()) > 1 && Math.abs(from.getColumn() - to.getColumn()) > 1)
+			{
+				return false;
+			}
+		
 		boolean verticalMove = validVerticalMove(board, from, to);
 		boolean horizontalMove = validHorizontalMove(board, from, to);
 		boolean diagonalMove = validDiagonalMove(board, from, to);
@@ -214,13 +219,74 @@ public class MoveValidator
 	{
 		if(board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
 		{
-			return (validVerticalUpMove(board, from, to) || validDiagonalUpMove(board, from, to));
+			if(from.getRow() == 1)
+			{
+				return false;
+			}
+			
+			if(from.getRow() + 1 == to.getRow() && (from.getColumn() + 1 == to.getColumn() || from.getColumn() - 1 == to.getColumn()))
+			{
+				if(board.isSquareOccupied(to) && board.getPieceAt(to).getPieceColor() == PieceColor.BLACK)
+				{
+					return true;
+				}
+			}
+			
+			if(from.getRow() == 2)
+			{
+				if(from.getColumn() == to.getColumn() &&(from.getRow() + 1 == to.getRow() || from.getRow() + 2 == to.getRow()))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if(from.getColumn() == to.getColumn() && from.getRow() + 1 == to.getRow())
+				{
+					if(!board.isSquareOccupied(to))
+					{
+						return true;
+					}
+				}
+			}
+			
 		}
 		
 		else
 		{
-			return (validVerticalDownMove(board, from, to) || validDiagonalDownMove(board, from, to));	
+			//cant go beyond 8
+			if(from.getRow() == 8)
+			{
+				return false;
+			}
+			
+			if(from.getRow() - 1 == to.getRow() && (from.getColumn() + 1 == to.getColumn() || from.getColumn() - 1 == to.getColumn()))
+			{
+				if(board.isSquareOccupied(to) && board.getPieceAt(to).getPieceColor() == PieceColor.WHITE)
+				{
+					return true;
+				}
+			}
+			
+			if(from.getRow() == 2)
+			{
+				if(from.getColumn() == to.getColumn() &&(from.getRow() - 1 == to.getRow() || from.getRow() - 2 == to.getRow()))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if(from.getColumn() == to.getColumn() && from.getRow() - 1 == to.getRow())
+				{
+					if(!board.isSquareOccupied(to))
+					{
+						return true;
+					}
+				}
+			}
 		}
+		return false;
 	};
 
 	
@@ -610,8 +676,8 @@ public class MoveValidator
 				{
 					return false;
 				}
+				
 			}
-			
 			//values to test if squares in the path of the move are taken
 			char incrementCol = (char) (from.getColumn() + 1);
 			int incrementRow = from.getRow() + 1;

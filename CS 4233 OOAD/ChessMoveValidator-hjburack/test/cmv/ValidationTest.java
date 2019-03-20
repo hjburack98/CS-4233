@@ -87,6 +87,12 @@ class ValidationTest
 			// Bishop tests
 			Arguments.of(makeBoard(makeSquare('c', 1), makePiece(BLACK, BISHOP)), 
 					makeSquare('c', 1), makeSquare('e', 3), true),
+			Arguments.of(makeBoard(makeSquare('c', 3), makePiece(BLACK, BISHOP)), 
+					makeSquare('c', 3), makeSquare('e', 1), true),
+			Arguments.of(makeBoard(makeSquare('c', 3), makePiece(BLACK, BISHOP)), 
+					makeSquare('c', 3), makeSquare('a', 1), true),
+			Arguments.of(makeBoard(makeSquare('c', 3), makePiece(BLACK, BISHOP)), 
+					makeSquare('c', 3), makeSquare('a', 5), true),
 			Arguments.of(makeBoard(makeSquare('e', 3), makePiece(WHITE, BISHOP)), 
 					makeSquare('e', 3), makeSquare('h', 1), false)
 			
