@@ -119,8 +119,8 @@ class ValidationTest
 					makeSquare('e', 4), makeSquare('b', 7), false),
 			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, BISHOP), makeSquare('f', 3), makePiece(WHITE, KNIGHT)), 
 					makeSquare('e', 4), makeSquare('h', 1), false),
-			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, BISHOP), makeSquare('f', 5), makePiece(BLACK, KNIGHT)), 
-					makeSquare('e', 4), makeSquare('h', 7), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, BISHOP), makeSquare('d', 3), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('c', 2), false),
 			
 				//Diagonal target square has same color piece
 			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, BISHOP), makeSquare('g', 6), makePiece(BLACK, KNIGHT)), 
