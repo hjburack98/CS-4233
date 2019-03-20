@@ -25,6 +25,7 @@ public class ActualChessPiece implements ChessPiece
 	/**
 	 * @return the piece type
 	 */
+	@Override
 	public PieceType getPieceType()
 	{
 		return this.type;
@@ -33,6 +34,7 @@ public class ActualChessPiece implements ChessPiece
 	/**
 	 * @return the piece color
 	 */
+	@Override
 	public PieceColor getPieceColor()
 	{
 		return this.color;

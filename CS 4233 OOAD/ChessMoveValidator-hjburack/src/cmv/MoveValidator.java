@@ -308,7 +308,7 @@ public class MoveValidator
 		}
 		else
 		{
-			throw new CMVException("Empty square selected");
+			return false;
 		}
 	}
 	
@@ -377,6 +377,10 @@ public class MoveValidator
 							return true;
 						}
 					}
+					else
+					{
+						return false;
+					}
 				}
 			}
 		}
@@ -408,10 +412,7 @@ public class MoveValidator
 						{
 							return true;
 						}
-						
-						
 					}
-					
 					return false;
 				}
 			}
@@ -439,6 +440,10 @@ public class MoveValidator
 					{
 						return true;
 					}
+				}
+				else
+				{
+					return false;
 				}
 			}
 		}
@@ -492,6 +497,10 @@ public class MoveValidator
 							return true;
 						}
 					}
+					else
+					{
+						return false;
+					}
 				}
 			}
 		}
@@ -533,6 +542,10 @@ public class MoveValidator
 						{
 							return true;
 						}
+					}
+					else
+					{
+						return false;
 					}
 				}
 			}

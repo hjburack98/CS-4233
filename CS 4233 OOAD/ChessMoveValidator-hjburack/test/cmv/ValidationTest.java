@@ -44,16 +44,52 @@ class ValidationTest
 			Arguments.of(makeBoard(), makeSquare('e', 4), makeSquare('e', 5), false),
 			
 			// Rook tests
+			//vertical
 			Arguments.of(makeBoard(makeSquare('h', 1), makePiece(WHITE, ROOK)), 
-					makeSquare('h', 1), makeSquare('e', 3), false),
+					makeSquare('h', 1), makeSquare('e', 3), false) ,
 			Arguments.of(makeBoard(makeSquare('h', 1), makePiece(WHITE, ROOK), makeSquare('h', 2), makePiece(WHITE, KNIGHT)), 
-					makeSquare('h', 1), makeSquare('h', 4), false),
+					makeSquare('h', 1), makeSquare('h', 4), false) ,
+			Arguments.of(makeBoard(makeSquare('h', 4), makePiece(WHITE, ROOK), makeSquare('h', 2), makePiece(WHITE, KNIGHT)), 
+					makeSquare('h', 4), makeSquare('h', 1), false) ,
+			Arguments.of(makeBoard(makeSquare('h', 1), makePiece(BLACK, ROOK), makeSquare('h', 4), makePiece(WHITE, KNIGHT)), 
+					makeSquare('h', 1), makeSquare('h', 4), true) ,
+			Arguments.of(makeBoard(makeSquare('h', 4), makePiece(BLACK, ROOK), makeSquare('h', 3), makePiece(WHITE, KNIGHT)), 
+					makeSquare('h', 4), makeSquare('h', 1), false) ,
+			Arguments.of(makeBoard(makeSquare('h', 4), makePiece(BLACK, ROOK), makeSquare('h', 1), makePiece(WHITE, KNIGHT)), 
+					makeSquare('h', 4), makeSquare('h', 1), true) ,
+			Arguments.of(makeBoard(makeSquare('h', 4), makePiece(BLACK, ROOK), makeSquare('h', 1), makePiece(BLACK, KNIGHT)), 
+					makeSquare('h', 4), makeSquare('h', 1), false) ,
+			Arguments.of(makeBoard(makeSquare('h', 1), makePiece(BLACK, ROOK), makeSquare('h', 4), makePiece(BLACK, KNIGHT)), 
+					makeSquare('h', 1), makeSquare('h', 4), false) ,
+			Arguments.of(makeBoard(makeSquare('h', 1), makePiece(WHITE, ROOK)), 
+					makeSquare('h', 1), makeSquare('h', 3), true) ,
+			Arguments.of(makeBoard(makeSquare('h', 3), makePiece(WHITE, ROOK)), 
+					makeSquare('h', 3), makeSquare('h', 1), true) ,
+			
+			//Horizontal
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, ROOK)), 
+					makeSquare('e', 4), makeSquare('h', 4), true) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, ROOK)), 
+					makeSquare('e', 4), makeSquare('a', 4), true) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('a', 4), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('a', 4), true) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('h', 4), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('h', 4), true) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('h', 4), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('h', 4), false) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('a', 4), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('a', 4), false) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('c', 4), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('a', 4), false) ,
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, ROOK), makeSquare('f', 4), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('h', 4), false) ,
 			
 			// Bishop tests
 			Arguments.of(makeBoard(makeSquare('c', 1), makePiece(BLACK, BISHOP)), 
 					makeSquare('c', 1), makeSquare('e', 3), true),
 			Arguments.of(makeBoard(makeSquare('e', 3), makePiece(WHITE, BISHOP)), 
 					makeSquare('e', 3), makeSquare('h', 1), false)
+			
 			
 			// Queen tests
 			
