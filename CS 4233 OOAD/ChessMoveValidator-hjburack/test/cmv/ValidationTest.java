@@ -316,8 +316,19 @@ class ValidationTest
 			Arguments.of(makeBoard(), makeSquare('e', 4), makeSquare('e', 5)),
 			
 			//"from" and "to" are the same space
-			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('e', 4))
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('e', 4)),
 			
+			//"from" not in range exception
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 0), makeSquare('e', 4)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 9), makeSquare('e', 4)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('A', 4), makeSquare('e', 4)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('z', 4), makeSquare('e', 4)),
+			
+			//"to" not int range exception
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('e', 0)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('e', 9)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('A', 4)),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, QUEEN)), makeSquare('e', 4), makeSquare('z', 4))
 		);
 	}
 	
