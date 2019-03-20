@@ -455,6 +455,11 @@ public class MoveValidator
 	 */
 	public static boolean validHorizontalMove(ChessBoard board, Square from, Square to)
 	{
+		return (validHorizontalRightMove(board, from, to) || validHorizontalLeftMove(board, from, to));
+	}
+	
+	public static boolean validHorizontalRightMove(ChessBoard board, Square from, Square to)
+	{
 		//TO MOVE HORIZONTAL
 		//rows stay the same, the column changes
 		if(from.getRow() == to.getRow())
@@ -489,9 +494,26 @@ public class MoveValidator
 					}
 				}
 			}
-			
-			//for going backwards
-			else
+		}
+		return false;
+	}
+	
+	public static boolean validHorizontalLeftMove(ChessBoard board, Square from, Square to)
+	{
+		//TO MOVE HORIZONTAL
+		//rows stay the same, the columns change
+		if(from.getRow() == to.getRow())
+		{
+			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
+			{
+				if(Math.abs(from.getColumn() - to.getColumn()) > 1)
+				{
+					return false;
+				}
+			}
+	
+			//for going left
+			if(from.getColumn() > to.getColumn())
 			{
 				for(char start = (char) (from.getColumn() - 1); start >= to.getColumn(); start--)
 				{
@@ -515,7 +537,7 @@ public class MoveValidator
 				}
 			}
 		}
-			
+		
 		return false;
 	}
 	
