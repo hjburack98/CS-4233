@@ -395,31 +395,7 @@ public class MoveValidator
 		//TO MOVE VERTICAL
 		//column stays the same, rows change
 		if(from.getColumn() == to.getColumn())
-		{
-			//Make sure the king and pawn can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
-			{
-				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
-				{
-					return false;
-				}
-				if(Math.abs(from.getRow() - to.getRow()) > 1)
-				{
-					//if it is a pawn and target is two spaces away, check color and row
-					if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && Math.abs(from.getRow() - to.getRow()) == 2)
-					{	
-						//if color is white and row is 2, return true
-						if(board.getPieceAt(from).getPieceColor() == PieceColor.WHITE && from.getRow() == 2)
-						{
-							return true;
-						}
-						
-					}
-					
-					return false;
-				}
-			}
-			
+		{	
 			//for going up
 			if(from.getRow() < to.getRow()) {
 				for(int start = from.getRow() + 1; start <= to.getRow(); start++)
@@ -460,60 +436,36 @@ public class MoveValidator
 		//column stays the same, rows change
 		if(from.getColumn() == to.getColumn())
 		{
-			//Make sure the king and pawn can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
+			//for going down
+			if(from.getRow() > to.getRow())
 			{
-				if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && board.getPieceAt(from).getPieceColor() == PieceColor.WHITE)
+				for(int start = from.getRow() - 1; start >= to.getRow(); start--)
 				{
-					return false;
-				}
-				
-				if(Math.abs(from.getRow() - to.getRow()) > 1)
-				{
-					//if it is a pawn and target is two spaces away, check color and row
-					if(board.getPieceAt(from).getPieceType() == PieceType.PAWN && Math.abs(from.getRow() - to.getRow()) == 2)
+					//check if there are any pieces in the path of the move, if there arent, return true
+					Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+					if(!board.isSquareOccupied(interference))
 					{
-						//if color is black and row is 7, return true
-						if(from.getRow() == 7)
+						if(start == to.getRow())
 						{
 							return true;
 						}
 					}
-					return false;
+							
+					//if there is a piece at the target square, it is a valid move
+					else if(start == to.getRow())
+					{
+						if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor()) 
+						{
+							return true;
+						}
+					}
+					else
+					{
+						return false;
+					}
 				}
 			}
 		}
-				
-		//for going down
-		if(from.getRow() > to.getRow())
-		{
-			for(int start = from.getRow() - 1; start >= to.getRow(); start--)
-			{
-				//check if there are any pieces in the path of the move, if there arent, return true
-				Square interference = SquareFactory.makeSquare(from.getColumn(), start);
-				if(!board.isSquareOccupied(interference))
-				{
-					if(start == to.getRow())
-					{
-						return true;
-					}
-				}
-						
-				//if there is a piece at the target square, it is a valid move
-				else if(start == to.getRow())
-				{
-					if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor()) 
-					{
-						return true;
-					}
-				}
-				else
-				{
-					return false;
-				}
-			}
-		}
-		
 		return false;
 	}
 	
@@ -534,14 +486,7 @@ public class MoveValidator
 		//TO MOVE HORIZONTAL
 		//rows stay the same, the column changes
 		if(from.getRow() == to.getRow())
-		{
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
-			{
-				if(Math.abs(from.getColumn() - to.getColumn()) > 1)
-				{
-					return false;
-				}
-			}
+			
 			//for going forwards
 			if(from.getColumn() < to.getColumn()) {
 				for(char start = (char) (from.getColumn() + 1); start <= to.getColumn(); start++)
@@ -569,7 +514,6 @@ public class MoveValidator
 					}
 				}
 			}
-		}
 		return false;
 	}
 	
@@ -579,14 +523,6 @@ public class MoveValidator
 		//rows stay the same, the columns change
 		if(from.getRow() == to.getRow())
 		{
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING)
-			{
-				if(Math.abs(from.getColumn() - to.getColumn()) > 1)
-				{
-					return false;
-				}
-			}
-	
 			//for going left
 			if(from.getColumn() > to.getColumn())
 			{
@@ -668,16 +604,7 @@ public class MoveValidator
 	public static boolean validDiagonalUpRight(ChessBoard board, Square from, Square to)
 	{
 		if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
-		{
-			//Pawns and Kings can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
-			{
-				if(Math.abs(to.getRow() - from.getRow()) != 1)
-				{
-					return false;
-				}
-				
-			}
+		{		
 			//values to test if squares in the path of the move are taken
 			char incrementCol = (char) (from.getColumn() + 1);
 			int incrementRow = from.getRow() + 1;
@@ -709,7 +636,6 @@ public class MoveValidator
 				incrementRow ++;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -723,16 +649,7 @@ public class MoveValidator
 	public static boolean validDiagonalUpLeft(ChessBoard board, Square from, Square to)
 	{
 		if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
-		{
-			//Pawns and Kings can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
-			{
-				if(Math.abs(to.getRow() - from.getRow()) != 1)
-				{
-					return false;
-				}
-			}
-			
+		{	
 			//values to test if squares in the path of the move are taken
 			char incrementCol = (char) (from.getColumn() - 1);
 			int incrementRow = from.getRow() + 1;
@@ -780,15 +697,6 @@ public class MoveValidator
 	{
 		if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
 		{
-			//Pawns and Kings can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
-			{
-				if(Math.abs(to.getRow() - from.getRow()) != 1)
-				{
-					return false;
-				}
-			}
-			
 			//values to test if squares in the path of the move are taken
 			char incrementCol = (char) (from.getColumn() + 1);
 			int incrementRow = from.getRow() - 1;
@@ -835,15 +743,6 @@ public class MoveValidator
 	{
 		if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
 		{
-			//Pawns and Kings can only move one space
-			if(board.getPieceAt(from).getPieceType() == PieceType.KING || board.getPieceAt(from).getPieceType() == PieceType.PAWN)
-			{
-				if(Math.abs(to.getRow() - from.getRow()) != 1)
-				{
-					return false;
-				}
-			}
-			
 			//values to test if squares in the path of the move are taken
 			char incrementCol = (char) (from.getColumn() - 1);
 			int incrementRow = from.getRow() - 1;
