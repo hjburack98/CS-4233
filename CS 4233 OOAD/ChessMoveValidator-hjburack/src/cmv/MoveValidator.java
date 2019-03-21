@@ -413,18 +413,25 @@ public class MoveValidator
 	}
 	
 	/**
-	 * Determines if a vertical move can be made
+	 * Determines if any vertical move can be made
 	 * @param board the board state
 	 * @param from the square the piece is moving from
 	 * @param to the square the piece is moving to
 	 * @return true if vertical move can be made
 	 */
-	public static boolean validVerticalMove(ChessBoard board, Square from, Square to)
+	private static boolean validVerticalMove(ChessBoard board, Square from, Square to)
 	{
 		return (validVerticalUpMove(board, from, to) || validVerticalDownMove(board, from, to));
 	}
 	
-	public static boolean validVerticalUpMove(ChessBoard board, Square from, Square to)
+	/**
+	 * Determines if a vertical move going up can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if vertical move going up can be made
+	 */
+	private static boolean validVerticalUpMove(ChessBoard board, Square from, Square to)
 	{
 		//TO MOVE VERTICAL
 		//column stays the same, rows change
@@ -464,7 +471,14 @@ public class MoveValidator
 		return false;
 	}
 	
-	public static boolean validVerticalDownMove(ChessBoard board, Square from, Square to)
+	/**
+	 * Determines if a vertical move going down can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if vertical move going down can be made
+	 */
+	private static boolean validVerticalDownMove(ChessBoard board, Square from, Square to)
 	{
 		//TO MOVE VERTICAL
 		//column stays the same, rows change
@@ -504,18 +518,25 @@ public class MoveValidator
 	}
 	
 	/**
-	 * Determines if a horizontal move can be made
+	 * Determines if any horizontal move can be made
 	 * @param board the board state
 	 * @param from the square the piece is moving from
 	 * @param to the square the piece is moving to
 	 * @return true if horizontal move can be made
 	 */
-	public static boolean validHorizontalMove(ChessBoard board, Square from, Square to)
+	private static boolean validHorizontalMove(ChessBoard board, Square from, Square to)
 	{
 		return (validHorizontalRightMove(board, from, to) || validHorizontalLeftMove(board, from, to));
 	}
 	
-	public static boolean validHorizontalRightMove(ChessBoard board, Square from, Square to)
+	/**
+	 * Determines if a horizontal move going right can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if horizontal move going right can be made
+	 */
+	private static boolean validHorizontalRightMove(ChessBoard board, Square from, Square to)
 	{
 		//TO MOVE HORIZONTAL
 		//rows stay the same, the column changes
@@ -551,7 +572,14 @@ public class MoveValidator
 		return false;
 	}
 	
-	public static boolean validHorizontalLeftMove(ChessBoard board, Square from, Square to)
+	/**
+	 * Determines if a horizontal move going left can be made
+	 * @param board the board state
+	 * @param from the square the piece is moving from
+	 * @param to the square the piece is moving to
+	 * @return true if horizontal move going left can be made
+	 */
+	private static boolean validHorizontalLeftMove(ChessBoard board, Square from, Square to)
 	{
 		//TO MOVE HORIZONTAL
 		//rows stay the same, the columns change
@@ -597,7 +625,7 @@ public class MoveValidator
 	 * @param to the square the piece is moving to
 	 * @return true if diagonal move can be made
 	 */
-	public static boolean validDiagonalMove(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalMove(ChessBoard board, Square from, Square to)
 	{
 		return (validDiagonalUpMove(board, from, to) || validDiagonalDownMove(board, from, to) || validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
 	}
@@ -609,7 +637,7 @@ public class MoveValidator
 	 * @param to the square the piece is moving to
 	 * @return true if diagonal up move can be made
 	 */
-	public static boolean validDiagonalUpMove(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalUpMove(ChessBoard board, Square from, Square to)
 	{
 		return (validDiagonalUpRight(board, from, to) || validDiagonalUpLeft(board, from, to));
 	}
@@ -621,7 +649,7 @@ public class MoveValidator
 	 * @param to the square the piece is moving to
 	 * @return true if diagonal down move can be made
 	 */
-	public static boolean validDiagonalDownMove(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalDownMove(ChessBoard board, Square from, Square to)
 	{
 		return (validDiagonalDownRight(board, from, to) || validDiagonalDownLeft(board, from, to));
 	}
@@ -635,7 +663,7 @@ public class MoveValidator
 	 * @param to
 	 * @return true if diagonal up right move can be made
 	 */
-	public static boolean validDiagonalUpRight(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalUpRight(ChessBoard board, Square from, Square to)
 	{
 		if((int) to.getColumn() - (int) from.getColumn() == to.getRow() - from.getRow())
 		{		
@@ -684,7 +712,7 @@ public class MoveValidator
 	 * @param to
 	 * @return true diagonal up left move can be made
 	 */
-	public static boolean validDiagonalUpLeft(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalUpLeft(ChessBoard board, Square from, Square to)
 	{
 		if((int) from.getColumn() - (int) to.getColumn() == to.getRow() - from.getRow())
 		{	
@@ -736,7 +764,7 @@ public class MoveValidator
 	 * @param to
 	 * @return true if diagonal down right move can be made
 	 */
-	public static boolean validDiagonalDownRight(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalDownRight(ChessBoard board, Square from, Square to)
 	{
 		if((int) to.getColumn() - (int) from.getColumn() == from.getRow() - to.getRow())
 		{
@@ -787,7 +815,7 @@ public class MoveValidator
 	 * @param to
 	 * @return true if diagonal down left move can be made
 	 */
-	public static boolean validDiagonalDownLeft(ChessBoard board, Square from, Square to)
+	private static boolean validDiagonalDownLeft(ChessBoard board, Square from, Square to)
 	{
 		if((int) from.getColumn() - (int) to.getColumn() == from.getRow() - to.getRow())
 		{
