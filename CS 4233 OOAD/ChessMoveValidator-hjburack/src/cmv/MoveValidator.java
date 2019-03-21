@@ -11,7 +11,6 @@
  *******************************************************************************/
 package cmv;
 
-import java.lang.Math.*;
 import cmv.ChessPiece.PieceColor;
 import cmv.ChessPiece.PieceType;
 
@@ -267,6 +266,7 @@ public class MoveValidator
 			
 		}
 		
+		//black
 		else
 		{
 			//cant go beyond 8

@@ -359,9 +359,101 @@ class ValidationTest
 			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, KNIGHT), makeSquare('g', 3), makePiece(WHITE, KNIGHT)),
 					makeSquare('e', 4), makeSquare('g', 3), false),
 			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, KNIGHT), makeSquare('c', 3), makePiece(WHITE, KNIGHT)),
-					makeSquare('e', 4), makeSquare('c', 3), false)
+					makeSquare('e', 4), makeSquare('c', 3), false),
 			
 			// Pawn tests
+				//standard move forward
+					//white
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('e', 5), true),
+						//white can't go backwards or sideways ever, or diagonal without an enemy there
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('e', 3), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 4), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('d', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 3), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 4), makeSquare('d', 3), false),
+			
+					//black
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('e', 3), true),
+						//black cannot go forwards or sideways, or diagonal without an enemy there
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('e', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 4), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('d', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('f', 3), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 4), makeSquare('d', 3), false),
+			
+				//move forward from initial space (row = 2)
+					//white
+			Arguments.of(makeBoard(makeSquare('e', 2), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 2), makeSquare('e', 3), true),
+			Arguments.of(makeBoard(makeSquare('e', 2), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 2), makeSquare('e', 4), true),
+			
+					//black
+			Arguments.of(makeBoard(makeSquare('e', 7), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 7), makeSquare('e', 6), true),
+			Arguments.of(makeBoard(makeSquare('e', 7), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 7), makeSquare('e', 5), true),
+			
+				//moving forward can't happen if there is interference
+					//white
+			Arguments.of(makeBoard(makeSquare('e', 2), makePiece(WHITE, PAWN), makeSquare('e', 3), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 2), makeSquare('e', 4), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN), makeSquare('e', 5), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('e', 5), false),
+			
+					//black
+			Arguments.of(makeBoard(makeSquare('e', 7), makePiece(BLACK, PAWN), makeSquare('e', 6), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 7), makeSquare('e', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN), makeSquare('e', 3), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('e', 3), false),
+			
+				//taking pieces
+					//white
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN), makeSquare('f', 5), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('f', 5), true),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN), makeSquare('d', 5), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('d', 5), true),
+						//white can't take pieces backwards
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN), makeSquare('f', 3), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('f', 3), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(WHITE, PAWN), makeSquare('d', 3), makePiece(BLACK, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('d', 3), false),
+					
+					//black
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN), makeSquare('f', 3), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('f', 3), true),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN), makeSquare('d', 3), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('d', 3), true),
+						//black can't take pieces forward
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN), makeSquare('f', 5), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('f', 5), false),
+			Arguments.of(makeBoard(makeSquare('e', 4), makePiece(BLACK, PAWN), makeSquare('d', 5), makePiece(WHITE, KNIGHT)), 
+					makeSquare('e', 4), makeSquare('d', 5), false),
+			
+			//pieces can't start on their respective color's back row
+				//white
+			Arguments.of(makeBoard(makeSquare('e', 1), makePiece(WHITE, PAWN)), 
+					makeSquare('e', 1), makeSquare('e', 2), false),
+			
+				//black
+			Arguments.of(makeBoard(makeSquare('e', 8), makePiece(BLACK, PAWN)), 
+					makeSquare('e', 8), makeSquare('e', 7), false)
 		);
 	}
 	
