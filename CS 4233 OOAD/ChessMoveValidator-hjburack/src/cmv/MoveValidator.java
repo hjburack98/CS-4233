@@ -58,7 +58,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -71,7 +71,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -89,7 +89,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -102,7 +102,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -120,7 +120,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -133,16 +133,16 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
 			}
 			
 		}
-		//check one row down and two rows right, one row down and two rows left
+
 		//Check one row down
-		if(from.getRow() + 1 == to.getRow())
+		if(from.getRow() - 1 == to.getRow())
 		{
 			//check two rows right
 			if(from.getColumn() + 2 == to.getColumn())
@@ -151,7 +151,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
@@ -164,7 +164,7 @@ public class MoveValidator
 				{
 					return true;
 				}
-				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(to).getPieceColor())
+				else if(board.getPieceAt(to).getPieceColor() != board.getPieceAt(from).getPieceColor())
 				{
 					return true;
 				}
