@@ -236,7 +236,22 @@ public class MoveValidator
 			{
 				if(from.getColumn() == to.getColumn() &&(from.getRow() + 1 == to.getRow() || from.getRow() + 2 == to.getRow()))
 				{
-					return true;
+					for(int start = from.getRow() + 1; start <= to.getRow(); start++)
+					{
+						Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+						if(!board.isSquareOccupied(interference))
+						{
+							if(start == to.getRow())
+							{
+								return true;
+							}
+						}
+							
+						else
+						{
+							return false;
+						}
+					}
 				}
 			}
 			else
@@ -268,11 +283,26 @@ public class MoveValidator
 				}
 			}
 			
-			if(from.getRow() == 2)
+			if(from.getRow() == 7)
 			{
 				if(from.getColumn() == to.getColumn() &&(from.getRow() - 1 == to.getRow() || from.getRow() - 2 == to.getRow()))
 				{
-					return true;
+					for(int start = from.getRow() - 1; start >= to.getRow(); start--)
+					{
+						Square interference = SquareFactory.makeSquare(from.getColumn(), start);
+						if(!board.isSquareOccupied(interference))
+						{
+							if(start == to.getRow())
+							{
+								return true;
+							}
+						}
+							
+						else
+						{
+							return false;
+						}
+					}
 				}
 			}
 			else
