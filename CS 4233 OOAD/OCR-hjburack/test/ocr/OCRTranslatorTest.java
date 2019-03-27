@@ -52,5 +52,55 @@ class OCRTranslatorTest
 	{
 		assertEquals(translator.translate("_ ", " |", " |"), "7");
 	}
+	
+	@Test
+	void sense0() //6
+	{
+		assertEquals(translator.translate(" _ ", "| |", " |_| "), "0");
+	}
+	
+	@Test
+	void sense8() //7
+	{
+		assertEquals(translator.translate(" _ ", "|_|", "|_|"), "8");
+	}
+	
+	@Test
+	void sense9() //8
+	{
+		assertEquals(translator.translate(" _ ", "|_|", " _|"), "9");
+	}
+	
+	@Test
+	void sense6() //9
+	{
+		assertEquals(translator.translate(" _ ", "|_ ", "|_|"), "6");
+	}
+	
+	@Test
+	void sense3() //10
+	{
+		assertEquals(translator.translate(" _ ", " _|", " _|"), "3");
+	}
+	
+	@Test
+	void sense2() //11
+	{
+		assertEquals(translator.translate(" _ ", " _|", "|_ "), "2");
+	}
+	
+	@Test
+	void sense5() //12
+	{
+		assertEquals(translator.translate(" _ ", "|_ ", " _|"), "5");
+	}
+	
+	@Test
+	void sense4() //13
+	{
+		assertEquals(translator.translate("   ", "|_|", "  |"), "4");
+	}
+	
+	
 
 }

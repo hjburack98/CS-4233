@@ -4,4 +4,12 @@ Test only spaces in the string [DONE]
 Test uneven spacing [DONE]
 Test number 1 [DONE]
 Test number 7 [DONE]
-Start testing all other numbers
+Test number 0 [DONE]
+Test number 8 [DONE]
+Test number 9 [DONE]
+Test number 6 [DONE]
+Test number 3 [DONE]
+Test number 2 [DONE]
+Test number 5 [DONE]
+Test number 4 [DONE]
+
