@@ -22,7 +22,7 @@ class OCRTranslatorTest
 {
 	
 	@Test
-	void emptyString() 
+	void emptyString() //1
 	{
 		OCRTranslator translator = new OCRTranslator();
 		assertEquals(translator.translate("","",""), "");
