@@ -19,13 +19,15 @@ package ocr;
  */
 public class OCRTranslator
 {
+	private String returnedValue;
+
 	/**
 	 * Default constructor. You may not add parameters to this. This is
 	 * the only constructor for this class and is what the master tests will use.
 	 */
 	public OCRTranslator()
 	{
-		// TODO Auto-generated constructor stub
+		returnedValue = "";
 	}
 	
 	/**
@@ -38,7 +40,6 @@ public class OCRTranslator
 	 */
 	public String translate(String s1, String s2, String s3)
 	{
-		// To be implemented
-		return null;
+		return this.returnedValue;
 	}
 }

@@ -20,11 +20,12 @@ import org.junit.jupiter.api.Test;
  */
 class OCRTranslatorTest
 {
-
+	
 	@Test
-	void test()
+	void emptyString() 
 	{
-		fail("Not yet implemented");
+		OCRTranslator translator = new OCRTranslator();
+		assertEquals(translator.translate("","",""), "");
 	}
 
 }
