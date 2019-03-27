@@ -20,12 +20,37 @@ import org.junit.jupiter.api.Test;
  */
 class OCRTranslatorTest
 {
+	OCRTranslator translator = new OCRTranslator();
 	
 	@Test
 	void emptyString() //1
 	{
-		OCRTranslator translator = new OCRTranslator();
 		assertEquals(translator.translate("","",""), "");
+	}
+	
+	@Test
+	void onlySpaces() //2
+	{
+		assertEquals(translator.translate(" ", " ", " "), "");
+	}
+	
+	
+	@Test
+	void unevenSpacing()//3
+	{
+		assertEquals(translator.translate("", " ", ""), "");
+	}
+	
+	@Test
+	void sense1() //4
+	{
+		assertEquals(translator.translate(" ", "|", "|"), "1");
+	}
+	
+	@Test
+	void sense7() //5
+	{
+		assertEquals(translator.translate("_ ", " |", " |"), "7");
 	}
 
 }

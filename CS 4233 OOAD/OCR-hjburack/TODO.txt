@@ -1,2 +1,7 @@
 Task list for the OCR translator assignment.
-Test Empty
+Test Empty [DONE]
+Test only spaces in the string [DONE]
+Test uneven spacing [DONE]
+Test number 1 [DONE]
+Test number 7 [DONE]
+Start testing all other numbers
