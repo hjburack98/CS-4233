@@ -88,7 +88,13 @@ public class OCRTranslator
 		return returnString;
 	}
 	
-	
+	/**
+	 * Determines if the OCR Strings make up any number
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return the corresponding number, or nothing
+	 */
 	private String search(String s1, String s2, String s3)
 	{
 		String returnString = "";
@@ -106,6 +112,13 @@ public class OCRTranslator
 		return returnString;
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 1
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 1 if the OCR makes a 1, or nothing
+	 */
 	private String search1(String s1, String s2, String s3)
 	{
 		if(s1.equals(" ") && s2.equals("|") && s3.equals("|"))
@@ -116,6 +129,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 2
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 2 if the OCR makes a 2, or nothing
+	 */
 	private String search2(String s1, String s2, String s3)
 	{
 		if(s1.equals(" _ ") && s2.equals(" _|") && s3.equals( "|_ "))
@@ -126,6 +146,13 @@ public class OCRTranslator
 		return "";
 	}
 
+	/**
+	 * Determines if the OCR Strings make up the number 3
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 3 if the OCR makes a 3, or nothing
+	 */
 	private String search3(String s1, String s2, String s3)
 	{
 		if(s1.equals("_ ") && s2.equals("_|") && s3.equals("_|"))
@@ -136,6 +163,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 4
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 4 if the OCR makes a 4, or nothing
+	 */
 	private String search4(String s1, String s2, String s3)
 	{
 		if(s1.equals("   ") && s2.equals("|_|") && s3.equals("  |"))
@@ -146,6 +180,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 5
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 5 if the OCR makes a 5, or nothing
+	 */
 	private String search5(String s1, String s2, String s3)
 	{
 		if(s1.equals(" _ ") && s2.equals("|_ ") && s3.equals(" _|"))
@@ -156,6 +197,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 6
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 6 if the OCR makes a 6, or nothing
+	 */
 	private String search6(String s1, String s2, String s3)
 	{
 		if(s1.equals(" _ ") && s2.equals("|_ ") && s3.equals("|_|"))
@@ -166,6 +214,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 7
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 7 if the OCR makes a 7, or nothing
+	 */
 	private String search7(String s1, String s2, String s3)
 	{
 		if(s1.equals("_ ") && s2.equals(" |") && s3.equals(" |"))
@@ -176,6 +231,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 8
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 8 if the OCR makes a 8, or nothing
+	 */
 	private String search8(String s1, String s2, String s3)
 	{
 		if(s1.equals(" _ ") && s2.equals("|_|") && s3.equals("|_|"))
@@ -186,6 +248,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 9
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 9 if the OCR makes a 9, or nothing
+	 */
 	private String search9(String s1, String s2, String s3)
 	{
 		if(s1.equals(" _ ") && s2.equals("|_|") && s3.equals(" _|"))
@@ -196,6 +265,13 @@ public class OCRTranslator
 		return "";
 	}
 	
+	/**
+	 * Determines if the OCR Strings make up the number 0
+	 * @param s1 first line of OCR
+	 * @param s2 second line of OCR	
+	 * @param s3 third line of OCR
+	 * @return 0 if the OCR makes a 0, or nothing
+	 */
 	private String search0(String s1, String s2, String s3)
 	{
 		if(s1.equals( " _ ") && s2.equals("| |") && s3.equals("|_|"))
@@ -206,7 +282,14 @@ public class OCRTranslator
 		return "";
 	}
 	
-	boolean isSpace(char s1, char s2, char s3)
+	/**
+	 * Determines if the given characters make up a space (" ")
+	 * @param s1 character from first line of OCR
+	 * @param s2 character from second line of OCR
+	 * @param s3 character from third line of OCR
+	 * @return true if the characters make a space
+	 */
+	private boolean isSpace(char s1, char s2, char s3)
 	{
 		if(s1 == ' ' && s2 == ' ' && s3 == ' ')
 		{
