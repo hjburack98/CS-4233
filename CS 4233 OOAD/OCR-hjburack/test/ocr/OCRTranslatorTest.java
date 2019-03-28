@@ -119,5 +119,14 @@ class OCRTranslatorTest
 		assertEquals(translator.translate("      _ ", "|_|   _|", "  |  |_ "), "42");
 	}
 	
+	@Test
+	void notSameLengthException()
+	{
+		assertThrows(OCRException.class, () -> 
+		{
+			translator.translate(" | |", " ", " | ");
+		});
+	}
+	
 
 }

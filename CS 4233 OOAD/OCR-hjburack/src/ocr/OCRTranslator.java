@@ -40,7 +40,7 @@ public class OCRTranslator
 	 */
 	public String translate(String s1, String s2, String s3)
 	{	
-		if(s1.length() != s2.length() && s2.length() != s3.length())
+		if(s1.length() != s2.length() || s2.length() != s3.length() || s1.length() != s3.length())
 		{
 			throw new OCRException("OCR Strings are not the same length");
 		}
