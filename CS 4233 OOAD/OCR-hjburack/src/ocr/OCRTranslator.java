@@ -46,129 +46,119 @@ public class OCRTranslator
 	
 	private String search(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
-		returnString.append(search1(s1, s2, s3));
-		returnString.append(search2(s1, s2, s3));
-		returnString.append(search3(s1, s2, s3));
-		returnString.append(search4(s1, s2, s3));
-		returnString.append(search5(s1, s2, s3));
-		returnString.append(search6(s1, s2, s3));
-		returnString.append(search7(s1, s2, s3));
-		returnString.append(search8(s1, s2, s3));
-		returnString.append(search9(s1, s2, s3));
-		returnString.append(search0(s1, s2, s3));
+		String returnString = "";
+		returnString+=(search1(s1, s2, s3));
+		returnString+=(search2(s1, s2, s3));
+		returnString+=(search3(s1, s2, s3));
+		returnString+=(search4(s1, s2, s3));
+		returnString+=(search5(s1, s2, s3));
+		returnString+=(search6(s1, s2, s3));
+		returnString+=(search7(s1, s2, s3));
+		returnString+=(search8(s1, s2, s3));
+		returnString+=(search9(s1, s2, s3));
+		returnString+=(search0(s1, s2, s3));
 		
-		return returnString.toString();
+		return returnString;
 	}
 	
 	private String search1(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " " && s2 == "|" && s3 == "|")
 		{
-			returnString.append("1");
+			return("1");
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search2(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == " _|" && s3 == "|_ ")
 		{
-			returnString.append("2");
+			return "2";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search3(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == "_ " && s2 == "_|" && s3 == "_|")
 		{
-			returnString.append("3");
+			return "3";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search4(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == "   " && s2 == "|_|" && s3 == "  |")
 		{
-			returnString.append("4");
+			return "4";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search5(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == "|_ " && s3 == " _|")
 		{
-			returnString.append("5");
+			return "5";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search6(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == "|_ " && s3 == "|_|")
 		{
-			returnString.append("6");
+			return "6";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search7(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == "_ " && s2 == " |" && s3 == " |")
 		{
-			returnString.append("7");
+			return "7";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search8(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == "|_|" && s3 == "|_|")
 		{
-			returnString.append("8");
+			return "8";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search9(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == "|_|" && s3 == " _|")
 		{
-			returnString.append("9");
+			return "9";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private String search0(String s1, String s2, String s3)
 	{
-		StringBuilder returnString = new StringBuilder();
 		if(s1 == " _ " && s2 == "| |" && s3 == " |_| ")
 		{
-			returnString.append("0");
+			return "0";
 		}
 		
-		return returnString.toString();
+		return "";
 	}
 	
 	private boolean isSpace(String s1, String s2, String s3)
