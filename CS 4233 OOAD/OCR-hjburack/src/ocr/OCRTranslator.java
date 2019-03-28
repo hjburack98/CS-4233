@@ -40,7 +40,48 @@ public class OCRTranslator
 	 */
 	public String translate(String s1, String s2, String s3)
 	{		
-		return search(s1, s2, s3);
+		return processSpace(s1, s2, s3);
+	}
+	
+	private String processSpace(String s1, String s2, String s3)
+	{
+		int index = 0;
+		int subStart = 0;
+		int subEnd = 0;
+		String hold1 = "";
+		String hold2 = "";
+		String hold3 = "";
+		String returnString = "";
+		
+		while(index < s1.length())
+		{
+			if(isSpace(s1.charAt(index), s2.charAt(index), s3.charAt(index)))
+			{
+				index++;
+			}
+			
+			else
+			{
+				subStart = index;
+				while(!isSpace(s1.charAt(index), s2.charAt(index), s3.charAt(index)))
+				{
+					subEnd = index;
+					index++;
+					if(index == s1.length())
+					{
+						break;
+					}
+				}
+				
+				hold1 = s1.substring(subStart, subEnd);
+				hold2 = s2.substring(subStart, subEnd);
+				hold3 = s3.substring(subStart, subEnd);
+				
+				returnString += search(hold1, hold2, hold3);
+			}
+		}
+		
+		return returnString;
 	}
 	
 	
@@ -80,7 +121,7 @@ public class OCRTranslator
 		
 		return "";
 	}
-	
+
 	private String search3(String s1, String s2, String s3)
 	{
 		if(s1 == "_ " && s2 == "_|" && s3 == "_|")
@@ -161,9 +202,9 @@ public class OCRTranslator
 		return "";
 	}
 	
-	private boolean isSpace(String s1, String s2, String s3)
+	private boolean isSpace(char s1, char s2, char s3)
 	{
-		if(s1 == " " && s2 == " " && s3 == " ")
+		if(s1 == ' ' && s2 == ' ' && s3 == ' ')
 		{
 			return true;
 		}

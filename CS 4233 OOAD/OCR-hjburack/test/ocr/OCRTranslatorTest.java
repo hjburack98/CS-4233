@@ -34,75 +34,68 @@ class OCRTranslatorTest
 		assertEquals(translator.translate(" ", " ", " "), "");
 	}
 	
-	
 	@Test
-	void unevenSpacing()//3
-	{
-		assertEquals(translator.translate("", " ", ""), "");
-	}
-	
-	@Test
-	void sense1() //4
+	void sense1() //3
 	{
 		assertEquals(translator.translate(" ", "|", "|"), "1");
 	}
 	
 	@Test
-	void sense7() //5
+	void sense7() //4
 	{
 		assertEquals(translator.translate("_ ", " |", " |"), "7");
 	}
 	
 	@Test
-	void sense0() //6
+	void sense0() //5
 	{
 		assertEquals(translator.translate(" _ ", "| |", " |_| "), "0");
 	}
 	
 	@Test
-	void sense8() //7
+	void sense8() //6
 	{
 		assertEquals(translator.translate(" _ ", "|_|", "|_|"), "8");
 	}
 	
 	@Test
-	void sense9() //8
+	void sense9() //7
 	{
 		assertEquals(translator.translate(" _ ", "|_|", " _|"), "9");
 	}
 	
 	@Test
-	void sense6() //9
+	void sense6() //8
 	{
 		assertEquals(translator.translate(" _ ", "|_ ", "|_|"), "6");
 	}
 	
 	@Test
-	void sense3() //10
+	void sense3() //9
 	{
 		assertEquals(translator.translate("_ ", "_|", "_|"), "3");
 	}
 	
 	@Test
-	void sense2() //11
+	void sense2() //10
 	{
 		assertEquals(translator.translate(" _ ", " _|", "|_ "), "2");
 	}
 	
 	@Test
-	void sense5() //12
+	void sense5() //11
 	{
 		assertEquals(translator.translate(" _ ", "|_ ", " _|"), "5");
 	}
 	
 	@Test
-	void sense4() //13
+	void sense4() //12
 	{
 		assertEquals(translator.translate("   ", "|_|", "  |"), "4");
 	}
 	
 	@Test
-	void withSpaces() //14
+	void withLeadingSpace() //13
 	{
 		assertEquals(translator.translate("   ", " | ", " | "), "1");
 	}
