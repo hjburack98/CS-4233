@@ -65,8 +65,8 @@ public class OCRTranslator
 				subStart = index;
 				while(!isSpace(s1.charAt(index), s2.charAt(index), s3.charAt(index)))
 				{
-					subEnd = index;
 					index++;
+					subEnd = index;
 					if(index == s1.length())
 					{
 						break;
@@ -104,7 +104,7 @@ public class OCRTranslator
 	
 	private String search1(String s1, String s2, String s3)
 	{
-		if(s1 == " " && s2 == "|" && s3 == "|")
+		if(s1.equals(" ") && s2.equals("|") && s3.equals("|"))
 		{
 			return("1");
 		}
@@ -114,7 +114,7 @@ public class OCRTranslator
 	
 	private String search2(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == " _|" && s3 == "|_ ")
+		if(s1.equals(" _ ") && s2.equals(" _|") && s3.equals( "|_ "))
 		{
 			return "2";
 		}
@@ -124,7 +124,7 @@ public class OCRTranslator
 
 	private String search3(String s1, String s2, String s3)
 	{
-		if(s1 == "_ " && s2 == "_|" && s3 == "_|")
+		if(s1.equals("_ ") && s2.equals("_|") && s3.equals("_|"))
 		{
 			return "3";
 		}
@@ -134,7 +134,7 @@ public class OCRTranslator
 	
 	private String search4(String s1, String s2, String s3)
 	{
-		if(s1 == "   " && s2 == "|_|" && s3 == "  |")
+		if(s1.equals("   ") && s2.equals("|_|") && s3.equals("  |"))
 		{
 			return "4";
 		}
@@ -144,7 +144,7 @@ public class OCRTranslator
 	
 	private String search5(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == "|_ " && s3 == " _|")
+		if(s1.equals(" _ ") && s2.equals("|_ ") && s3.equals(" _|"))
 		{
 			return "5";
 		}
@@ -154,7 +154,7 @@ public class OCRTranslator
 	
 	private String search6(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == "|_ " && s3 == "|_|")
+		if(s1.equals(" _ ") && s2.equals("|_ ") && s3.equals("|_|"))
 		{
 			return "6";
 		}
@@ -164,7 +164,7 @@ public class OCRTranslator
 	
 	private String search7(String s1, String s2, String s3)
 	{
-		if(s1 == "_ " && s2 == " |" && s3 == " |")
+		if(s1.equals("_ ") && s2.equals(" |") && s3.equals(" |"))
 		{
 			return "7";
 		}
@@ -174,7 +174,7 @@ public class OCRTranslator
 	
 	private String search8(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == "|_|" && s3 == "|_|")
+		if(s1.equals(" _ ") && s2.equals("|_|") && s3.equals("|_|"))
 		{
 			return "8";
 		}
@@ -184,7 +184,7 @@ public class OCRTranslator
 	
 	private String search9(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == "|_|" && s3 == " _|")
+		if(s1.equals(" _ ") && s2.equals("|_|") && s3.equals(" _|"))
 		{
 			return "9";
 		}
@@ -194,7 +194,7 @@ public class OCRTranslator
 	
 	private String search0(String s1, String s2, String s3)
 	{
-		if(s1 == " _ " && s2 == "| |" && s3 == " |_| ")
+		if(s1.equals( " _ ") && s2.equals("| |") && s3.equals("|_|"))
 		{
 			return "0";
 		}
@@ -202,7 +202,7 @@ public class OCRTranslator
 		return "";
 	}
 	
-	private boolean isSpace(char s1, char s2, char s3)
+	boolean isSpace(char s1, char s2, char s3)
 	{
 		if(s1 == ' ' && s2 == ' ' && s3 == ' ')
 		{

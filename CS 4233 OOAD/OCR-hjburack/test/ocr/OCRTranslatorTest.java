@@ -49,7 +49,7 @@ class OCRTranslatorTest
 	@Test
 	void sense0() //5
 	{
-		assertEquals(translator.translate(" _ ", "| |", " |_| "), "0");
+		assertEquals(translator.translate(" _ ", "| |", "|_|"), "0");
 	}
 	
 	@Test
@@ -94,11 +94,31 @@ class OCRTranslatorTest
 		assertEquals(translator.translate("   ", "|_|", "  |"), "4");
 	}
 	
+	
 	@Test
 	void withLeadingSpace() //13
 	{
-		assertEquals(translator.translate("   ", " | ", " | "), "1");
+		assertEquals(translator.translate("  ", " |", " |"), "1");
 	}
+	
+	@Test
+	void withTrailingSpace() //14
+	{
+		assertEquals(translator.translate(" _  ", "| | ", "|_| "), "0");
+	}
+	
+	@Test
+	void multipleNumbers() //15
+	{
+		assertEquals(translator.translate(" _  _  ", " _|  | ", " _|  | "),"37");
+	}
+	
+	@Test
+	void multipleSpaceBetween() //16
+	{
+		assertEquals(translator.translate("      _ ", "|_|   _|", "  |  |_ "), "42");
+	}
+
 	
 
 }
