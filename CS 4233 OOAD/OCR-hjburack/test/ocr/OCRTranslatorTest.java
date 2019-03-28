@@ -80,7 +80,7 @@ class OCRTranslatorTest
 	@Test
 	void sense3() //10
 	{
-		assertEquals(translator.translate(" _ ", " _|", " _|"), "3");
+		assertEquals(translator.translate("_ ", "_|", "_|"), "3");
 	}
 	
 	@Test
@@ -101,6 +101,11 @@ class OCRTranslatorTest
 		assertEquals(translator.translate("   ", "|_|", "  |"), "4");
 	}
 	
+	@Test
+	void withSpaces() //14
+	{
+		assertEquals(translator.translate("   ", " | ", " | "), "1");
+	}
 	
 
 }
