@@ -39,7 +39,11 @@ public class OCRTranslator
 	 * @return a String containing the digits corresponding
 	 */
 	public String translate(String s1, String s2, String s3)
-	{		
+	{	
+		if(s1.length() != s2.length() && s2.length() != s3.length())
+		{
+			throw new OCRException("OCR Strings are not the same length");
+		}
 		return processSpace(s1, s2, s3);
 	}
 	

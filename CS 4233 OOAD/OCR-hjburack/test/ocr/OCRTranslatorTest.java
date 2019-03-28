@@ -117,6 +117,7 @@ class OCRTranslatorTest
 	void multipleSpaceBetween() //16
 	{
 		assertEquals(translator.translate("      _ ", "|_|   _|", "  |  |_ "), "42");
-	}	
+	}
+	
 
 }
