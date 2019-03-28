@@ -39,52 +39,60 @@ public class OCRTranslator
 	 * @return a String containing the digits corresponding
 	 */
 	public String translate(String s1, String s2, String s3)
+	{		
+		return search(s1, s2, s3);
+	}
+	
+	private String search(String s1, String s2, String s3)
+	{
+		StringBuilder returnString = new StringBuilder();
+		returnString.append(search1(s1, s2, s3));
+		returnString.append(search2(s1, s2, s3));
+		returnString.append(search3(s1, s2, s3));
+		returnString.append(search4(s1, s2, s3));
+		returnString.append(search5(s1, s2, s3));
+		returnString.append(search6(s1, s2, s3));
+		returnString.append(search7(s1, s2, s3));
+		returnString.append(search8(s1, s2, s3));
+		returnString.append(search9(s1, s2, s3));
+		returnString.append(search0(s1, s2, s3));
+		
+		return returnString.toString();
+	}
+	
+	private String search1(String s1, String s2, String s3)
 	{
 		if(s1 == " " && s2 == "|" && s3 == "|")
 		{
 			return "1";
 		}
 		
-		if(s1 == "_ " && s2 == " |" && s3 == " |")
-		{
-			return "7";
-		}
-		
-		if(s1 == " _ " && s2 == "| |" && s3 == " |_| ")
-		{
-			return "0";
-		}
-		
-		if(s1 == " _ " && s2 == "|_|" && s3 == "|_|")
-		{
-			return "8";
-		}
-		
-		if(s1 == " _ " && s2 == "|_|" && s3 == " _|")
-		{
-			return "9";
-		}
-		
-		if(s1 == " _ " && s2 == "|_ " && s3 == "|_|")
-		{
-			return "6";
-		}
-		
-		if(s1 == " _ " && s2 == " _|" && s3 == " _|")
-		{
-			return "3";
-		}
-		
+		return "";
+	}
+	
+	private String search2(String s1, String s2, String s3)
+	{
 		if(s1 == " _ " && s2 == " _|" && s3 == "|_ ")
 		{
 			return "2";
 		}
 		
-		if(s1 == " _ " && s2 == "|_ " && s3 == " _|")
+		
+		return "";
+	}
+	
+	private String search3(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == " _|" && s3 == " _|")
 		{
-			return "5";
+			return "3";
 		}
 		
+		return "";
+	}
+	
+	private String search4(String s1, String s2, String s3)
+	{
 		if(s1 == "   " && s2 == "|_|" && s3 == "  |")
 		{
 			return "4";
@@ -93,6 +101,67 @@ public class OCRTranslator
 		
 		return "";
 	}
+	
+	private String search5(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == "|_ " && s3 == " _|")
+		{
+			return "5";
+		}
+		
+		return "";
+	}
+	
+	private String search6(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == "|_ " && s3 == "|_|")
+		{
+			return "6";
+		}
+		
+		return "";
+	}
+	
+	private String search7(String s1, String s2, String s3)
+	{
+		if(s1 == "_ " && s2 == " |" && s3 == " |")
+		{
+			return "7";
+		}
+		
+		return "";
+	}
+	
+	private String search8(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == "|_|" && s3 == "|_|")
+		{
+			return "8";
+		}
+		
+		return "";
+	}
+	
+	private String search9(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == "|_|" && s3 == " _|")
+		{
+			return "9";
+		}
+		
+		return "";
+	}
+	
+	private String search0(String s1, String s2, String s3)
+	{
+		if(s1 == " _ " && s2 == "| |" && s3 == " |_| ")
+		{
+			return "0";
+		}
+		
+		return "";
+	}
+	
 	
 	
 }
