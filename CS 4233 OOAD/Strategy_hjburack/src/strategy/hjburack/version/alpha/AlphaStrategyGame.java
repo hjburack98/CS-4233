@@ -9,7 +9,7 @@
  * 
  * Copyright ©2016-2017 Gary F. Pollice
  *******************************************************************************/
-package strategy.gpollice.version.alpha;
+package strategy.hjburack.version.alpha;
 
 import strategy.StrategyGame;
 import static strategy.StrategyGame.MoveResult.*;

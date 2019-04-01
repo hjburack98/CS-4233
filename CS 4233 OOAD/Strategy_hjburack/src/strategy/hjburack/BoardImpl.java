@@ -10,7 +10,7 @@
  * Copyright ©2016 Gary F. Pollice
  *******************************************************************************/
 
-package strategy.gpollice;
+package strategy.hjburack;
 
 import strategy.Board;
 

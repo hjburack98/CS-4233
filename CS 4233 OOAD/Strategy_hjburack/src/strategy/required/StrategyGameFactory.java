@@ -14,7 +14,7 @@ package strategy.required;
 
 import strategy.*;
 import strategy.StrategyGame.Version;
-import strategy.gpollice.version.alpha.AlphaStrategyGame;
+import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import static strategy.StrategyGame.*;
 
 /**
