@@ -38,6 +38,6 @@ public class BoardImplTest
 		
 		BoardImpl convertedBoard = BoardImpl.convertBoard(theBoard, 6, 6);
 		
-		assertEquals(theBoard.getPieceAt(0, 0), convertedBoard.getPieceAt(0, 0));
+		assertEquals(new PieceImpl(PieceColor.RED, PieceType.SERGEANT), convertedBoard.getPieceAt(0, 0));
 	}
 }

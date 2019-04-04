@@ -7,7 +7,6 @@ public class PieceImpl implements Piece
 	PieceColor color;
 	PieceType type;
 	int rank;
-	CoordinateImpl coordinate;
 	
 	public PieceImpl(PieceColor color, PieceType type)
 	{
