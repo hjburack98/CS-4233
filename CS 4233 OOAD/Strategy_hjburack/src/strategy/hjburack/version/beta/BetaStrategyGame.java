@@ -17,33 +17,17 @@ public class BetaStrategyGame implements StrategyGame
 	{
 		this.board = board;
 	}
+	
 	public MoveResult move(int fr, int fc, int tr, int tc)
 	{
 		PieceColor turn = PieceColor.RED;
-		
-		if(this.board.getPieceAt(fr, fc) != null)
+
+		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
-			if(fr < 0 || fr >= WIDTH || fc < 0 || fc >= HEIGHT)
-			{
-				return opponentWins(turn);
-			}
-			if(tr < 0 || tr >= WIDTH || tc < 0 || tc >= HEIGHT)
-			{
-				return opponentWins(turn);
-			}
-			if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
-			{
-				return opponentWins(turn);
-			}
-			if(fr-tr == 0 && fc-tc == 0)
-			{
-				return opponentWins(turn);
-			}
-			
-			return OK;
+			opponentWins(turn);
 		}
 		
-		return opponentWins(turn);
+		return OK;
 		
 	}
 	
@@ -57,6 +41,32 @@ public class BetaStrategyGame implements StrategyGame
 		{
 			return RED_WINS;
 		}
+	}
+	
+	private boolean isInvalidMove(int fr, int fc, int tr, int tc)
+	{
+		if(board.getPieceAt(fr, fc) == null)
+		{
+			return true;
+		}
+		if(fr < 0 || fr >= WIDTH || fc < 0 || fc >= HEIGHT)
+		{
+			return true;
+		}
+		if(tr < 0 || tr >= WIDTH || tc < 0 || tc >= HEIGHT)
+		{
+			return true;
+		}
+		if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
+		{
+			return true;
+		}
+		if(fr-tr == 0 && fc-tc == 0)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private void movePiece(int fr, int fc, int tr, int tc)
