@@ -12,6 +12,7 @@
 
 package strategy.hjburack;
 
+import java.util.*;
 import strategy.Board;
 
 /**
@@ -26,7 +27,7 @@ public class BoardImpl implements Board
 	 */
 	public BoardImpl()
 	{
-		// TODO Auto-generated constructor stub
+		PieceImpl[][] board = new PieceImpl[6][6];
 	}
 
 }
