@@ -27,7 +27,7 @@ public class BoardImpl implements Board
 	 */
 	public BoardImpl()
 	{
-		//TODO
+		
 	}
 
 }
