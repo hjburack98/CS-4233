@@ -25,7 +25,7 @@ public class PieceImpl implements Piece
 	
 	public int setRank()
 	{
-		if(type == PieceType.MARSHALL)
+		if(type == PieceType.MARSHAL)
 		{
 			return 12;
 		}

@@ -16,10 +16,10 @@ public class PieceImplTest
 	@Test
 	public void createMarshal()
 	{
-		PieceImpl piece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHALL);
+		PieceImpl piece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHAL);
 		assertEquals(piece.getRank(), 12);
 		assertEquals(piece.getPieceColor(), PieceColor.BLUE);
-		assertEquals(piece.getPieceType(), PieceType.MARSHALL);
+		assertEquals(piece.getPieceType(), PieceType.MARSHAL);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class PieceImplTest
 	@Test
 	public void redBeatBlue()
 	{
-		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHAL);
 		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.FLAG);
 		assertTrue(piece.beatEnemy(opponentPiece));
 	}
@@ -79,14 +79,14 @@ public class PieceImplTest
 	public void redLosesBlue()
 	{
 		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.CAPTAIN);
-		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHALL);
+		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHAL);
 		assertFalse(piece.beatEnemy(opponentPiece));
 	}
 	
 	@Test
 	public void redChallengesRed()
 	{
-		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHAL);
 		PieceImpl opponentPiece = new PieceImpl(PieceColor.RED, PieceType.FLAG);
 		assertFalse(piece.beatEnemy(opponentPiece));
 	}
@@ -94,8 +94,8 @@ public class PieceImplTest
 	@Test
 	public void challengesSameRank()
 	{
-		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
-		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHALL);
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHAL);
+		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHAL);
 		assertFalse(piece.beatEnemy(opponentPiece));
 	}
 }
