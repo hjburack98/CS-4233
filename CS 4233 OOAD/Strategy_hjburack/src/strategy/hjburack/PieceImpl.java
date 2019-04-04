@@ -50,6 +50,11 @@ public class PieceImpl implements Piece
 		
 	}
 	
+	public CoordinateImpl setCoordinate(int x, int y)
+	{
+		return new CoordinateImpl(x, y);
+	}
+	
 	public int getRank()
 	{
 		return rank;
