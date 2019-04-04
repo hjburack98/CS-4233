@@ -27,7 +27,7 @@ public class BoardImpl implements Board
 	 */
 	public BoardImpl()
 	{
-		PieceImpl[][] board = new PieceImpl[6][6];
+		//TODO
 	}
 
 }
