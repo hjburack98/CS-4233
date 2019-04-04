@@ -100,7 +100,23 @@ public class PieceImplTest
 	}
 	
 	@Test
-	public void getCoordinates()
+	public void getXCoordinate()
+	{
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		piece.setCoordinate(1, 0);
+		assertEquals(1, piece.getCoordinate().getX());
+	}
+	
+	@Test
+	public void getYCoordinate()
+	{
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		piece.setCoordinate(0, 1);
+		assertEquals(1, piece.getCoordinate().getY());
+	}
+	
+	@Test
+	public void getFullCoordinates()
 	{
 		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
 		assertEquals(new CoordinateImpl(0,0), piece.getCoordinate());
@@ -110,7 +126,8 @@ public class PieceImplTest
 	public void changeCoordinates()
 	{
 		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
-		piece.setCoordinate(0, 1);
-		assertEquals(new CoordinateImpl(0,1), piece.getCoordinate());
+		piece.setCoordinate(2, 1);
+		assertEquals(new CoordinateImpl(2,1), piece.getCoordinate());
 	}
+	
 }

@@ -17,10 +17,12 @@ public class PieceImpl implements Piece
 		coordinate = new CoordinateImpl(0,0);
 	}
 	
+	/*
 	public static PieceImpl convertPiece(Piece aPiece)
 	{
 		return new PieceImpl(aPiece.getPieceColor(), aPiece.getPieceType());
 	}
+	*/
 	
 	public int setRank()
 	{
