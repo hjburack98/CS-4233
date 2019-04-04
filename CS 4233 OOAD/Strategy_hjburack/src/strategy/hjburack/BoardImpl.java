@@ -15,6 +15,7 @@ package strategy.hjburack;
 import java.util.*;
 import strategy.Board;
 import strategy.Piece;
+import strategy.Piece.*;
 import strategy.hjburack.*;
 
 /**
@@ -54,9 +55,21 @@ public class BoardImpl implements Board
 		BoardImpl convertedBoard = new BoardImpl(board);
 		return convertedBoard;
 	}
+	
+	public void removePiece(BoardImpl aBoard, int x, int y)
+	{
+		PieceImpl aPiece = aBoard.getPieceAt(x, y);
+		aBoard.board.remove(new CoordinateImpl(x,y), aPiece);
+	}
+	
+	public void addPiece(BoardImpl aBoard, int x, int y, PieceColor color, PieceType type)
+	{
+		PieceImpl aPiece = new PieceImpl(color, type);
+		aBoard.board.put(new CoordinateImpl(x, y), aPiece);
+	}
 
 	@Override
-	public Piece getPieceAt(int row, int column)
+	public PieceImpl getPieceAt(int row, int column)
 	{
 		return this.board.get(new CoordinateImpl(row, column));
 	}

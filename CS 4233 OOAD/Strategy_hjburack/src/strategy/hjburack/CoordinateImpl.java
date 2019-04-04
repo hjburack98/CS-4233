@@ -34,18 +34,6 @@ public class CoordinateImpl implements Coordinate
 		return y;
 	}
 	
-	public int setX(int newX)
-	{
-		this.x = newX;
-		return this.x;
-	}
-	
-	public int setY(int newY)
-	{
-		this.y = newY;
-		return this.y;
-	}
-
 	@Override
 	public int hashCode()
 	{
