@@ -98,4 +98,19 @@ public class PieceImplTest
 		PieceImpl opponentPiece = new PieceImpl(PieceColor.BLUE, PieceType.MARSHALL);
 		assertFalse(piece.beatEnemy(opponentPiece));
 	}
+	
+	@Test
+	public void getCoordinates()
+	{
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		assertEquals(new CoordinateImpl(0,0), piece.getCoordinate());
+	}
+	
+	@Test
+	public void changeCoordinates()
+	{
+		PieceImpl piece = new PieceImpl(PieceColor.RED, PieceType.MARSHALL);
+		piece.setCoordinate(0, 1);
+		assertEquals(new CoordinateImpl(0,1), piece.getCoordinate());
+	}
 }
