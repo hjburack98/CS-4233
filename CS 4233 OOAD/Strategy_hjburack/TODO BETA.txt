@@ -6,4 +6,5 @@ test when red beats blue player [DONE]
 test when red loses to blue player[DONE]
 test when red tried to beat a red player [DONE]
 test when red attacks blue piece of the same rank [DONE]
+get the location of a piece
 put pieces on a board
