@@ -44,8 +44,7 @@ public class BoardImpl implements Board
 			for(int x = 0; x < width; x++)
 			{
 				CoordinateImpl coordinate = new CoordinateImpl(x,y);
-				PieceImpl scannedPiece = null;
-				scannedPiece.convertPiece(aBoard.getPieceAt(x, y));
+				PieceImpl scannedPiece = PieceImpl.convertPiece(aBoard.getPieceAt(x, y));
 				board.put(coordinate, scannedPiece);
 			}
 		}
