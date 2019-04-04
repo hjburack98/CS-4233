@@ -15,6 +15,7 @@ package strategy.required;
 import strategy.*;
 import strategy.StrategyGame.Version;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
+import strategy.hjburack.version.beta.BetaStrategyGame;
 import static strategy.StrategyGame.*;
 
 /**
