@@ -28,26 +28,31 @@ public class BoardImpl implements Board
 	/**
 	 * Description
 	 */
-	public BoardImpl(int width, int height, List<PieceImpl> redPiece, List<PieceImpl> bluePiece)
+	public BoardImpl(Map<CoordinateImpl, PieceImpl> board )
 	{
-		
+		this.board = board;
 	}
 	
 	/**
 	 * Copy Constructor
 	 */
-	public static BoardImpl(Board aBoard, int width, int height)
+	public static BoardImpl convertBoard(Board aBoard, int width, int height)
 	{
-		Map<CoordinateImpl, PieceImpl> board;
+		Map<CoordinateImpl, PieceImpl> board = new HashMap<>();
 		for(int y = 0; y < height; y++)
 		{
 			for(int x = 0; x < width; x++)
 			{
 				CoordinateImpl coordinate = new CoordinateImpl(x,y);
-				PieceImpl scannedPiece = new PieceImpl(aBoard.)
-				board.put(coordinate, aBoard.getPieceAt(x, y));
+				PieceImpl scannedPiece = null;
+				scannedPiece.convertPiece(aBoard.getPieceAt(x, y));
+				board.put(coordinate, scannedPiece);
 			}
 		}
+		
+		
+		BoardImpl convertedBoard = new BoardImpl(board);
+		return convertedBoard;
 	}
 
 }
