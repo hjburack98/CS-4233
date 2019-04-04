@@ -14,15 +14,14 @@ public class PieceImpl implements Piece
 		this.color = color;
 		this.type = type;
 		rank = this.setRank();
-		coordinate = new CoordinateImpl(0,0);
 	}
 	
-	/*
+	
 	public static PieceImpl convertPiece(Piece aPiece)
 	{
 		return new PieceImpl(aPiece.getPieceColor(), aPiece.getPieceType());
 	}
-	*/
+	
 	
 	public int setRank()
 	{
@@ -51,18 +50,6 @@ public class PieceImpl implements Piece
 			return 1;
 		}
 		
-	}
-	
-	public CoordinateImpl getCoordinate()
-	{
-		return coordinate;
-	}
-	
-	public CoordinateImpl setCoordinate(int x, int y)
-	{
-		this.coordinate.setX(x);
-		this.coordinate.setY(y);
-		return this.coordinate;
 	}
 	
 	public int getRank()
