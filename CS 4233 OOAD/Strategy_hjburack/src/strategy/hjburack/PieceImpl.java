@@ -19,6 +19,10 @@ public class PieceImpl implements Piece
 	
 	public static PieceImpl convertPiece(Piece aPiece)
 	{
+		if(aPiece == null)
+		{
+			return null;
+		}
 		return new PieceImpl(aPiece.getPieceColor(), aPiece.getPieceType());
 	}
 	
