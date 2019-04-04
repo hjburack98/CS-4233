@@ -14,6 +14,7 @@ package strategy.hjburack;
 
 import java.util.*;
 import strategy.Board;
+import strategy.Piece;
 import strategy.hjburack.*;
 
 /**
@@ -54,4 +55,17 @@ public class BoardImpl implements Board
 		return convertedBoard;
 	}
 
+	@Override
+	public Piece getPieceAt(int row, int column)
+	{
+		return this.board.get(new CoordinateImpl(row, column));
+	}
+
+	@Override
+	public SquareType getSquareTypeAt(int row, int column)
+	{
+		return SquareType.NORMAL;
+	}
+
+	
 }

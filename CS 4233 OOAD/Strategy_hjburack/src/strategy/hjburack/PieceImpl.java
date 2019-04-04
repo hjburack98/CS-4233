@@ -25,8 +25,25 @@ public class PieceImpl implements Piece
 		}
 		return new PieceImpl(aPiece.getPieceColor(), aPiece.getPieceType());
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Piece))
+			return false;
+		Piece other = (Piece) obj;
+		if (color != other.getPieceColor())
+			return false;
+		if (type != other.getPieceType())
+			return false;
+		return true;
+	}
+
+
 	public int setRank()
 	{
 		if(type == PieceType.MARSHAL)

@@ -37,5 +37,7 @@ public class BoardImplTest
 		
 		
 		BoardImpl convertedBoard = BoardImpl.convertBoard(theBoard, 6, 6);
+		
+		assertEquals(theBoard.getPieceAt(0, 0), convertedBoard.getPieceAt(0, 0));
 	}
 }
