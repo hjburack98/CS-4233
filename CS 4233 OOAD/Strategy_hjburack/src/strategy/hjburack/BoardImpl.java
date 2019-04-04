@@ -56,16 +56,15 @@ public class BoardImpl implements Board
 		return convertedBoard;
 	}
 	
-	public void removePiece(BoardImpl aBoard, int x, int y)
+	public void removePiece(int x, int y)
 	{
-		PieceImpl aPiece = aBoard.getPieceAt(x, y);
-		aBoard.board.remove(new CoordinateImpl(x,y), aPiece);
+		PieceImpl aPiece = this.getPieceAt(x, y);
+		this.board.remove(new CoordinateImpl(x,y), aPiece);
 	}
 	
-	public void addPiece(BoardImpl aBoard, int x, int y, PieceColor color, PieceType type)
+	public void addPiece(PieceImpl aPiece, int x, int y)
 	{
-		PieceImpl aPiece = new PieceImpl(color, type);
-		aBoard.board.put(new CoordinateImpl(x, y), aPiece);
+		this.board.put(new CoordinateImpl(x, y), aPiece);
 	}
 
 	@Override
