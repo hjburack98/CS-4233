@@ -14,6 +14,7 @@ package strategy.hjburack;
 
 import java.util.*;
 import strategy.Board;
+import strategy.hjburack.*;
 
 /**
  * Description
@@ -22,12 +23,31 @@ import strategy.Board;
 public class BoardImpl implements Board
 {
 
+	private Map<CoordinateImpl, PieceImpl> board;
+	
 	/**
 	 * Description
 	 */
-	public BoardImpl()
+	public BoardImpl(int width, int height, List<PieceImpl> redPiece, List<PieceImpl> bluePiece)
 	{
 		
+	}
+	
+	/**
+	 * Copy Constructor
+	 */
+	public static BoardImpl(Board aBoard, int width, int height)
+	{
+		Map<CoordinateImpl, PieceImpl> board;
+		for(int y = 0; y < height; y++)
+		{
+			for(int x = 0; x < width; x++)
+			{
+				CoordinateImpl coordinate = new CoordinateImpl(x,y);
+				PieceImpl scannedPiece = new PieceImpl(aBoard.)
+				board.put(coordinate, aBoard.getPieceAt(x, y));
+			}
+		}
 	}
 
 }
