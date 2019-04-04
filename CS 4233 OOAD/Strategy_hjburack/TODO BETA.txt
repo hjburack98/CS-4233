@@ -7,8 +7,9 @@ test when red loses to blue player[DONE]
 test when red tried to beat a red player [DONE]
 test when red attacks blue piece of the same rank [DONE]
 convert board to boardImpl [DONE]
-add a piece to a boardImpl
-remove a piece from a boardImpl
+add a piece to a boardImpl [DONE]
+remove a piece from a boardImpl [DONE]
+test invalid moves (selected out of bounds, movements are too far away, "to" == "from") 
 test valid movement up
 test valid movement down
 test valid movement left

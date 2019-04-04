@@ -14,6 +14,7 @@ package strategy.required;
 
 import strategy.*;
 import strategy.StrategyGame.Version;
+import strategy.hjburack.BoardImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
 import static strategy.StrategyGame.*;
@@ -32,6 +33,9 @@ public class StrategyGameFactory
 			case ALPHA:					// No need for the board
 				game = new AlphaStrategyGame();
 				break;
+			case BETA:
+				BoardImpl betaBoard = BoardImpl.convertBoard(board, 6, 6);
+				game = new BetaStrategyGame(betaBoard);
 			default:
 				throw new NotImplementedException(
 						"StrategyGameFactory.makeGame for version " + version);
