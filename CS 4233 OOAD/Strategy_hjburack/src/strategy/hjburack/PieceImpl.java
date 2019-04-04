@@ -15,7 +15,7 @@ public class PieceImpl implements Piece
 		rank = this.setRank();
 	}
 	
-	public PieceImpl convertPiece(Piece aPiece)
+	public static PieceImpl convertPiece(Piece aPiece)
 	{
 		return new PieceImpl(aPiece.getPieceColor(), aPiece.getPieceType());
 	}
