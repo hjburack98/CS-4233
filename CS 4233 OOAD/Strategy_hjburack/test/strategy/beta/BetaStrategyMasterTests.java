@@ -53,6 +53,48 @@ class BetaStrategyMasterTests
 		theGame = makeGame(BETA, theBoard);
 	}
 	
+	@Test
+	void startingCoordinateOutOfBounds()
+	{
+		assertEquals(BLUE_WINS, theGame.move(-1, 1, 0, 1));
+		assertEquals(BLUE_WINS, theGame.move(1, -1, 1, 0));
+		assertEquals(BLUE_WINS, theGame.move(-1, -1, 0, 0));
+		assertEquals(BLUE_WINS, theGame.move(6, 0, 5, 0));
+		assertEquals(BLUE_WINS, theGame.move(0, 6, 0, 5));
+		assertEquals(BLUE_WINS, theGame.move(6, 6, 5, 5));
+		
+	}
+	
+	@Test
+	void targetCoordinateOutOfBounds()
+	{
+		assertEquals(BLUE_WINS, theGame.move(1, 0, 1, -1));
+		assertEquals(BLUE_WINS, theGame.move(0, 1, -1, 1));
+		assertEquals(BLUE_WINS, theGame.move(0, 0, -1, -1));
+		assertEquals(BLUE_WINS, theGame.move(5, 0, 6, 0));
+		assertEquals(BLUE_WINS, theGame.move(0, 5, 0, 6));
+		assertEquals(BLUE_WINS, theGame.move(5, 5, 6, 6));
+	}
+	
+	@Test
+	void selectedMoveTooFar()
+	{
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 0));
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 0, 2));
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 2));
+		assertEquals(BLUE_WINS, theGame.move(2, 0, 0, 0));
+		assertEquals(BLUE_WINS, theGame.move(0, 2, 0, 0));
+		assertEquals(BLUE_WINS, theGame.move(2, 2, 0, 0));
+		assertEquals(BLUE_WINS, theGame.move(0, 2, 2, 0));
+	}
+	
+	
+	@Test
+	void pieceIsntMoving()
+	{
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 0, 0));
+	}
+	
 	@Test 
 	void redWinsAfterEightTurns()
 	{

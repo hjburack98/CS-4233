@@ -9,11 +9,12 @@ test when red attacks blue piece of the same rank [DONE]
 convert board to boardImpl [DONE]
 add a piece to a boardImpl [DONE]
 remove a piece from a boardImpl [DONE]
-test invalid moves (selected out of bounds, movements are too far away, "to" == "from") 
+test invalid moves (selected out of bounds, movements are too far away, "to" == "from")
 test valid movement up
 test valid movement down
 test valid movement left
 test valid movement right
 move diagonal ups
 move dialgonal downs
-test invalid movements (pieces of the same color in destination)
+test a case when RED will win
+

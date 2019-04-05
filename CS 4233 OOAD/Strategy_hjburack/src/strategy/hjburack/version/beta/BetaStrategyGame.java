@@ -24,8 +24,9 @@ public class BetaStrategyGame implements StrategyGame
 
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
-			opponentWins(turn);
+			return opponentWins(turn);
 		}
+		
 		
 		return OK;
 		
@@ -49,19 +50,19 @@ public class BetaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
-		if(fr < 0 || fr >= WIDTH || fc < 0 || fc >= HEIGHT)
+		else if(fr < 0 || fr >= WIDTH || fc < 0 || fc >= HEIGHT)
 		{
 			return true;
 		}
-		if(tr < 0 || tr >= WIDTH || tc < 0 || tc >= HEIGHT)
+		else if(tr < 0 || tr >= WIDTH || tc < 0 || tc >= HEIGHT)
 		{
 			return true;
 		}
-		if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
+		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
 		{
 			return true;
 		}
-		if(fr-tr == 0 && fc-tc == 0)
+		else if(fr-tr == 0 && fc-tc == 0)
 		{
 			return true;
 		}
