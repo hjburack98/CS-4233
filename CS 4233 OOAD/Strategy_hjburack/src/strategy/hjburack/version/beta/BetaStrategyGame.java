@@ -31,10 +31,11 @@ public class BetaStrategyGame implements StrategyGame
 			return GAME_OVER;
 		}
 		*/
-		if(this.moveCount >= 8)
+		if(this.moveCount > 8)
 		{
-			return this.opponentWins(turn);
+			return RED_WINS;
 		}
+		
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
 			return this.opponentWins(turn);
@@ -88,6 +89,7 @@ public class BetaStrategyGame implements StrategyGame
 					{
 						board.removePiece(fr, fc);
 						board.removePiece(tr, tc);
+						this.swapTurn();
 						return OK;
 					}
 				}
@@ -145,7 +147,7 @@ public class BetaStrategyGame implements StrategyGame
 		return false;
 	}
 	
-	private PieceImpl movePiece(int fr, int fc, int tr, int tc)
+	private void swapTurn()
 	{
 		if(turn == PieceColor.RED)
 		{
@@ -155,10 +157,15 @@ public class BetaStrategyGame implements StrategyGame
 		{
 			turn = PieceColor.RED;
 		}
+	}
+	
+	private PieceImpl movePiece(int fr, int fc, int tr, int tc)
+	{
 		PieceImpl aPiece = board.getPieceAt(fr, fc);
 		board.removePiece(fr, fc);
 		board.addPiece(aPiece, tr, tc);
 		PieceImpl newPiece = board.getPieceAt(tr, tc);
+		this.swapTurn();
 		return newPiece;
 	}
 	
