@@ -51,8 +51,8 @@ class BetaStrategyMasterTests
 				SERGEANT, SERGEANT, COLONEL, CAPTAIN, LIEUTENANT, LIEUTENANT,
 				FLAG, MARSHAL, COLONEL, CAPTAIN, LIEUTENANT, SERGEANT);
 		blueLineup = theBoard.makeLineup(BLUE,
-				MARSHAL, COLONEL, CAPTAIN, SERGEANT, FLAG, LIEUTENANT,
-				LIEUTENANT, LIEUTENANT, SERGEANT, SERGEANT, COLONEL, CAPTAIN);
+				CAPTAIN, COLONEL, SERGEANT, SERGEANT, LIEUTENANT, LIEUTENANT,
+				LIEUTENANT, FLAG, SERGEANT, CAPTAIN, COLONEL, MARSHAL);
 		theBoard.initialize(6, 6, redLineup, blueLineup);
 		theGame = makeGame(BETA, theBoard);
 	}
@@ -110,6 +110,7 @@ class BetaStrategyMasterTests
 	{
 		assertEquals(OK, theGame.move(1, 1, 2, 1)); //go up
 		assertEquals(OK, theGame.move(4, 0, 3, 0)); //go down	
+		
 	}
 	
 	@Test
@@ -118,7 +119,7 @@ class BetaStrategyMasterTests
 		assertEquals(OK, theGame.move(1, 1, 2, 0)); //go diagonal up left
 		assertEquals(OK, theGame.move(1, 4, 2, 5)); //go diagonal up right
 		assertEquals(OK, theGame.move(4, 1, 3, 0)); // go diagonal down left
-		assertEquals(OK, theGame.move(4, 4, 3, 5)); // go diagonal down right
+		assertEquals(OK, theGame.move(4, 3, 3, 4)); // go diagonal down right
 	}
 	
 	@Test
@@ -159,6 +160,58 @@ class BetaStrategyMasterTests
 		theGame.move(3, 0, 2, 0);
 		theGame.move(1, 5, 2, 5);
 		assertEquals(STRIKE_BLUE, theGame.move(2, 0, 2, 1));
+	}
+	
+	@Test
+	void redAttackerLosesStrike()
+	{
+		theGame.move(1, 2, 2, 2);
+		theGame.move(4, 0, 3, 0);
+		theGame.move(2, 2, 2, 1);
+		theGame.move(3, 0, 2, 0);
+		assertEquals(STRIKE_BLUE, theGame.move(2, 1, 2, 0));
+	}
+	
+	@Test
+	void blueAttackerLosesStrike()
+	{
+		theGame.move(1, 1, 2, 1);
+		theGame.move(4, 5, 3, 5);
+		theGame.move(2, 1, 3, 1);
+		theGame.move(3, 5, 2, 5);
+		theGame.move(1, 5, 2, 5);
+		assertEquals(STRIKE_RED, theGame.move(4, 1, 3, 1));
+	}
+	
+	@Test
+	void strikeSameType()
+	{
+		theGame.move(1, 1, 2, 1);
+		theGame.move(4, 0, 3, 0);
+		theGame.move(2, 1, 2, 0);
+		assertEquals(OK, theGame.move(3, 0, 2, 0));
+		assertEquals(BLUE_WINS, theGame.move(2, 0, 2, 1));
+	}
+	
+	@Test
+	void strikeBlueFlagRedWin()
+	{
+		theGame.move(1,	4, 2, 4);
+		theGame.move(4, 0, 3, 0);
+		theGame.move(2, 4, 3, 4);
+		theGame.move(3, 0, 2, 0);
+		assertEquals(RED_WINS, theGame.move(3, 4, 4, 4));
+	}
+	
+	@Test
+	void strikeRedFlagBlueWin()
+	{
+		theGame.move(1,5,2,5);
+		theGame.move(4, 0, 3, 0);
+		theGame.move(2, 5, 3, 5);
+		theGame.move(3, 0, 2, 0);
+		theGame.move(1,4,2,4);
+		assertEquals(BLUE_WINS, theGame.move(2, 0, 1, 0));
 	}
 	
 	/*

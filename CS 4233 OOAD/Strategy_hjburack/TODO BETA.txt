@@ -17,8 +17,7 @@ test valid movement right [DONE]
 move diagonal ups [DONE]
 move diagonal downs [DONE]
 test collision with team pieces [DONE]
-striking rules
-striking against the flag will result in a win for the striking team
-test a case when RED will win
-end game after there has been a winner
-
+striking rules [DONE]
+striking against the flag will result in a win for the striking team [DONE]
+test a case when RED will win [DONE]
+end game after there has been a winner 

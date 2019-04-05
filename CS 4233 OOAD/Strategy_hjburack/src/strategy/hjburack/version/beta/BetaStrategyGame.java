@@ -69,7 +69,7 @@ public class BetaStrategyGame implements StrategyGame
 						{
 							returnVal = STRIKE_BLUE;
 						}
-						if(board.getPieceAt(tc, tr).getPieceType() == PieceType.FLAG) {
+						if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
 							if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
 							{
 								returnVal = RED_WINS;
