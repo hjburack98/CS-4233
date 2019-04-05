@@ -13,7 +13,8 @@ public class BetaStrategyGame implements StrategyGame
 	private final int WIDTH = 6;
 	private final int HEIGHT = 6;
 	private BoardImpl board;
-	PieceColor turn = PieceColor.RED;
+	PieceColor turn;
+	int moveCount = 0;
 	
 	public BetaStrategyGame(BoardImpl board)
 	{
@@ -30,17 +31,20 @@ public class BetaStrategyGame implements StrategyGame
 			return GAME_OVER;
 		}
 		*/
-		
+		if(this.moveCount >= 8)
+		{
+			return this.opponentWins(turn);
+		}
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
-			return opponentWins(turn);
+			return this.opponentWins(turn);
 		}
 		
 		//valid move
 		if(board.getPieceAt(tr, tc) == null)
 		{
 			this.movePiece(fr, fc, tr, tc);
-			changeColor(turn);
+			moveCount++;
 			return OK;
 			
 		}
@@ -51,7 +55,7 @@ public class BetaStrategyGame implements StrategyGame
 			//if the piece at the target coordinate is your own, you lose
 			if(board.getPieceAt(tr, tc).getPieceColor() == board.getPieceAt(fr, fc).getPieceColor())
 			{
-				return opponentWins(turn);
+				return this.opponentWins(turn);
 			}
 			else
 			{
@@ -60,15 +64,8 @@ public class BetaStrategyGame implements StrategyGame
 				{
 					if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
 					{
-						MoveResult returnVal = null;
-						if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
-						{
-							returnVal = STRIKE_RED;
-						}
-						else
-						{
-							returnVal = STRIKE_BLUE;
-						}
+						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+		
 						if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
 							if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
 							{
@@ -87,16 +84,7 @@ public class BetaStrategyGame implements StrategyGame
 					}
 					else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
 					{
-						MoveResult returnVal = null;
-						if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
-						{
-							returnVal = STRIKE_BLUE;
-						}
-						else
-						{
-							returnVal = STRIKE_RED;
-						}
-						
+						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
 						board.removePiece(fr, fc);
 						this.movePiece(tr, tc, fr, fc);
 						return returnVal;
@@ -112,13 +100,13 @@ public class BetaStrategyGame implements StrategyGame
 				}
 				else
 				{
-					return opponentWins(turn);
+					return this.opponentWins(turn);
 				}
 			}
 		}
 	}
 	
-	private static MoveResult opponentWins(PieceColor team)
+	private MoveResult opponentWins(PieceColor team)
 	{
 		if(team == PieceColor.RED)
 		{
@@ -129,29 +117,7 @@ public class BetaStrategyGame implements StrategyGame
 			return RED_WINS;
 		}
 	}
-	
-	private static PieceColor changeColor(PieceColor color)
-	{
-		if(color == PieceColor.RED)
-		{
-			return PieceColor.BLUE;
-		}
-		else
-		{
-			return PieceColor.RED;
-		}
-	}
-	private static MoveResult youWin(PieceColor team)
-	{
-		if(team == PieceColor.BLUE)
-		{
-			return BLUE_WINS;
-		}
-		else
-		{
-			return RED_WINS;
-		}
-	}
+
 	private boolean isInvalidMove(int fr, int fc, int tr, int tc)
 	{
 		if(board.getPieceAt(fr, fc) == null)
@@ -178,12 +144,24 @@ public class BetaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
+		else if(board.getPieceAt(fr, fc).getPieceColor() != this.turn)
+		{
+			return true;
+		}
 		
 		return false;
 	}
 	
 	private PieceImpl movePiece(int fr, int fc, int tr, int tc)
 	{
+		if(turn == PieceColor.RED)
+		{
+			turn = PieceColor.BLUE;
+		}
+		else
+		{
+			turn = PieceColor.RED;
+		}
 		PieceImpl aPiece = board.getPieceAt(fr, fc);
 		board.removePiece(fr, fc);
 		board.addPiece(aPiece, tr, tc);
@@ -191,5 +169,18 @@ public class BetaStrategyGame implements StrategyGame
 		return newPiece;
 	}
 	
-	
+	private MoveResult getStrikeResult(PieceColor winner)
+	{
+		if(winner == PieceColor.RED)
+		{
+			return STRIKE_RED;
+		}
+		
+		else
+		{
+			return STRIKE_BLUE;
+		}
+	}
+
 }
+

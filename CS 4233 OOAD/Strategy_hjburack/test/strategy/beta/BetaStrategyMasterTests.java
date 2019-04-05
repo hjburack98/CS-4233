@@ -110,15 +110,14 @@ class BetaStrategyMasterTests
 	{
 		assertEquals(OK, theGame.move(1, 1, 2, 1)); //go up
 		assertEquals(OK, theGame.move(4, 0, 3, 0)); //go down	
-		
 	}
 	
 	@Test
 	void validDiagonal()
 	{
 		assertEquals(OK, theGame.move(1, 1, 2, 0)); //go diagonal up left
-		assertEquals(OK, theGame.move(1, 4, 2, 5)); //go diagonal up right
 		assertEquals(OK, theGame.move(4, 1, 3, 0)); // go diagonal down left
+		assertEquals(OK, theGame.move(1, 4, 2, 5)); //go diagonal up right
 		assertEquals(OK, theGame.move(4, 3, 3, 4)); // go diagonal down right
 	}
 	
@@ -126,6 +125,7 @@ class BetaStrategyMasterTests
 	void validLeft()
 	{
 		theGame.move(1, 1, 2, 1);
+		theGame.move(4, 0, 3, 0);
 		assertEquals(OK, theGame.move(2, 1, 2, 0)); //go left
 	}
 	
@@ -133,6 +133,7 @@ class BetaStrategyMasterTests
 	void validRight()
 	{
 		theGame.move(1, 1, 2, 1);
+		theGame.move(4, 0, 3, 0);
 		assertEquals(OK, theGame.move(2, 1, 2, 2)); //go right
 	}
 	
@@ -214,7 +215,7 @@ class BetaStrategyMasterTests
 		assertEquals(BLUE_WINS, theGame.move(2, 0, 1, 0));
 	}
 	
-	/*
+	
 	@Test 
 	void redWinsAfterEightTurns()
 	{
@@ -235,7 +236,7 @@ class BetaStrategyMasterTests
 		assertEquals(OK, theGame.move(2, 1, 1, 1));	// Move 8
 		assertEquals(RED_WINS, theGame.move(3, 2, 4, 2));
 	}
-	*/
+	
 	
 	@Test
 	void versionNotImplemented()
