@@ -121,17 +121,51 @@ class BetaStrategyMasterTests
 	}
 	
 	@Test
-	void selectedMoveTooFar()
+	void tooFarUp()
 	{
 		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 0));
-		assertEquals(BLUE_WINS, theGame.move(0, 0, 0, 2));
-		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 2));
+		
+		
+		
+		
+		
+		
+	}
+	@Test
+	void tooFarDown()
+	{
 		assertEquals(BLUE_WINS, theGame.move(2, 0, 0, 0));
+	}
+	@Test
+	void tooFarLeft()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 2, 0, 0));
+	}
+	@Test
+	void tooFarRight()
+	{
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 0, 2));
+	}
+	@Test 
+	void tooFarDiagonalUop()
+	{
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 2));
+	}
+	@Test 
+	void tooFarDiagonalDown()
+	{
 		assertEquals(BLUE_WINS, theGame.move(2, 2, 0, 0));
+	}
+	@Test 
+	void tooFarDiagonalLeft()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 2, 2, 0));
 	}
-	
+	@Test 
+	void tooFarDiagonalRight()
+	{
+		assertEquals(BLUE_WINS, theGame.move(2, 0, 0, 2));
+	}
 	
 	@Test
 	void pieceIsntMoving()
