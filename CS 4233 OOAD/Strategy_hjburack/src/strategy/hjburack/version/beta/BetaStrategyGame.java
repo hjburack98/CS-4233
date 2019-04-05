@@ -67,14 +67,7 @@ public class BetaStrategyGame implements StrategyGame
 						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
 		
 						if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
-							if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
-							{
-								returnVal = RED_WINS;
-							}
-							else
-							{
-								returnVal = BLUE_WINS;
-							}
+							return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
 						}
 						board.removePiece(tr, tc);
 						this.movePiece(fr, fc, tr, tc);
@@ -179,6 +172,19 @@ public class BetaStrategyGame implements StrategyGame
 		else
 		{
 			return STRIKE_BLUE;
+		}
+	}
+	
+	private MoveResult getWinner(PieceColor winner)
+	{
+		if(winner == PieceColor.RED)
+		{
+			return RED_WINS;
+		}
+		
+		else 
+		{
+			return BLUE_WINS;
 		}
 	}
 
