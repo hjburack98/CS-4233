@@ -59,25 +59,64 @@ class BetaStrategyMasterTests
 	
 	
 	@Test
-	void startingCoordinateOutOfBounds()
+	void startingCoordinateLowRow()
 	{
 		assertEquals(BLUE_WINS, theGame.move(-1, 1, 0, 1));
+	}
+	@Test
+	void startingCoordinateLowCol()
+	{
 		assertEquals(BLUE_WINS, theGame.move(1, -1, 1, 0));
+	}
+	@Test
+	void startingCoordinateAllLow()
+	{
 		assertEquals(BLUE_WINS, theGame.move(-1, -1, 0, 0));
+	}
+	@Test
+	void startingCoordinateHighRow()
+	{
 		assertEquals(BLUE_WINS, theGame.move(6, 0, 5, 0));
+	}
+	@Test
+	void startingCoordinateHighCol()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 6, 0, 5));
+	}
+	@Test
+	void startingCoordinateAllHigh()
+	{
 		assertEquals(BLUE_WINS, theGame.move(6, 6, 5, 5));
-		
 	}
 	
 	@Test
-	void targetCoordinateOutOfBounds()
+	void targetCoordinateLowRow()
 	{
 		assertEquals(BLUE_WINS, theGame.move(1, 0, 1, -1));
+	}
+	@Test
+	void targetCoodinateLowCol()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 1, -1, 1));
+	}
+	@Test
+	void targetCoordinateAllLow()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 0, -1, -1));
+	}
+	@Test
+	void targetCoordinateHighRow()
+	{
 		assertEquals(BLUE_WINS, theGame.move(5, 0, 6, 0));
+	}
+	@Test
+	void targetCoordHighCol()
+	{
 		assertEquals(BLUE_WINS, theGame.move(0, 5, 0, 6));
+	}
+	@Test
+	void targetCoordAllHigh()
+	{
 		assertEquals(BLUE_WINS, theGame.move(5, 5, 6, 6));
 	}
 	
@@ -235,6 +274,7 @@ class BetaStrategyMasterTests
 		theGame.move(4, 2, 3, 2);
 		assertEquals(OK, theGame.move(2, 1, 1, 1));	// Move 8
 		assertEquals(RED_WINS, theGame.move(3, 2, 4, 2));
+		assertEquals(GAME_OVER, theGame.move(1, 5, 2, 5));
 	}
 	
 	

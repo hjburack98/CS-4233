@@ -14,7 +14,8 @@ public class BetaStrategyGame implements StrategyGame
 	private final int HEIGHT = 6;
 	private BoardImpl board;
 	PieceColor turn;
-	int moveCount = 0;
+	int moveCount = 1;
+	boolean gameOver = false;
 	
 	public BetaStrategyGame(BoardImpl board)
 	{
@@ -24,15 +25,15 @@ public class BetaStrategyGame implements StrategyGame
 	
 	public MoveResult move(int fr, int fc, int tr, int tc)
 	{
-		/*
-		MoveResult gameWon = null;
-		if(gameWon != null)
+		
+		if(gameOver == true)
 		{
 			return GAME_OVER;
 		}
-		*/
-		if(this.moveCount > 8)
+		
+		if(this.moveCount >= 8 && turn == PieceColor.BLUE)
 		{
+			gameOver = true;
 			return RED_WINS;
 		}
 		
@@ -45,7 +46,6 @@ public class BetaStrategyGame implements StrategyGame
 		if(board.getPieceAt(tr, tc) == null)
 		{
 			this.movePiece(fr, fc, tr, tc);
-			moveCount++;
 			return OK;
 			
 		}
@@ -105,10 +105,12 @@ public class BetaStrategyGame implements StrategyGame
 	{
 		if(team == PieceColor.RED)
 		{
+			gameOver = true;
 			return BLUE_WINS;
 		}
 		else
 		{
+			gameOver = true;
 			return RED_WINS;
 		}
 	}
@@ -155,6 +157,7 @@ public class BetaStrategyGame implements StrategyGame
 		}
 		else
 		{
+			moveCount++;
 			turn = PieceColor.RED;
 		}
 	}
@@ -186,11 +189,13 @@ public class BetaStrategyGame implements StrategyGame
 	{
 		if(winner == PieceColor.RED)
 		{
+			gameOver = true;
 			return RED_WINS;
 		}
 		
 		else 
 		{
+			gameOver = true;
 			return BLUE_WINS;
 		}
 	}
