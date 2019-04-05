@@ -26,6 +26,11 @@ public class PieceImpl implements Piece
 	}
 
 	@Override
+	/**
+	 * determines if two objects are equal
+	 * @param the object being compared
+	 * @return true if the object being compared is the same as this object
+	 */
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -42,8 +47,8 @@ public class PieceImpl implements Piece
 		return true;
 	}
 
-
-	public int setRank()
+	
+	private int setRank()
 	{
 		if(type == PieceType.MARSHAL)
 		{
@@ -77,18 +82,31 @@ public class PieceImpl implements Piece
 		return rank;
 	}
 	
+	/**
+	 * get the piece color
+	 * @return the color of the piece
+	 */
 	@Override
 	public PieceColor getPieceColor()
 	{
 		return color;
 	}
 	
+	/**
+	 * get the piece type
+	 * @return the type of the piece
+	 */
 	@Override
 	public PieceType getPieceType()
 	{
 		return type;
 	}
 
+	/**
+	 * determine if the object can beat an enemy piece
+	 * @param opponent piece
+	 * @return true if this piece can beat the opponent 
+	 */
 	public boolean beatEnemy(PieceImpl opponent)
 	{
 		if(this.color != opponent.color)

@@ -28,7 +28,7 @@ public class BoardImpl implements Board
 	private Map<CoordinateImpl, PieceImpl> board;
 	
 	/**
-	 * Description
+	 * create a board as a hashmap
 	 */
 	public BoardImpl(Map<CoordinateImpl, PieceImpl> board )
 	{
@@ -36,7 +36,11 @@ public class BoardImpl implements Board
 	}
 	
 	/**
-	 * Copy Constructor
+	 * converts the board from any layout of <<Interface>> board to BoardImpl
+	 * @param the Board interface object
+	 * @param the width of the board
+	 * @param the height of the board
+	 * @return a BoardImpl copy of the Board interface given
 	 */
 	public static BoardImpl convertBoard(Board aBoard, int width, int height)
 	{
@@ -56,23 +60,46 @@ public class BoardImpl implements Board
 		return convertedBoard;
 	}
 	
+	/**
+	 * removes a piece from the hashmap
+	 * @param x coordinate of the piece to be removed
+	 * @param y coordinate of the piece to be removed
+	 */
 	public void removePiece(int x, int y)
 	{
 		PieceImpl aPiece = this.getPieceAt(x, y);
 		this.board.remove(new CoordinateImpl(x,y), aPiece);
 	}
 	
+	/**
+	 * adds a new PieceImpl to the BoardImpl hashmap
+	 * @param aPiece the PieceImpl that will be added
+	 * @param x coordinate of the piece to be added
+	 * @param y coordinate of the piece to be added
+	 */
 	public void addPiece(PieceImpl aPiece, int x, int y)
 	{
 		this.board.put(new CoordinateImpl(x, y), aPiece);
 	}
 
+	/**
+	 * get the piece at a specific location
+	 * @param the row of the target piece
+	 * @param the column of the target piece
+	 * @return the piece that is at the given row and column
+	 */
 	@Override
 	public PieceImpl getPieceAt(int row, int column)
 	{
 		return this.board.get(new CoordinateImpl(row, column));
 	}
 
+	/**
+	 * get the type of piece at a specific location
+	 * @param the row of the target piece
+	 * @param the column of the target piece
+	 * @return the type of the piece that is at the given row and column
+	 */
 	@Override
 	public SquareType getSquareTypeAt(int row, int column)
 	{

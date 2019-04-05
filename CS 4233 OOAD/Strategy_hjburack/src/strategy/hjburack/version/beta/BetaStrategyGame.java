@@ -17,26 +17,40 @@ public class BetaStrategyGame implements StrategyGame
 	int moveCount = 1;
 	boolean gameOver = false;
 	
+	/**
+	 * instantiated the BETA Strategy
+	 * @param board
+	 */
 	public BetaStrategyGame(BoardImpl board)
 	{
 		this.board = board;
 		turn = PieceColor.RED;
 	}
 	
+	/**
+	 * will move a piece from one coordinate to the target coordinate
+	 * @param the x coordinate of the piece that will be moved
+	 * @param the y coordinate of the piece that will be moved
+	 * @param the x coordinate of the target location
+	 * @param the y coordinate of the target location
+	 * @return the outcome of the requested move
+	 */
 	public MoveResult move(int fr, int fc, int tr, int tc)
 	{
-		
+		//will always return game over if someone won the game
 		if(gameOver == true)
 		{
 			return GAME_OVER;
 		}
 		
+		//will automatically end the game if there have been more than 8 turns
 		if(this.moveCount >= 8 && turn == PieceColor.BLUE)
 		{
 			gameOver = true;
 			return RED_WINS;
 		}
 		
+		//if move is invalid, the opponent will win the game
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
 			return this.opponentWins(turn);
@@ -63,10 +77,13 @@ public class BetaStrategyGame implements StrategyGame
 				//must make sure that that the strike is only a vertical or horizontal move
 				if((Math.abs(tr-fr) == 1 && tc-fc == 0) || (Math.abs(tc-fc) == 1 && tr-fr == 0))
 				{
+					//if the attacker is a greater rank than the one being attacked
+					//	remove the target from the game
 					if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
 					{
 						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
 		
+						//if the piece being striked is a flag, the attacker wins the game
 						if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
 							return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
 						}
@@ -76,6 +93,8 @@ public class BetaStrategyGame implements StrategyGame
 						return returnVal;
 						
 					}
+					//if the attacker is a lesser rank than the one being attacked
+					//	remove the attacker
 					else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
 					{
 						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
@@ -84,6 +103,7 @@ public class BetaStrategyGame implements StrategyGame
 						return returnVal;
 						
 					}
+					
 					//if they are the same rank, remove both pieces
 					else
 					{
@@ -93,6 +113,7 @@ public class BetaStrategyGame implements StrategyGame
 						return OK;
 					}
 				}
+				//if its none of these, it is an invalid move and the opponent will win
 				else
 				{
 					return this.opponentWins(turn);

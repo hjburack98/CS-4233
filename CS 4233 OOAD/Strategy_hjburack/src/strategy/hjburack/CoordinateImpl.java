@@ -6,21 +6,14 @@ import strategy.required.*;
 
 public class CoordinateImpl 
 {
-	private int x;
-	private int y;
+	private int x; //x coordinate
+	private int y; //y coordinate
 	
 	public CoordinateImpl(int x, int y)
 	{
 		this.x = x; 
 		this.y = y;
 	}
-	
-	/*
-	public CoordinateImpl(Coordinate c)
-	{
-		this(c.getX(), c.getY());
-	}
-	*/
 	
 	@Override
 	public int hashCode()
