@@ -4,6 +4,7 @@ import strategy.StrategyGame;
 import strategy.hjburack.*;
 import static strategy.StrategyGame.MoveResult.*;
 import strategy.Piece.PieceColor;
+import strategy.Piece.PieceType;
 
 
 public class BetaStrategyGame implements StrategyGame
@@ -12,10 +13,12 @@ public class BetaStrategyGame implements StrategyGame
 	private final int WIDTH = 6;
 	private final int HEIGHT = 6;
 	private BoardImpl board;
+	PieceColor turn = PieceColor.RED;
 	
 	public BetaStrategyGame(BoardImpl board)
 	{
 		this.board = board;
+		turn = PieceColor.RED;
 	}
 	
 	public MoveResult move(int fr, int fc, int tr, int tc)
@@ -28,8 +31,6 @@ public class BetaStrategyGame implements StrategyGame
 		}
 		*/
 		
-		PieceColor turn = PieceColor.RED;
-
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
 			return opponentWins(turn);
@@ -39,7 +40,9 @@ public class BetaStrategyGame implements StrategyGame
 		if(board.getPieceAt(tr, tc) == null)
 		{
 			this.movePiece(fr, fc, tr, tc);
+			changeColor(turn);
 			return OK;
+			
 		}
 		
 		//Striking
@@ -52,34 +55,59 @@ public class BetaStrategyGame implements StrategyGame
 			}
 			else
 			{
-				//must make sure that that the strike is only a vertical or herizontal move
+				//must make sure that that the strike is only a vertical or horizontal move
 				if((Math.abs(tr-fr) == 1 && tc-fc == 0) || (Math.abs(tc-fc) == 1 && tr-fr == 0))
 				{
 					if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
 					{
+						MoveResult returnVal = null;
+						if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
+						{
+							returnVal = STRIKE_RED;
+						}
+						else
+						{
+							returnVal = STRIKE_BLUE;
+						}
+						if(board.getPieceAt(tc, tr).getPieceType() == PieceType.FLAG) {
+							if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
+							{
+								returnVal = RED_WINS;
+							}
+							else
+							{
+								returnVal = BLUE_WINS;
+							}
+						}
 						board.removePiece(tr, tc);
 						this.movePiece(fr, fc, tr, tc);
+						
+						return returnVal;
 						
 					}
 					else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
 					{
+						MoveResult returnVal = null;
+						if(board.getPieceAt(fr, fc).getPieceColor() == PieceColor.RED)
+						{
+							returnVal = STRIKE_BLUE;
+						}
+						else
+						{
+							returnVal = STRIKE_RED;
+						}
+						
 						board.removePiece(fr, fc);
 						this.movePiece(tr, tc, fr, fc);
+						return returnVal;
+						
 					}
 					//if they are the same rank, remove both pieces
 					else
 					{
 						board.removePiece(fr, fc);
 						board.removePiece(tr, tc);
-					}
-					
-					if(turn == PieceColor.RED) 
-					{ 
-						return STRIKE_RED;
-					}
-					else 
-					{
-						return STRIKE_BLUE;
+						return OK;
 					}
 				}
 				else
@@ -102,6 +130,17 @@ public class BetaStrategyGame implements StrategyGame
 		}
 	}
 	
+	private static PieceColor changeColor(PieceColor color)
+	{
+		if(color == PieceColor.RED)
+		{
+			return PieceColor.BLUE;
+		}
+		else
+		{
+			return PieceColor.RED;
+		}
+	}
 	private static MoveResult youWin(PieceColor team)
 	{
 		if(team == PieceColor.BLUE)
@@ -132,6 +171,10 @@ public class BetaStrategyGame implements StrategyGame
 			return true;
 		}
 		else if(fr-tr == 0 && fc-tc == 0)
+		{
+			return true;
+		}
+		else if(board.getPieceAt(fr, fc).getPieceType() == PieceType.FLAG)
 		{
 			return true;
 		}

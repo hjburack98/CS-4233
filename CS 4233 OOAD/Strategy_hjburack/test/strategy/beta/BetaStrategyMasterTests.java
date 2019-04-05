@@ -101,6 +101,11 @@ class BetaStrategyMasterTests
 	}
 	
 	@Test
+	void selectedFlag()
+	{
+		assertEquals(BLUE_WINS, theGame.move(1, 0, 2, 0));
+	}
+	@Test
 	void validVertical()
 	{
 		assertEquals(OK, theGame.move(1, 1, 2, 1)); //go up
@@ -134,6 +139,26 @@ class BetaStrategyMasterTests
 	void collisionWithTeam()
 	{
 		assertEquals(BLUE_WINS, theGame.move(0, 0, 1, 0));
+	}
+	
+	@Test
+	void verticalStrikeRedWins()
+	{
+		theGame.move(1, 1, 2, 1);
+		theGame.move(4, 1, 3, 1);
+		assertEquals(STRIKE_RED, theGame.move(2, 1, 3, 1));
+		
+	}
+	
+	@Test
+	void horizontalStrikeBlueWins()
+	{
+		theGame.move(1, 2, 2, 2);
+		theGame.move(4, 0, 3, 0);
+		theGame.move(2, 2, 2, 1);
+		theGame.move(3, 0, 2, 0);
+		theGame.move(1, 5, 2, 5);
+		assertEquals(STRIKE_BLUE, theGame.move(2, 0, 2, 1));
 	}
 	
 	/*
