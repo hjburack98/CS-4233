@@ -19,5 +19,5 @@ move diagonal downs [DONE]
 test collision with team pieces [DONE]
 striking rules [DONE]
 striking against the flag will result in a win for the striking team [DONE]
-test a case when RED will win [DONE]
-end game after there has been a winner 
+test a case when RED will win after 8 moves [DONE]
+end game after there has been a winner [DONE]
