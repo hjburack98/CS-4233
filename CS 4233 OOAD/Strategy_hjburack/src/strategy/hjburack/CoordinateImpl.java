@@ -4,7 +4,7 @@ import strategy.*;
 import strategy.required.*;
 
 
-public class CoordinateImpl implements Coordinate
+public class CoordinateImpl 
 {
 	private int x;
 	private int y;
@@ -21,18 +21,6 @@ public class CoordinateImpl implements Coordinate
 		this(c.getX(), c.getY());
 	}
 	*/
-	
-	@Override
-	public int getX()
-	{
-		return x;
-	}
-
-	@Override
-	public int getY()
-	{
-		return y;
-	}
 	
 	@Override
 	public int hashCode()
