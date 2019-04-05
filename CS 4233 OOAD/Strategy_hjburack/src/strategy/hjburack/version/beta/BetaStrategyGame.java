@@ -20,6 +20,14 @@ public class BetaStrategyGame implements StrategyGame
 	
 	public MoveResult move(int fr, int fc, int tr, int tc)
 	{
+		/*
+		MoveResult gameWon = null;
+		if(gameWon != null)
+		{
+			return GAME_OVER;
+		}
+		*/
+		
 		PieceColor turn = PieceColor.RED;
 
 		if(this.isInvalidMove(fr, fc, tr, tc))
@@ -27,9 +35,59 @@ public class BetaStrategyGame implements StrategyGame
 			return opponentWins(turn);
 		}
 		
+		//valid move
+		if(board.getPieceAt(tr, tc) == null)
+		{
+			this.movePiece(fr, fc, tr, tc);
+			return OK;
+		}
 		
-		return OK;
-		
+		//Striking
+		else
+		{
+			//if the piece at the target coordinate is your own, you lose
+			if(board.getPieceAt(tr, tc).getPieceColor() == board.getPieceAt(fr, fc).getPieceColor())
+			{
+				return opponentWins(turn);
+			}
+			else
+			{
+				//must make sure that that the strike is only a vertical or herizontal move
+				if((Math.abs(tr-fr) == 1 && tc-fc == 0) || (Math.abs(tc-fc) == 1 && tr-fr == 0))
+				{
+					if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
+					{
+						board.removePiece(tr, tc);
+						this.movePiece(fr, fc, tr, tc);
+						
+					}
+					else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
+					{
+						board.removePiece(fr, fc);
+						this.movePiece(tr, tc, fr, fc);
+					}
+					//if they are the same rank, remove both pieces
+					else
+					{
+						board.removePiece(fr, fc);
+						board.removePiece(tr, tc);
+					}
+					
+					if(turn == PieceColor.RED) 
+					{ 
+						return STRIKE_RED;
+					}
+					else 
+					{
+						return STRIKE_BLUE;
+					}
+				}
+				else
+				{
+					return opponentWins(turn);
+				}
+			}
+		}
 	}
 	
 	private static MoveResult opponentWins(PieceColor team)
@@ -44,17 +102,28 @@ public class BetaStrategyGame implements StrategyGame
 		}
 	}
 	
+	private static MoveResult youWin(PieceColor team)
+	{
+		if(team == PieceColor.BLUE)
+		{
+			return BLUE_WINS;
+		}
+		else
+		{
+			return RED_WINS;
+		}
+	}
 	private boolean isInvalidMove(int fr, int fc, int tr, int tc)
 	{
 		if(board.getPieceAt(fr, fc) == null)
 		{
 			return true;
 		}
-		else if(fr < 0 || fr >= WIDTH || fc < 0 || fc >= HEIGHT)
+		else if(fr < 0 || fr >= HEIGHT || fc < 0 || fc >= WIDTH)
 		{
 			return true;
 		}
-		else if(tr < 0 || tr >= WIDTH || tc < 0 || tc >= HEIGHT)
+		else if(tr < 0 || tr >= HEIGHT || tc < 0 || tc >= WIDTH)
 		{
 			return true;
 		}
@@ -70,11 +139,13 @@ public class BetaStrategyGame implements StrategyGame
 		return false;
 	}
 	
-	private void movePiece(int fr, int fc, int tr, int tc)
+	private PieceImpl movePiece(int fr, int fc, int tr, int tc)
 	{
 		PieceImpl aPiece = board.getPieceAt(fr, fc);
 		board.removePiece(fr, fc);
 		board.addPiece(aPiece, tr, tc);
+		PieceImpl newPiece = board.getPieceAt(tr, tc);
+		return newPiece;
 	}
 	
 	

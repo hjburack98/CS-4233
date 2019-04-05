@@ -22,6 +22,10 @@ import static strategy.required.StrategyGameFactory.makeGame;
 import java.util.List;
 import org.junit.jupiter.api.*;
 import strategy.*;
+import strategy.Piece.PieceColor;
+import strategy.Piece.PieceType;
+import strategy.hjburack.BoardImpl;
+import strategy.hjburack.PieceImpl;
 import strategy.testutil.TestBoard;
 import static strategy.Piece.PieceColor.*;
 import static strategy.Piece.PieceType.*;
@@ -52,6 +56,7 @@ class BetaStrategyMasterTests
 		theBoard.initialize(6, 6, redLineup, blueLineup);
 		theGame = makeGame(BETA, theBoard);
 	}
+	
 	
 	@Test
 	void startingCoordinateOutOfBounds()
@@ -95,6 +100,43 @@ class BetaStrategyMasterTests
 		assertEquals(BLUE_WINS, theGame.move(0, 0, 0, 0));
 	}
 	
+	@Test
+	void validVertical()
+	{
+		assertEquals(OK, theGame.move(1, 1, 2, 1)); //go up
+		assertEquals(OK, theGame.move(4, 0, 3, 0)); //go down	
+	}
+	
+	@Test
+	void validDiagonal()
+	{
+		assertEquals(OK, theGame.move(1, 1, 2, 0)); //go diagonal up left
+		assertEquals(OK, theGame.move(1, 4, 2, 5)); //go diagonal up right
+		assertEquals(OK, theGame.move(4, 1, 3, 0)); // go diagonal down left
+		assertEquals(OK, theGame.move(4, 4, 3, 5)); // go diagonal down right
+	}
+	
+	@Test
+	void validLeft()
+	{
+		theGame.move(1, 1, 2, 1);
+		assertEquals(OK, theGame.move(2, 1, 2, 0)); //go left
+	}
+	
+	@Test
+	void validRight()
+	{
+		theGame.move(1, 1, 2, 1);
+		assertEquals(OK, theGame.move(2, 1, 2, 2)); //go right
+	}
+	
+	@Test
+	void collisionWithTeam()
+	{
+		assertEquals(BLUE_WINS, theGame.move(0, 0, 1, 0));
+	}
+	
+	/*
 	@Test 
 	void redWinsAfterEightTurns()
 	{
@@ -115,7 +157,8 @@ class BetaStrategyMasterTests
 		assertEquals(OK, theGame.move(2, 1, 1, 1));	// Move 8
 		assertEquals(RED_WINS, theGame.move(3, 2, 4, 2));
 	}
-
+	*/
+	
 	@Test
 	void versionNotImplemented()
 	{
