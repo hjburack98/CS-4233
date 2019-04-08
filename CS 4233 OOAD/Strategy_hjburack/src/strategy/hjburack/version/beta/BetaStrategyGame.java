@@ -74,52 +74,45 @@ public class BetaStrategyGame implements StrategyGame
 			}
 			else
 			{
-				//must make sure that that the strike is only a vertical or horizontal move
-				if((Math.abs(tr-fr) == 1 && tc-fc == 0) || (Math.abs(tc-fc) == 1 && tr-fr == 0))
+				//if the attacker is a greater rank than the one being attacked
+				//	remove the target from the game
+				if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
 				{
-					//if the attacker is a greater rank than the one being attacked
-					//	remove the target from the game
-					if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
-					{
-						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
-		
-						//if the piece being striked is a flag, the attacker wins the game
-						if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
-							return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
-						}
-						board.removePiece(tr, tc);
-						this.movePiece(fr, fc, tr, tc);
-						
-						return returnVal;
-						
+					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+	
+					//if the piece being striked is a flag, the attacker wins the game
+					if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
+						return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
 					}
-					//if the attacker is a lesser rank than the one being attacked
-					//	remove the attacker
-					else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
-					{
-						MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
-						board.removePiece(fr, fc);
-						this.movePiece(tr, tc, fr, fc);
-						return returnVal;
+					board.removePiece(tr, tc);
+					this.movePiece(fr, fc, tr, tc);
 						
-					}
-					
-					//if they are the same rank, remove both pieces
-					else
-					{
-						board.removePiece(fr, fc);
-						board.removePiece(tr, tc);
-						this.swapTurn();
-						return OK;
-					}
+					return returnVal;
+						
 				}
-				//if its none of these, it is an invalid move and the opponent will win
-				else
+				//if the attacker is a lesser rank than the one being attacked
+				//	remove the attacker
+				else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
 				{
-					return this.opponentWins(turn);
+					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+					board.removePiece(fr, fc);
+					this.movePiece(tr, tc, fr, fc);
+					return returnVal;
+					
+				}
+				
+				//if they are the same rank, remove both pieces
+				else if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
+				{
+					board.removePiece(fr, fc);
+					board.removePiece(tr, tc);
+					this.swapTurn();
+					return OK;
 				}
 			}
 		}
+		
+		return this.opponentWins(turn);
 	}
 	
 	private MoveResult opponentWins(PieceColor team)
