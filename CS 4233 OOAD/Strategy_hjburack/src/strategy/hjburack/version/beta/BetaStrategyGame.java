@@ -166,6 +166,11 @@ public class BetaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
+		//NEW: CANNOT DO DIAGONAL MOVES
+		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
+		{
+			return true;
+		}
 		
 		return false;
 	}

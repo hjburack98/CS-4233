@@ -125,11 +125,6 @@ class BetaStrategyMasterTests
 	{
 		assertEquals(BLUE_WINS, theGame.move(0, 0, 2, 0));
 		
-		
-		
-		
-		
-		
 	}
 	@Test
 	void tooFarDown()
@@ -179,19 +174,35 @@ class BetaStrategyMasterTests
 		assertEquals(BLUE_WINS, theGame.move(1, 0, 2, 0));
 	}
 	@Test
+	void cantDiagonalUpLeft()
+	{
+		assertEquals(BLUE_WINS, theGame.move(1, 1, 2, 0));
+	}
+	@Test
+	void cantDiagonalDownLeft()
+	{
+		theGame.move(1, 1, 2, 1);
+		assertEquals(RED_WINS, theGame.move(4, 1, 3, 0));
+	}
+	@Test
+	void cantDiagonalUpRight()
+	{
+		assertEquals(BLUE_WINS, theGame.move(1, 4, 2, 5));
+	}
+	@Test
+	void cantDiagonalDownRight()
+	{
+		theGame.move(1, 1, 2, 1);
+		assertEquals(RED_WINS, theGame.move(4, 3, 3, 4));
+	}
+
+	
+	
+	@Test
 	void validVertical()
 	{
 		assertEquals(OK, theGame.move(1, 1, 2, 1)); //go up
 		assertEquals(OK, theGame.move(4, 0, 3, 0)); //go down	
-	}
-	
-	@Test
-	void validDiagonal()
-	{
-		assertEquals(OK, theGame.move(1, 1, 2, 0)); //go diagonal up left
-		assertEquals(OK, theGame.move(4, 1, 3, 0)); // go diagonal down left
-		assertEquals(OK, theGame.move(1, 4, 2, 5)); //go diagonal up right
-		assertEquals(OK, theGame.move(4, 3, 3, 4)); // go diagonal down right
 	}
 	
 	@Test
@@ -249,12 +260,13 @@ class BetaStrategyMasterTests
 	@Test
 	void blueAttackerLosesStrike()
 	{
-		theGame.move(1, 1, 2, 1);
-		theGame.move(4, 5, 3, 5);
-		theGame.move(2, 1, 3, 1);
-		theGame.move(3, 5, 2, 5);
-		theGame.move(1, 5, 2, 5);
+		assertEquals(OK, theGame.move(1, 1, 2, 1));
+		assertEquals(OK, theGame.move(4, 5, 3, 5));
+		assertEquals(OK, theGame.move(2, 1, 3, 1));
+		assertEquals(OK, theGame.move(3, 5, 2, 5));
+		assertEquals(STRIKE_BLUE, theGame.move(1, 5, 2, 5));
 		assertEquals(STRIKE_RED, theGame.move(4, 1, 3, 1));
+		
 	}
 	
 	@Test
