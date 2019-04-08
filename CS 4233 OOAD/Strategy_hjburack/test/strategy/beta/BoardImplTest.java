@@ -27,7 +27,7 @@ public class BoardImplTest
 	@Test
 	public void canConvertBoard()
 	{
-		TestBoard theBoard = new TestBoard(6, 6);
+		TestBoardBeta theBoard = new TestBoardBeta(6, 6);
 		List<Piece> redLineup = theBoard.makeLineup(RED,
 				SERGEANT, SERGEANT, COLONEL, CAPTAIN, LIEUTENANT, LIEUTENANT,
 				FLAG, MARSHAL, COLONEL, CAPTAIN, LIEUTENANT, SERGEANT);
@@ -45,7 +45,7 @@ public class BoardImplTest
 	@Test
 	public void addPiece()
 	{
-		 TestBoard theBoard = new TestBoard(6, 6);
+		 TestBoardBeta theBoard = new TestBoardBeta(6, 6);
 		List<Piece> redLineup = theBoard.makeLineup(RED,
 				SERGEANT, SERGEANT, COLONEL, CAPTAIN, LIEUTENANT, LIEUTENANT,
 				FLAG, MARSHAL, COLONEL, CAPTAIN, LIEUTENANT, SERGEANT);
@@ -67,7 +67,7 @@ public class BoardImplTest
 	@Test
 	public void removePiece()
 	{
-		TestBoard theBoard = new TestBoard(6, 6);
+		TestBoardBeta theBoard = new TestBoardBeta(6, 6);
 		List<Piece> redLineup = theBoard.makeLineup(RED,
 				SERGEANT, SERGEANT, COLONEL, CAPTAIN, LIEUTENANT, LIEUTENANT,
 				FLAG, MARSHAL, COLONEL, CAPTAIN, LIEUTENANT, SERGEANT);

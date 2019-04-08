@@ -23,7 +23,7 @@ import java.util.*;
  * Master tests for the students' code.
  * @version Apr 1, 2019
  */
-public class TestBoard implements Board
+public class TestBoardBeta implements Board
 {
 	private Map<TestCoordinate, Piece> board;
 	private int rows, columns;
@@ -31,7 +31,7 @@ public class TestBoard implements Board
 	/**
 	 * Board for student tests only
 	 */
-	public TestBoard(int rows, int columns)
+	public TestBoardBeta(int rows, int columns)
 	{
 		board = new HashMap<TestCoordinate, Piece>();
 		this.rows = rows;
