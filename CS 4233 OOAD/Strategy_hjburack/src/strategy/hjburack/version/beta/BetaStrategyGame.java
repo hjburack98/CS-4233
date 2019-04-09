@@ -101,7 +101,7 @@ public class BetaStrategyGame implements StrategyGame
 					
 				}
 				
-				//if they are the same rank, remove both pieces
+				//if they are the same rank, remove both pieces 
 				else if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
 				{
 					board.removePiece(fr, fc);
