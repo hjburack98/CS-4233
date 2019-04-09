@@ -232,6 +232,7 @@ public class BetaStrategyGame implements StrategyGame
 	 * @param winner the color of the team that won the strike
 	 * @return the MoveResult for that color's winning strike
 	 */
+
 	private MoveResult getStrikeResult(PieceColor strikeWinner)
 	{
 		//if strike winner is red, return STRIKE_RED
