@@ -13,8 +13,8 @@ public class BetaStrategyGame implements StrategyGame
 	private final int WIDTH = 6;
 	private final int HEIGHT = 6;
 	private BoardImpl board;
-	PieceColor turn;
-	int moveCount = 1;
+	PieceColor turn; //determine's which player can move
+	int moveCount = 1; //8 move limit
 	boolean gameOver = false;
 	
 	/**
@@ -115,13 +115,20 @@ public class BetaStrategyGame implements StrategyGame
 		return this.opponentWins(turn);
 	}
 	
+	/**
+	 * return's that the opponent's color wins the game
+	 * @param team of the current player
+	 * @return the move result that the opposing team wins
+	 */
 	private MoveResult opponentWins(PieceColor team)
 	{
+		//if team is red, return BLUE_WINS
 		if(team == PieceColor.RED)
 		{
 			gameOver = true;
 			return BLUE_WINS;
 		}
+		//if team is blue, return RED_WINS
 		else
 		{
 			gameOver = true;
@@ -129,51 +136,72 @@ public class BetaStrategyGame implements StrategyGame
 		}
 	}
 
+	/**
+	 * determine;s if the given move is invalid
+	 * @param fr row of the piece being moved
+	 * @param fc column of the piece being moves
+	 * @param tr row of the target square
+	 * @param tc column of the target square
+	 * @return true if the move given is invalid
+	 */
 	private boolean isInvalidMove(int fr, int fc, int tr, int tc)
 	{
+		//No piece in the selected spot
 		if(board.getPieceAt(fr, fc) == null)
 		{
 			return true;
 		}
+		//"from" square is out of bounds
 		else if(fr < 0 || fr >= HEIGHT || fc < 0 || fc >= WIDTH)
 		{
 			return true;
 		}
+		//"to" square is out of bounds
 		else if(tr < 0 || tr >= HEIGHT || tc < 0 || tc >= WIDTH)
 		{
 			return true;
 		}
+		//target is more than one block away
 		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
 		{
 			return true;
 		}
-		else if(fr-tr == 0 && fc-tc == 0)
+		//"from" and "to" are in the same spot
+		else if(fr == tr && fc == tc)
 		{
 			return true;
 		}
+		//trying to move the flag
 		else if(board.getPieceAt(fr, fc).getPieceType() == PieceType.FLAG)
 		{
 			return true;
 		}
+		//trying to move opponent's piece
 		else if(board.getPieceAt(fr, fc).getPieceColor() != this.turn)
 		{
 			return true;
 		}
-		//NEW: CANNOT DO DIAGONAL MOVES
+		//making diagonal move
 		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
 		{
 			return true;
 		}
 		
+		//return false if valid move
 		return false;
 	}
 	
+	/**
+	 * changes which player it is in the game
+	 */
 	private void swapTurn()
 	{
+		//if red, return blue
 		if(turn == PieceColor.RED)
 		{
 			turn = PieceColor.BLUE;
 		}
+		//if blue, return red
 		else
 		{
 			moveCount++;
@@ -181,6 +209,14 @@ public class BetaStrategyGame implements StrategyGame
 		}
 	}
 	
+	/**
+	 * actually changes the location of a piece
+	 * @param fr row of the piece being moved
+	 * @param fc column of the piece being moves
+	 * @param tr row of the target square
+	 * @param tc column of the target square
+	 * @return a new piece made with the updated coordinates
+	 */
 	private PieceImpl movePiece(int fr, int fc, int tr, int tc)
 	{
 		PieceImpl aPiece = board.getPieceAt(fr, fc);
@@ -191,27 +227,39 @@ public class BetaStrategyGame implements StrategyGame
 		return newPiece;
 	}
 	
-	private MoveResult getStrikeResult(PieceColor winner)
+	/**
+	 * returns the moveResult for the winning strike
+	 * @param winner the color of the team that won the strike
+	 * @return the MoveResult for that color's winning strike
+	 */
+	private MoveResult getStrikeResult(PieceColor strikeWinner)
 	{
-		if(winner == PieceColor.RED)
+		//if strike winner is red, return STRIKE_RED
+		if(strikeWinner == PieceColor.RED)
 		{
 			return STRIKE_RED;
 		}
-		
+		//if strike winner is blue, return STRIKE_BLUE
 		else
 		{
 			return STRIKE_BLUE;
 		}
 	}
 	
+	/**
+	 * returns the MoveResult for the winner of the game
+	 * @param winner the color of the winning team
+	 * @return the MoveResult for that color winning the game
+	 */
 	private MoveResult getWinner(PieceColor winner)
 	{
+		//if winner is red, return RED_WINS
 		if(winner == PieceColor.RED)
 		{
 			gameOver = true;
 			return RED_WINS;
 		}
-		
+		//if winner is blue, return BLUE_WINS
 		else 
 		{
 			gameOver = true;
