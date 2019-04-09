@@ -55,7 +55,6 @@ public class BoardImpl implements Board
 			}
 		}
 		
-		
 		BoardImpl convertedBoard = new BoardImpl(board);
 		return convertedBoard;
 	}
