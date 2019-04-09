@@ -47,7 +47,10 @@ public class PieceImpl implements Piece
 		return true;
 	}
 
-	
+	/**
+	 * sets the rank number of the piece determined by its type
+	 * @return the value of the rank for the proper PieceType
+	 */
 	private int setRank()
 	{
 		if(type == PieceType.MARSHAL)
