@@ -37,6 +37,10 @@ public class StrategyGameFactory
 				BoardImpl betaBoard = BoardImpl.convertBoard(board, 6, 6);
 				game = new BetaStrategyGame(betaBoard);
 				break;
+			case GAMMA:
+				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
+				game = new GammaStrategyGame(gammaBoard);
+				break;
 			default:
 				throw new NotImplementedException(
 						"StrategyGameFactory.makeGame for version " + version);
