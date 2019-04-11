@@ -26,6 +26,8 @@ public class BoardImpl implements Board
 {
 
 	private Map<CoordinateImpl, PieceImpl> board;
+	private int width;
+	private int height;
 	
 	/**
 	 * create a board as a hashmap
@@ -56,7 +58,19 @@ public class BoardImpl implements Board
 		}
 		
 		BoardImpl convertedBoard = new BoardImpl(board);
+		convertedBoard.width = width;
+		convertedBoard.height = height;
 		return convertedBoard;
+	}
+	
+	public int getWidth()
+	{
+		return this.width;
+	}
+	
+	public int getHeight()
+	{
+		return this.height;
 	}
 	
 	/**

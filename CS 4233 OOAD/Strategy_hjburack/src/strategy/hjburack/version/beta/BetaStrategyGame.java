@@ -10,8 +10,6 @@ import strategy.Piece.PieceType;
 public class BetaStrategyGame implements StrategyGame
 {
 	
-	private final int WIDTH = 6;
-	private final int HEIGHT = 6;
 	private BoardImpl board;
 	PieceColor turn; //determine's which player can move
 	int moveCount = 1; //8 move limit
@@ -152,12 +150,12 @@ public class BetaStrategyGame implements StrategyGame
 			return true;
 		}
 		//"from" square is out of bounds
-		else if(fr < 0 || fr >= HEIGHT || fc < 0 || fc >= WIDTH)
+		else if(fr < 0 || fr >= board.getHeight() || fc < 0 || fc >= board.getWidth())
 		{
 			return true;
 		}
 		//"to" square is out of bounds
-		else if(tr < 0 || tr >= HEIGHT || tc < 0 || tc >= WIDTH)
+		else if(tr < 0 || tr >= board.getHeight() || tc < 0 || tc >= board.getWidth())
 		{
 			return true;
 		}
