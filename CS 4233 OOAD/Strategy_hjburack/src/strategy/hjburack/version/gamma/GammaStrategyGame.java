@@ -12,8 +12,9 @@ public class GammaStrategyGame implements StrategyGame
 {
 	private BoardImpl board;
 	PieceColor turn; //determine's which player can move
-	int moveCount = 1; //8 move limit
+	int consecutiveMoveCount = 1;
 	boolean gameOver = false;
+	private PieceImpl previousMove;
 	
 	/**
 	 * instantiated the BETA Strategy
@@ -41,12 +42,6 @@ public class GammaStrategyGame implements StrategyGame
 			return GAME_OVER;
 		}
 		
-		//will automatically end the game if there have been more than 8 turns
-		if(this.moveCount >= 8 && turn == PieceColor.BLUE)
-		{
-			gameOver = true;
-			return RED_WINS;
-		}
 		
 		//if move is invalid, the opponent will win the game
 		if(this.isInvalidMove(fr, fc, tr, tc))
@@ -202,7 +197,6 @@ public class GammaStrategyGame implements StrategyGame
 		//if blue, return red
 		else
 		{
-			moveCount++;
 			turn = PieceColor.RED;
 		}
 	}
