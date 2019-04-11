@@ -21,7 +21,7 @@ public class GammaStrategyGame implements StrategyGame
 	CoordinateImpl bluePreviousTarget = null;
 	
 	/**
-	 * instantiated the BETA Strategy
+	 * instantiated the GAMMA Strategy
 	 * @param board
 	 */
 	public GammaStrategyGame(BoardImpl board)
