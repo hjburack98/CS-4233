@@ -14,7 +14,8 @@ public class GammaStrategyGame implements StrategyGame
 	PieceColor turn; //determine's which player can move
 	int consecutiveMoveCount = 1;
 	boolean gameOver = false;
-	private PieceImpl previousMove;
+	private CoordinateImpl redPreviousMove = null;
+	private CoordinateImpl bluePreviousMove = null;
 	
 	/**
 	 * instantiated the BETA Strategy
@@ -127,6 +128,34 @@ public class GammaStrategyGame implements StrategyGame
 			gameOver = true;
 			return RED_WINS;
 		}
+	}
+	
+	/**
+	 * gets the previous move made
+	 * @param fr original row
+	 * @param fc original column
+	 * @return a new coordinate of the previous move made
+	 */
+	private CoordinateImpl getPreviousMove(int fr, int fc) {
+		CoordinateImpl previousCoordinate = new CoordinateImpl(fr, fc);
+		return previousCoordinate;
+	}
+	
+	/**
+	 * determines if the move being made is the same as the last move made
+	 * @param previous the coordinate of the previous move made
+	 * @param tr the row of the target coordinate
+	 * @param tc the column of the target coordinate
+	 * @return true if the target row and column are the same as the previous coordinate row and column
+	 */
+	private boolean determineConsecutiveMove(CoordinateImpl previous, int tr, int tc)
+	{
+		if(tr == previous.getX() && tc == previous.getY())
+		{
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**
