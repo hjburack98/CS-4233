@@ -120,6 +120,7 @@ public class BoardImpl implements Board
 		{
 			return Board.SquareType.CHOKE;
 		}
+		
 		return SquareType.NORMAL;
 	}
 
