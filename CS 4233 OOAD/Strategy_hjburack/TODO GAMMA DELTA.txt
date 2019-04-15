@@ -1,0 +1,9 @@
+TODO GAMMA:
+
+red team making consecutive moves
+blue team making consecutive moves
+Check the board for choke points
+add in Bomb piece
+add in miner piece
+add in scout piece
+add in spy piece

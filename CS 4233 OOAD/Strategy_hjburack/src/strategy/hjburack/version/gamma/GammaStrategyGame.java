@@ -4,21 +4,35 @@ import strategy.StrategyGame;
 import strategy.StrategyGame;
 import strategy.hjburack.*;
 import static strategy.StrategyGame.MoveResult.*;
+import strategy.Board.SquareType;
 import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
 import strategy.StrategyGame.MoveResult;
 
+
+//implement a StrategyGame interface that will call different StrategyGame versions
 public class GammaStrategyGame implements StrategyGame
 {
 	private BoardImpl board;
 	PieceColor turn; //determine's which player can move
+	boolean gameOver = false;
+	
+	//previous move location storage
+	int fromRedRow = -1;
+	int fromRedCol = -1;
+	int toRedRow = -1;
+	int toRedCol = -1;
+	int fromBlueRow = -1;
+	int fromBlueCol = -1;
+	int toBlueRow = -1;
+	int toBlueCol = -1;
+	
+	//counters for consecutive moves
 	int redConsecutiveCount = 1;
 	int blueConsecutiveCount = 1;
-	boolean gameOver = false;
-	CoordinateImpl redPreviousFrom = null;
-	CoordinateImpl redPreviousTarget = null;
-	CoordinateImpl bluePreviousFrom = null;
-	CoordinateImpl bluePreviousTarget = null;
+	
+	boolean consecutiveMoveHit;
+	
 	
 	/**
 	 * instantiated the GAMMA Strategy
@@ -46,7 +60,7 @@ public class GammaStrategyGame implements StrategyGame
 			return GAME_OVER;
 		}
 		
-		
+		consecutiveMoveHit = this.isInvalidMove(fr, fc, tr, tc);
 		//if move is invalid, the opponent will win the game
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
@@ -134,17 +148,6 @@ public class GammaStrategyGame implements StrategyGame
 	}
 	
 	/**
-	 * gets the previous move made
-	 * @param fr original row
-	 * @param fc original column
-	 * @return a new coordinate of the previous move made
-	 */
-	private CoordinateImpl getPreviousMove(int row, int col) {
-		CoordinateImpl previousCoordinate = new CoordinateImpl(row, col);
-		return previousCoordinate;
-	}
-
-	/**
 	 * determine;s if the given move is invalid
 	 * @param fr row of the piece being moved
 	 * @param fc column of the piece being moves
@@ -194,7 +197,16 @@ public class GammaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
-		//making the same consistant move
+		//making the same consistent move
+		else if(consecutiveMoveHit == true)
+		{
+			return true;
+		}
+		//try to move into a choke position
+		else if(board.getSquareTypeAt(tr, tc) == SquareType.CHOKE)
+		{
+			return true;
+		}
 		
 		//return false if valid move
 		return false;
@@ -274,5 +286,81 @@ public class GammaStrategyGame implements StrategyGame
 			gameOver = true;
 			return BLUE_WINS;
 		}
+	}
+	
+	//for determining previous move
+	//	if previous from == current to and current from == previous to
+	//		increment the correct moveCount
+	//	else
+	//		set the correct moveCount to 1
+	//	if the move count is > 2
+	//		return the opponent wins
+	private boolean isConsecutiveMove(int fr, int fc, int tr, int tc)
+	{
+		//red piece color
+		if(turn == PieceColor.RED)
+		{
+			if(board.getPieceAt(tr, tc) != null)
+			{
+				redConsecutiveCount = 0;
+			}
+			
+			//if the current move is the same as the previous, increment and check repetition
+			else if(fr == toRedRow && fc == toRedCol && tr == fromRedRow && tc == fromRedCol)
+			{
+				redConsecutiveCount++;
+				
+				//if the game hits the repetition rule, return true
+				if(redConsecutiveCount == 3)
+				{
+					return true;
+				}
+			}
+			
+			//if it is a normal move, make the correct move counter 1
+			else
+			{
+				redConsecutiveCount = 1;
+			}
+			
+			fromRedRow = fr;
+			fromRedCol = fc;
+			toRedRow = tr;
+			toRedCol = tc;
+		}
+		
+		//blue piece color
+		else
+		{
+			if(board.getPieceAt(tr, tc) != null)
+			{
+				blueConsecutiveCount = 0;
+			}
+			
+			//if the current move is the same as the previous, increment and check repetition
+			else if(fr == toBlueRow && fc == toBlueCol && tr == fromBlueRow && tc == fromBlueCol)
+			{
+				blueConsecutiveCount++;
+				
+				//if the game hits the repetition rule, return true
+				if(blueConsecutiveCount == 3)
+				{
+					return true;
+				}
+			}
+			
+			//if it is a normal move, make the correct move counter 1
+			else
+			{
+				blueConsecutiveCount = 1;
+			}
+			
+			fromBlueRow = fr;
+			fromBlueCol = fc;
+			toBlueRow = tr;
+			toBlueCol = tc;
+		}
+		
+		return false;
 	}
 }

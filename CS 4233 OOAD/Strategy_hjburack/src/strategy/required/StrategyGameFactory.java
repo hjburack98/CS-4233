@@ -17,6 +17,7 @@ import strategy.StrategyGame.Version;
 import strategy.hjburack.BoardImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
+import strategy.hjburack.version.gamma.GammaStrategyGame;
 import static strategy.StrategyGame.*;
 
 /**
@@ -37,12 +38,12 @@ public class StrategyGameFactory
 				BoardImpl betaBoard = BoardImpl.convertBoard(board, 6, 6);
 				game = new BetaStrategyGame(betaBoard);
 				break;
-				/*
+				
 			case GAMMA:
 				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
 				game = new GammaStrategyGame(gammaBoard);
 				break;
-				*/
+				
 			default:
 				throw new NotImplementedException(
 						"StrategyGameFactory.makeGame for version " + version);

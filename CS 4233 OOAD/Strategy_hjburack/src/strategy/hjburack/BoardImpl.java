@@ -108,14 +108,18 @@ public class BoardImpl implements Board
 	}
 
 	/**
-	 * get the type of piece at a specific location
+	 * get the type of square at a specific location
 	 * @param the row of the target piece
 	 * @param the column of the target piece
-	 * @return the type of the piece that is at the given row and column
+	 * @return the type of the square that is at the given row and column
 	 */
 	@Override
 	public SquareType getSquareTypeAt(int row, int column)
 	{
+		if(this.getSquareTypeAt(row, column) == SquareType.CHOKE)
+		{
+			return Board.SquareType.CHOKE;
+		}
 		return SquareType.NORMAL;
 	}
 
