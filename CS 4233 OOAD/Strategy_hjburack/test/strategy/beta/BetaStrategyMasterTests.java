@@ -26,7 +26,7 @@ import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
 import strategy.hjburack.BoardImpl;
 import strategy.hjburack.PieceImpl;
-import strategy.testutil.TestBoardBeta;
+import strategy.testutil.TestBoard;
 import static strategy.Piece.PieceColor.*;
 import static strategy.Piece.PieceType.*;
 
@@ -41,12 +41,12 @@ class BetaStrategyMasterTests
 	private StrategyGame theGame = null;
 	private List<Piece> redLineup = null;
 	private List<Piece> blueLineup = null;
-	private TestBoardBeta theBoard = null;
+	private TestBoard theBoard = null;
 	
 	@BeforeEach
 	void betaSetup() throws Exception
 	{
-		theBoard = new TestBoardBeta(6, 6);
+		theBoard = new TestBoard(6, 6);
 		redLineup = theBoard.makeLineup(RED,
 				SERGEANT, SERGEANT, COLONEL, CAPTAIN, LIEUTENANT, LIEUTENANT,
 				FLAG, MARSHAL, COLONEL, CAPTAIN, LIEUTENANT, SERGEANT);
