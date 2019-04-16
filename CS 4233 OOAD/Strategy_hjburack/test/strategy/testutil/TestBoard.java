@@ -23,17 +23,19 @@ import java.util.*;
  * Master tests for the students' code.
  * @version Apr 1, 2019
  */
-public class TestBoardBeta implements Board
+public class TestBoard implements Board
 {
 	private Map<TestCoordinate, Piece> board;
+	private Map<TestCoordinate, SquareType> chokeBoard;
 	private int rows, columns;
 	
 	/**
 	 * Board for student tests only
 	 */
-	public TestBoardBeta(int rows, int columns)
+	public TestBoard(int rows, int columns)
 	{
 		board = new HashMap<TestCoordinate, Piece>();
+		chokeBoard = new HashMap<TestCoordinate, SquareType>();
 		this.rows = rows;
 		this.columns = columns;
 	}
@@ -63,6 +65,11 @@ public class TestBoardBeta implements Board
 				r++;
 			}
 		}
+	}
+	
+	public void placeChokeAt(int row, int column)
+	{
+		chokeBoard.put(new TestCoordinate(row,column), SquareType.CHOKE);
 	}
 	
 	@Override

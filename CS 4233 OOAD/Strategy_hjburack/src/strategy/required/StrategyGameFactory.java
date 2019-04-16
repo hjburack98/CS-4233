@@ -59,10 +59,8 @@ public class StrategyGameFactory
 				break;
 				
 			case GAMMA:
-				BoardImpl gammaConvertBoard = BoardImpl.convertBoard(board, 6, 6);
-				Map<CoordinateImpl, PieceImpl> gammaBoardMap = gammaConvertBoard.getBoard();
-				makeGammaChokeBoard(gammaConvertBoard);
-				BoardImpl gammaBoard = new BoardImpl(gammaBoardMap, gammaChokeMap);
+				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
+
 				game = new GammaStrategyGame(gammaBoard);
 				break;
 				

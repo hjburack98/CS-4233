@@ -57,13 +57,16 @@ public class BoardImpl implements Board
 	public static BoardImpl convertBoard(Board aBoard, int width, int height)
 	{
 		Map<CoordinateImpl, PieceImpl> board = new HashMap<>();
+		Map<CoordinateImpl, SquareType> chokeBoard = new HashMap<>();
 		for(int y = 0; y < height; y++)
 		{
 			for(int x = 0; x < width; x++)
 			{
-				CoordinateImpl coordinate = new CoordinateImpl(x,y);
-				PieceImpl scannedPiece = PieceImpl.convertPiece(aBoard.getPieceAt(x, y));
+				CoordinateImpl coordinate = new CoordinateImpl(y,x);
+				PieceImpl scannedPiece = PieceImpl.convertPiece(aBoard.getPieceAt(y, x));
 				board.put(coordinate, scannedPiece);
+				
+				chokeBoard.put(coordinate, aBoard.getSquareTypeAt(y, x));
 			}
 		}
 		
