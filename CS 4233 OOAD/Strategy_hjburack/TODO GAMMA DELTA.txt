@@ -1,15 +1,15 @@
 TODO GAMMA:
 
-red team making consecutive moves
-blue team making consecutive moves
-Can't move into choke points
+red team making consecutive moves [implemented]
+blue team making consecutive moves [implemented]
+Can't move into choke points [implemented]
 Create bomb piece
-	Bomb piece cannot move
-	bomb piece kills anyone when they try to strike it
-	Bomb piece will not kill a miner when it tries to strike it
+	Bomb piece cannot move [implemented]
+	bomb piece kills anyone when they try to strike it [implemented]
+	Bomb piece will not kill a miner when it tries to strike it [implemented]
 add in miner piece
-	miner is the only piece that can kill bomb
+	miner is the only piece that can kill bomb [implemented]
+add in spy piece
+	spy is the only player that can kill a marshal [implemented]
 add in scout piece
 	scout can move multiple spaces as long as there is not an opponent in it's way
-add in spy piece
-	spy is the only player that can kill a marshal

@@ -77,6 +77,7 @@ public class DeltaStrategyGame implements StrategyGame
 		//Striking
 		else
 		{
+			MoveResult returnVal = null;
 			//if the piece at the target coordinate is your own, you lose
 			if(board.getPieceAt(tr, tc).getPieceColor() == board.getPieceAt(fr, fc).getPieceColor())
 			{
@@ -84,23 +85,52 @@ public class DeltaStrategyGame implements StrategyGame
 			}
 			
 			//if you are striking a bomb
-			else if(board.getPieceAt(tr, tc).getRank() == 2)
+			if(board.getPieceAt(tr, tc).getPieceType() == PieceType.BOMB)
 			{
 				//if the player striking the bomb is a miner
-				if(board.getPieceAt(fr, fc).getRank() == 5)
+				if(board.getPieceAt(fr, fc).getPieceType() == PieceType.MINER)
 				{
-					return this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+					returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+					board.removePiece(tr, tc);
+					this.movePiece(fr, fc, tr, tc);
+					
+					return returnVal;
 				}
 				
-				return this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+				returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+				board.removePiece(fr, fc);
+				this.swapTurn();
+				
+				return returnVal;
 			}
+			
+			//if a spy is striking
+			if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SPY)
+			{
+				if(board.getPieceAt(tr, tc).getPieceType() == PieceType.MARSHAL)
+				{
+					returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+					board.removePiece(tr, tc);
+					this.movePiece(fr, fc, tr, tc);
+					
+					return returnVal;
+				}
+				
+				returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+				board.removePiece(fr, fc);
+				this.movePiece(fr, fc, tr, tc);
+				
+				return returnVal;
+			}
+			
+			//is a valid strike
 			else
 			{
 				//if the attacker is a greater rank than the one being attacked
 				//	remove the target from the game
 				if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
 				{
-					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+					returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
 	
 					//if the piece being striked is a flag, the attacker wins the game
 					if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
@@ -116,7 +146,7 @@ public class DeltaStrategyGame implements StrategyGame
 				//	remove the attacker
 				else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
 				{
-					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
 					board.removePiece(fr, fc);
 					this.movePiece(tr, tc, fr, fc);
 					return returnVal;
