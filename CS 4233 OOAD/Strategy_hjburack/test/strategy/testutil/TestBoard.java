@@ -81,7 +81,12 @@ public class TestBoard implements Board
 	@Override
 	public SquareType getSquareTypeAt(int row, int column)
 	{
-		return NORMAL;
+		if(chokeBoard.get(new TestCoordinate(row,column)) == SquareType.CHOKE)
+		{
+			return SquareType.CHOKE;
+		}
+		
+		return SquareType.NORMAL;
 	}
 	
 	public List<Piece> makeLineup(PieceColor color, PieceType... types)

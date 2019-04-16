@@ -213,8 +213,8 @@ public class DeltaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
-		//target is more than one block away
-		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
+		//making diagonal move
+		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
 		{
 			return true;
 		}
@@ -238,11 +238,6 @@ public class DeltaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
-		//making diagonal move
-		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
-		{
-			return true;
-		}
 		//making the same consistent move
 		else if(consecutiveMoveHit == true)
 		{
@@ -253,7 +248,23 @@ public class DeltaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
-		
+		//target is more than one block away
+		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
+		{
+			if(board.getPieceAt(fr, fc).getPieceType() != PieceType.SCOUT)
+			{
+				return true;
+			}
+			else
+			{
+				if(this.checkInterference(fr, fc, tr, tc) == true)
+				{
+					return true;
+				}
+					
+			}
+		}
+						
 		//return false if valid move
 		return false;
 	}
@@ -334,13 +345,78 @@ public class DeltaStrategyGame implements StrategyGame
 		}
 	}
 	
-	//for determining previous move
-	//	if previous from == current to and current from == previous to
-	//		increment the correct moveCount
-	//	else
-	//		set the correct moveCount to 1
-	//	if the move count is > 2
-	//		return the opponent wins
+	private boolean checkInterference(int fr, int fc, int tr, int tc)
+	{
+		int vertDiff = Math.abs(fr-tr);
+		int horDiff = Math.abs(fc-tc);
+		
+		//the origin and target are in the same row
+		if(vertDiff == 0)
+		{
+			//if the target is to the right of the origin
+			if(tc - fc > 0)
+			{
+				for(int i = fc+1; i <= tc; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+			
+			//if the target is to the left of the origin
+			else
+			{
+				for(int i = fc - 1; i >= tc; i--)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		//the origin and the target are in the same column
+		if(horDiff == 0)
+		{
+			//if the target is above the origin
+			if(tr-fr > 0)
+			{
+				for(int i = fr+1; i < tr; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+			
+			//if the target is below the origin
+			else
+			{
+				for(int i = fr-1; i > tr; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * determine if the move is a consecutive move
+	 * @param fr origin row
+	 * @param fc origin column
+	 * @param tr target row
+	 * @param tc target column
+	 * @return true if the move is the same as the previous
+	 */
 	private boolean isConsecutiveMove(int fr, int fc, int tr, int tc)
 	{
 		//red piece color

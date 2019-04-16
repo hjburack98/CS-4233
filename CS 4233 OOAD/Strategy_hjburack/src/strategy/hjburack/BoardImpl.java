@@ -38,9 +38,6 @@ public class BoardImpl implements Board
 		this.board = board;
 	}
 	
-	/**
-	 * create a choke point board as a hashmap
-	 */
 	public BoardImpl(Map<CoordinateImpl, PieceImpl> board, Map<CoordinateImpl, SquareType> chokeBoard)
 	{
 		this.board = board;
@@ -70,7 +67,7 @@ public class BoardImpl implements Board
 			}
 		}
 		
-		BoardImpl convertedBoard = new BoardImpl(board);
+		BoardImpl convertedBoard = new BoardImpl(board, chokeBoard);
 		convertedBoard.width = width;
 		convertedBoard.height = height;
 		return convertedBoard;
