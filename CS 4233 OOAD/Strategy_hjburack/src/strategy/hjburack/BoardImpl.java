@@ -73,6 +73,11 @@ public class BoardImpl implements Board
 		return convertedBoard;
 	}
 	
+	public Map<CoordinateImpl, PieceImpl> getBoard()
+	{
+		return this.board;
+	}
+	
 	public int getWidth()
 	{
 		return this.width;

@@ -17,6 +17,7 @@ import strategy.Board.SquareType;
 import strategy.StrategyGame.Version;
 import strategy.hjburack.BoardImpl;
 import strategy.hjburack.CoordinateImpl;
+import strategy.hjburack.PieceImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
 import strategy.hjburack.version.gamma.GammaStrategyGame;
@@ -58,8 +59,10 @@ public class StrategyGameFactory
 				break;
 				
 			case GAMMA:
-				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
-				makeGammaChokeBoard(gammaBoard);
+				BoardImpl gammaConvertBoard = BoardImpl.convertBoard(board, 6, 6);
+				Map<CoordinateImpl, PieceImpl> gammaBoardMap = gammaConvertBoard.getBoard();
+				makeGammaChokeBoard(gammaConvertBoard);
+				BoardImpl gammaBoard = new BoardImpl(gammaBoardMap, gammaChokeMap);
 				game = new GammaStrategyGame(gammaBoard);
 				break;
 				
@@ -92,6 +95,5 @@ public class StrategyGameFactory
 				}
 			}
 		}
-		
 	}
 }
