@@ -4,6 +4,7 @@ import strategy.StrategyGame;
 import strategy.StrategyGame;
 import strategy.hjburack.*;
 import static strategy.StrategyGame.MoveResult.*;
+import java.util.Map;
 import strategy.Board.SquareType;
 import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
@@ -60,7 +61,7 @@ public class GammaStrategyGame implements StrategyGame
 			return GAME_OVER;
 		}
 		
-		consecutiveMoveHit = this.isInvalidMove(fr, fc, tr, tc);
+		consecutiveMoveHit = this.isConsecutiveMove(fr, fc, tr, tc);
 		//if move is invalid, the opponent will win the game
 		if(this.isInvalidMove(fr, fc, tr, tc))
 		{
