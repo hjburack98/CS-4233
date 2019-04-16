@@ -12,4 +12,6 @@ add in miner piece
 add in spy piece
 	spy is the only player that can kill a marshal [implemented]
 add in scout piece
-	scout can move multiple spaces as long as there is not an opponent in it's way
+	scout can move multiple spaces as long as there is not an opponent in it's way\
+
+refactor with abstract class
