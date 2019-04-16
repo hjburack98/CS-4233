@@ -2,8 +2,14 @@ TODO GAMMA:
 
 red team making consecutive moves
 blue team making consecutive moves
-Check the board for choke points
-add in Bomb piece
+Can't move into choke points
+Create bomb piece
+	Bomb piece cannot move
+	bomb piece kills anyone when they try to strike it
+	Bomb piece will not kill a miner when it tries to strike it
 add in miner piece
+	miner is the only piece that can kill bomb
 add in scout piece
+	scout can move multiple spaces as long as there is not an opponent in it's way
 add in spy piece
+	spy is the only player that can kill a marshal

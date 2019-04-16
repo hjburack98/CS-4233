@@ -73,6 +73,22 @@ public class PieceImpl implements Piece
 		{
 			return 6;
 		}
+		else if(type == PieceType.MINER)
+		{
+			return 5;
+		}
+		else if(type == PieceType.SCOUT)
+		{
+			return 4;
+		}
+		else if(type == PieceType.SPY)
+		{
+			return 3;
+		}
+		else if(type == PieceType.BOMB)
+		{
+			return 2;
+		}
 		else 
 		{
 			return 1;
