@@ -4,7 +4,10 @@ import strategy.StrategyGame;
 import strategy.StrategyGame;
 import strategy.hjburack.*;
 import static strategy.StrategyGame.MoveResult.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import strategy.Board;
 import strategy.Board.SquareType;
 import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
@@ -33,7 +36,6 @@ public class GammaStrategyGame implements StrategyGame
 	int blueConsecutiveCount = 1;
 	
 	boolean consecutiveMoveHit;
-	
 	
 	/**
 	 * instantiated the GAMMA Strategy

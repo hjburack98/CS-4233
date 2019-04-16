@@ -25,16 +25,26 @@ import strategy.hjburack.*;
 public class BoardImpl implements Board
 {
 
-	private Map<CoordinateImpl, PieceImpl> board;
+	private Map<CoordinateImpl, PieceImpl> board = null;
+	private Map<CoordinateImpl, SquareType> chokeBoard = null;
 	private int width;
 	private int height;
 	
 	/**
-	 * create a board as a hashmap
+	 * create a piece board as a hashmap
 	 */
 	public BoardImpl(Map<CoordinateImpl, PieceImpl> board )
 	{
 		this.board = board;
+	}
+	
+	/**
+	 * create a choke point board as a hashmap
+	 */
+	public BoardImpl(Map<CoordinateImpl, PieceImpl> board, Map<CoordinateImpl, SquareType> chokeBoard)
+	{
+		this.board = board;
+		this.chokeBoard = chokeBoard;
 	}
 	
 	/**
@@ -116,10 +126,15 @@ public class BoardImpl implements Board
 	@Override
 	public SquareType getSquareTypeAt(int row, int column)
 	{
-		if(this.getSquareTypeAt(row, column) == SquareType.CHOKE)
+		if(chokeBoard != null)
 		{
-			return Board.SquareType.CHOKE;
+			CoordinateImpl targetPiece = new CoordinateImpl(row, column);
+			if(chokeBoard.get(targetPiece) == SquareType.CHOKE)
+			{
+				return Board.SquareType.CHOKE;
+			}
 		}
+		
 		
 		return SquareType.NORMAL;
 	}

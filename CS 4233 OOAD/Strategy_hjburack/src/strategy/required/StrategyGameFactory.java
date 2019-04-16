@@ -13,12 +13,17 @@
 package strategy.required;
 
 import strategy.*;
+import strategy.Board.SquareType;
 import strategy.StrategyGame.Version;
 import strategy.hjburack.BoardImpl;
+import strategy.hjburack.CoordinateImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
 import strategy.hjburack.version.gamma.GammaStrategyGame;
 import static strategy.StrategyGame.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory for creating Strategy games.
@@ -26,6 +31,19 @@ import static strategy.StrategyGame.*;
  */
 public class StrategyGameFactory
 {
+	//gamma choke point creation
+	static Map<CoordinateImpl, SquareType> gammaChokeMap = new HashMap<CoordinateImpl, SquareType>();
+	static ArrayList<CoordinateImpl> gammaChokeCoordinates = new ArrayList<CoordinateImpl>();
+	static CoordinateImpl choke1 = new CoordinateImpl(2,2);
+	static CoordinateImpl choke2 = new CoordinateImpl(2,3);
+	static CoordinateImpl choke3 = new CoordinateImpl(3,2);
+	static CoordinateImpl choke4 = new CoordinateImpl(3,3);
+	
+	//delta choke point creation
+	Map<CoordinateImpl, SquareType> deltaChokeMap = new HashMap<CoordinateImpl, SquareType>();
+	
+	
+	
 	public static StrategyGame makeGame(Version version, Board board)
 	{
 		StrategyGame game;
@@ -41,6 +59,7 @@ public class StrategyGameFactory
 				
 			case GAMMA:
 				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
+				makeGammaChokeBoard(gammaBoard);
 				game = new GammaStrategyGame(gammaBoard);
 				break;
 				
@@ -49,5 +68,30 @@ public class StrategyGameFactory
 						"StrategyGameFactory.makeGame for version " + version);
 		}
 		return game;
+	}
+	
+	private static void makeGammaChokeBoard(BoardImpl board)
+	{
+		gammaChokeCoordinates.add(choke1);
+		gammaChokeCoordinates.add(choke2);
+		gammaChokeCoordinates.add(choke3);
+		gammaChokeCoordinates.add(choke4);
+		
+		for(int i = 0; i < board.getHeight(); i++)
+		{
+			for(int j = 0; j < board.getWidth(); j++)
+			{
+				CoordinateImpl currentCoordinate = new CoordinateImpl(i,j);
+				if(gammaChokeCoordinates.contains(currentCoordinate))
+				{
+					gammaChokeMap.put(currentCoordinate, SquareType.CHOKE);
+				}
+				else
+				{
+					gammaChokeMap.put(currentCoordinate, SquareType.NORMAL);
+				}
+			}
+		}
+		
 	}
 }
