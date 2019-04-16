@@ -198,6 +198,11 @@ public class DeltaStrategyGame implements StrategyGame
 		{
 			return true;
 		}
+		//trying to move a bomb
+		else if (board.getPieceAt(fr, fc).getPieceType() == PieceType.BOMB)
+		{
+			return true;
+		}
 		//trying to move opponent's piece
 		else if(board.getPieceAt(fr, fc).getPieceColor() != this.turn)
 		{
