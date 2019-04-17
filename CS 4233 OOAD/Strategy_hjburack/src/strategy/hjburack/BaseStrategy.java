@@ -19,6 +19,7 @@ public abstract class BaseStrategy implements StrategyGame
 	protected int moveCount = 1; //8 move limit
 	protected boolean gameOver = false;
 	
+	protected boolean allPiecesApplied;
 	protected boolean repetitionApplied;
 	
 	//repetition rule
@@ -90,52 +91,93 @@ public abstract class BaseStrategy implements StrategyGame
 		//Striking
 		else
 		{
+			MoveResult returnVal;
+			
 			//if the piece at the target coordinate is your own, you lose
 			if(board.getPieceAt(tr, tc).getPieceColor() == board.getPieceAt(fr, fc).getPieceColor())
 			{
 				return this.opponentWins(turn);
 			}
-			else
+			if(allPiecesApplied == true)
 			{
-				//if the attacker is a greater rank than the one being attacked
-				//	remove the target from the game
-				if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
+				//if you are striking a bomb
+				if(board.getPieceAt(tr, tc).getPieceType() == PieceType.BOMB)
 				{
-					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
-	
-					//if the piece being striked is a flag, the attacker wins the game
-					if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
-						return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
+					//if the player striking the bomb is a miner
+					if(board.getPieceAt(fr, fc).getPieceType() == PieceType.MINER)
+					{
+						returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+						board.removePiece(tr, tc);
+						this.movePiece(fr, fc, tr, tc);
+						
+						return returnVal;
 					}
-					board.removePiece(tr, tc);
-					this.movePiece(fr, fc, tr, tc);
-						
-					return returnVal;
-						
-				}
-				//if the attacker is a lesser rank than the one being attacked
-				//	remove the attacker
-				else if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
-				{
-					MoveResult returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
-					board.removePiece(fr, fc);
-					this.movePiece(tr, tc, fr, fc);
-					return returnVal;
 					
+					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+					board.removePiece(fr, fc);
+					this.swapTurn();
+					
+					return returnVal;
 				}
 				
-				//if they are the same rank, remove both pieces 
-				else if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
+				//if a spy is striking
+				else if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SPY)
 				{
+					if(board.getPieceAt(tr, tc).getPieceType() == PieceType.MARSHAL)
+					{
+						returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+						board.removePiece(tr, tc);
+						this.movePiece(fr, fc, tr, tc);
+						
+						return returnVal;
+					}
+					
+					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
 					board.removePiece(fr, fc);
-					board.removePiece(tr, tc);
-					this.swapTurn();
-					return OK;
+					this.movePiece(fr, fc, tr, tc);
+					
+					return returnVal;
 				}
+			}
+
+			//if the attacker is a greater rank than the one being attacked
+			//	remove the target from the game
+			if(board.getPieceAt(fr, fc).getRank() > board.getPieceAt(tr, tc).getRank())
+			{
+				returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+	
+				//if the piece being striked is a flag, the attacker wins the game
+				if(board.getPieceAt(tr, tc).getPieceType() == PieceType.FLAG) {
+					return this.getWinner(board.getPieceAt(fr, fc).getPieceColor());
+				}
+				board.removePiece(tr, tc);
+				this.movePiece(fr, fc, tr, tc);
+					
+				return returnVal;
+					
+			}
+			//if the attacker is a lesser rank than the one being attacked
+			//	remove the attacker
+			if(board.getPieceAt(fr, fc).getRank() < board.getPieceAt(tr, tc).getRank())
+			{
+				returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+				board.removePiece(fr, fc);
+				this.movePiece(tr, tc, fr, fc);
+				return returnVal;
+				
+			}
+				
+			//if they are the same rank, remove both pieces 
+			if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
+			{
+				board.removePiece(fr, fc);
+				board.removePiece(tr, tc);
+				this.swapTurn();
+				return OK;
 			}
 		}
 		
-		return this.opponentWins(turn);
+	return this.opponentWins(turn);
 	}
 	
 	/**
@@ -184,11 +226,6 @@ public abstract class BaseStrategy implements StrategyGame
 		{
 			return true;
 		}
-		//target is more than one block away
-		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
-		{
-			return true;
-		}
 		//"from" and "to" are in the same spot
 		else if(fr == tr && fc == tc)
 		{
@@ -219,7 +256,25 @@ public abstract class BaseStrategy implements StrategyGame
 		{
 			return true;
 		}
-				
+		//target is more than one block away
+		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
+		{
+		
+			if(allPiecesApplied == true && board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
+			{
+				if(this.checkInterference(fr, fc, tr, tc) == true)
+				{
+					return true;
+				}
+			}
+			
+			//if not all pieces are applied
+			else
+			{
+				return true;
+					
+			}
+		}
 		
 		//return false if valid move
 		return false;
@@ -374,6 +429,78 @@ public abstract class BaseStrategy implements StrategyGame
 			fromBlueCol = fc;
 			toBlueRow = tr;
 			toBlueCol = tc;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * checks if there is any interference when a scout moves more than one space
+	 * @param fr origin row
+	 * @param fc origin column
+	 * @param tr target row
+	 * @param tc target column
+	 * @return return true if a piece is in the piece's path
+	 */
+	private boolean checkInterference(int fr, int fc, int tr, int tc)
+	{
+		int vertDiff = Math.abs(fr-tr);
+		int horDiff = Math.abs(fc-tc);
+		
+		//the origin and target are in the same row
+		if(vertDiff == 0)
+		{
+			//if the target is to the right of the origin
+			if(tc - fc > 0)
+			{
+				for(int i = fc+1; i <= tc; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+			
+			//if the target is to the left of the origin
+			else
+			{
+				for(int i = fc - 1; i >= tc; i--)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		//the origin and the target are in the same column
+		if(horDiff == 0)
+		{
+			//if the target is above the origin
+			if(tr-fr > 0)
+			{
+				for(int i = fr+1; i < tr; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
+			
+			//if the target is below the origin
+			else
+			{
+				for(int i = fr-1; i > tr; i++)
+				{
+					if(board.getPieceAt(fr, i) != null)
+					{
+						return true;
+					}
+				}
+			}
 		}
 		
 		return false;

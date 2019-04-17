@@ -17,6 +17,7 @@ public class BetaStrategyGame extends BaseStrategy
 	{
 		super(board);
 		repetitionApplied = false;
+		allPiecesApplied = false;
 	}
 	
 }

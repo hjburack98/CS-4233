@@ -20,6 +20,7 @@ import strategy.hjburack.CoordinateImpl;
 import strategy.hjburack.PieceImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
+import strategy.hjburack.version.delta.DeltaStrategyGame;
 import strategy.hjburack.version.gamma.GammaStrategyGame;
 import static strategy.StrategyGame.*;
 import java.util.ArrayList;
@@ -60,8 +61,12 @@ public class StrategyGameFactory
 				
 			case GAMMA:
 				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
-
 				game = new GammaStrategyGame(gammaBoard);
+				break;
+				
+			case DELTA:
+				BoardImpl deltaBoard = BoardImpl.convertBoard(board, 10, 10);
+				game = new DeltaStrategyGame(deltaBoard);
 				break;
 				
 			default:

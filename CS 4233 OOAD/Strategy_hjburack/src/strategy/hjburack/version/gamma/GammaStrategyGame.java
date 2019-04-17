@@ -25,6 +25,7 @@ public class GammaStrategyGame extends BaseStrategy
 	{
 		super(board);
 		repetitionApplied = true;
+		allPiecesApplied = false;
 	}
 		
 }
