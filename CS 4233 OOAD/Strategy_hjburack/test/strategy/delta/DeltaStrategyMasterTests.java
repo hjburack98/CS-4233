@@ -37,12 +37,12 @@ public class DeltaStrategyMasterTests
 				SERGEANT, LIEUTENANT, COLONEL, CAPTAIN, FLAG, LIEUTENANT, BOMB, SCOUT, CAPTAIN, MINER,
 				BOMB, SCOUT, MAJOR, MINER, GENERAL, SERGEANT, BOMB, LIEUTENANT, COLONEL, SCOUT, 
 				MAJOR, BOMB, SCOUT, MINER, CAPTAIN, SCOUT, CAPTAIN, SERGEANT, MAJOR, MINER,
-				LIEUTENANT, SPY, SCOUT, MINER, BOMB, SERGEANT, MINER, BOMB, MARSHAL, SCOUT);
+				LIEUTENANT, SPY, MARSHAL, MINER, BOMB, SERGEANT, MINER, SCOUT, SCOUT, BOMB);
 		blueLineup = theBoard.makeLineup(BLUE,
 				SPY, SCOUT, BOMB, MINER, SERGEANT, BOMB, MINER, SCOUT, FLAG, SPY,
 				MINER, MAJOR, SERGEANT, CAPTAIN, SCOUT, CAPTAIN, MINER, SCOUT, BOMB, MAJOR, 
 				SCOUT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, SCOUT, BOMB,
-				MINER, CAPTAIN, SCOUT, BOMB, LIEUTENANT, LIEUTENANT, CAPTAIN, COLONEL, MARSHAL, SERGEANT);
+				SERGEANT, CAPTAIN, SCOUT, BOMB, LIEUTENANT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
 		
 		theBoard.placeChokeAt(4, 2);
 		theBoard.placeChokeAt(4, 3);
@@ -74,6 +74,55 @@ public class DeltaStrategyMasterTests
 		theGame.move(6, 1, 5, 1);
 		theGame.move(3, 0, 4, 0);
 		assertEquals(STRIKE_BLUE, theGame.move(5, 1, 4, 1));
+	}
+	
+	@Test
+	void spyStrikingOther()
+	{
+		theGame.move(3, 1, 4, 1);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(3, 5, 4, 5);
+		theGame.move(5, 0, 4, 0);
+		assertEquals(STRIKE_BLUE, theGame.move(4, 1, 4, 0));
+	}
+	
+	@Test
+	void anyStrikingBomb()
+	{
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 9, 5, 9);
+		theGame.move(4, 0, 5, 0);
+		theGame.move(5, 9, 4, 9);
+		theGame.move(5, 0, 4, 0);
+		assertEquals(STRIKE_RED, theGame.move(4, 9, 3, 9));
+	}
+	
+	@Test
+	void minerStrikingBomb()
+	{
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 4, 5, 4);
+		theGame.move(4, 0, 5, 0);
+		theGame.move(5, 4, 4, 4);
+		theGame.move(5, 0, 4, 0);
+		assertEquals(STRIKE_BLUE, theGame.move(4, 4, 3, 4));
+	}
+	
+	/*
+	@Test
+	void scoutMoveMultipleSpacesUp()
+	{
+		System.out.println(theBoard.getPieceAt(5, 8));
+		assertEquals(OK, theGame.move(3, 8, 5, 8));
+	}
+	*/
+	
+	@Test
+	void scoutMoveMultipleSpacesDown()
+	{
+		theGame.move(3, 8, 5, 8);
+		theGame.move(6, 4, 5, 4);
+		assertEquals(OK, theGame.move(5, 8, 3, 8));
 	}
 	
 	

@@ -15,16 +15,6 @@ public class CoordinateImpl
 		this.y = y;
 	}
 	
-	public int getX()
-	{
-		return this.x;
-	}
-	
-	public int getY()
-	{
-		return this.y;
-	}
-	
 	@Override
 	public int hashCode()
 	{

@@ -115,6 +115,7 @@ public abstract class BaseStrategy implements StrategyGame
 					
 					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
 					board.removePiece(fr, fc);
+					board.removePiece(tr, tc); //TODO: GET CONFIRMATION
 					this.swapTurn();
 					
 					return returnVal;
@@ -131,12 +132,6 @@ public abstract class BaseStrategy implements StrategyGame
 						
 						return returnVal;
 					}
-					
-					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
-					board.removePiece(fr, fc);
-					this.movePiece(fr, fc, tr, tc);
-					
-					return returnVal;
 				}
 			}
 
@@ -481,9 +476,9 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is above the origin
 			if(tr-fr > 0)
 			{
-				for(int i = fr+1; i < tr; i++)
+				for(int i = fr+1; i <= tr; i++)
 				{
-					if(board.getPieceAt(fr, i) != null)
+					if(board.getPieceAt(i, fc) != null)
 					{
 						return true;
 					}
@@ -493,9 +488,9 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is below the origin
 			else
 			{
-				for(int i = fr-1; i > tr; i++)
+				for(int i = fr-1; i >= tr; i--)
 				{
-					if(board.getPieceAt(fr, i) != null)
+					if(board.getPieceAt(i, fc) != null)
 					{
 						return true;
 					}
