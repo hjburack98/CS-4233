@@ -41,7 +41,7 @@ public abstract class BaseStrategy implements StrategyGame
 		
 	
 	/**
-	 * instantiated the BETA Strategy
+	 * instantiated the BASE Strategy
 	 * @param board
 	 */
 	public BaseStrategy(BoardImpl board)
