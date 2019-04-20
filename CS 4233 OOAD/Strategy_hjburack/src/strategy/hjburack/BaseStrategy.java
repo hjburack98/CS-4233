@@ -21,6 +21,7 @@ public abstract class BaseStrategy implements StrategyGame
 	
 	protected boolean allPiecesApplied;
 	protected boolean repetitionApplied;
+	protected boolean depletingBombApplied;
 	
 	//repetition rule
 	//previous move location storage
@@ -38,6 +39,8 @@ public abstract class BaseStrategy implements StrategyGame
 		protected int blueConsecutiveCount = 1;
 		
 		protected boolean consecutiveMoveHit;
+		
+	
 		
 	
 	/**
@@ -115,7 +118,6 @@ public abstract class BaseStrategy implements StrategyGame
 					
 					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
 					board.removePiece(fr, fc);
-					board.removePiece(tr, tc); //TODO: GET CONFIRMATION
 					this.swapTurn();
 					
 					return returnVal;
