@@ -21,6 +21,7 @@ import strategy.hjburack.PieceImpl;
 import strategy.hjburack.version.alpha.AlphaStrategyGame;
 import strategy.hjburack.version.beta.BetaStrategyGame;
 import strategy.hjburack.version.delta.DeltaStrategyGame;
+import strategy.hjburack.version.epsilon.EpsilonStrategyGame;
 import strategy.hjburack.version.gamma.GammaStrategyGame;
 import static strategy.StrategyGame.*;
 import java.util.ArrayList;
@@ -38,22 +39,27 @@ public class StrategyGameFactory
 		StrategyGame game;
 		switch (version)
 		{
-			case ALPHA:					// No need for the board
+			case ALPHA:	// No need for the board
 				game = new AlphaStrategyGame();
 				break;
-			case BETA:
+			case BETA: //BETA implementation
 				BoardImpl betaBoard = BoardImpl.convertBoard(board, 6, 6);
 				game = new BetaStrategyGame(betaBoard);
 				break;
 				
-			case GAMMA:
+			case GAMMA: //GAMMA implementation
 				BoardImpl gammaBoard = BoardImpl.convertBoard(board, 6, 6);
 				game = new GammaStrategyGame(gammaBoard);
 				break;
 				
-			case DELTA:
+			case DELTA: //DELTA implementation
 				BoardImpl deltaBoard = BoardImpl.convertBoard(board, 10, 10);
 				game = new DeltaStrategyGame(deltaBoard);
+				break;
+				
+			case EPSILON: //EPSILON implementation
+				BoardImpl epsilonBoard = BoardImpl.convertBoard(board, 10, 10);
+				game = new EpsilonStrategyGame(epsilonBoard);
 				break;
 				
 			default:

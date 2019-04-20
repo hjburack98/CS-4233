@@ -1,27 +1,23 @@
 package strategy.hjburack.version.delta;
 
-import strategy.StrategyGame;
-import strategy.StrategyGame;
 import strategy.hjburack.*;
-import static strategy.StrategyGame.MoveResult.*;
-import java.util.Map;
-import strategy.Board.SquareType;
-import strategy.Piece.PieceColor;
-import strategy.Piece.PieceType;
-import strategy.StrategyGame.MoveResult;
 
+//implements the BaseStrategy super class that contains the methods with toggles to pick features
 public class DeltaStrategyGame extends BaseStrategy
 {
-	
 	/**
-	 * instantiated the GAMMA Strategy
+	 * instantiated the DELTA Strategy
 	 * @param board
 	 */
 	public DeltaStrategyGame(BoardImpl board)
 	{
 		super(board);
+		eightTurnLimitApplied = false;
 		repetitionApplied = true;
 		allPiecesApplied = true;
+		depletingBombApplied = false;
+		attackerAdvantageApplied = false;
+		scoutDiagonalAttackApplied = false;
 	}
 
 	

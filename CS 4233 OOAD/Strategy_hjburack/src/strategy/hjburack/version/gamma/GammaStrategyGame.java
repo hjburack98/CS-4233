@@ -1,20 +1,8 @@
 package strategy.hjburack.version.gamma;
 
-import strategy.StrategyGame;
-import strategy.StrategyGame;
 import strategy.hjburack.*;
-import static strategy.StrategyGame.MoveResult.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import strategy.Board;
-import strategy.Board.SquareType;
-import strategy.Piece.PieceColor;
-import strategy.Piece.PieceType;
-import strategy.StrategyGame.MoveResult;
 
-
-//implement a StrategyGame interface that will call different StrategyGame versions
+//implements the BaseStrategy super class that contains the methods with toggles to pick features
 public class GammaStrategyGame extends BaseStrategy
 {
 	/**
@@ -24,8 +12,12 @@ public class GammaStrategyGame extends BaseStrategy
 	public GammaStrategyGame(BoardImpl board)
 	{
 		super(board);
+		eightTurnLimitApplied = false;
 		repetitionApplied = true;
 		allPiecesApplied = false;
+		depletingBombApplied = false;
+		attackerAdvantageApplied = false;
+		scoutDiagonalAttackApplied = false;
 	}
 		
 }

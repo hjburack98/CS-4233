@@ -1,4 +1,4 @@
-package strategy.delta;
+package strategy.epsilon;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static strategy.Piece.PieceColor.*;
@@ -20,7 +20,7 @@ import strategy.testutil.TestBoard;
 import static strategy.Piece.PieceColor.*;
 import static strategy.Piece.PieceType.*;
 
-public class DeltaStrategyMasterTests
+public class EpsilonStrategyMasterTests
 {
 	private int rows = 0;
 	private int columns = 0;
@@ -56,92 +56,55 @@ public class DeltaStrategyMasterTests
 		
 		theBoard.initialize(10, 10, redLineup, blueLineup);
 		
-		theGame = makeGame(DELTA, theBoard);
+		theGame = makeGame(EPSILON, theBoard);
 	}
 	
 	@Test
-	void spyStrikingMarshal()
-	{
-		theGame.move(3, 1, 4, 1);
-		theGame.move(6, 1, 5, 1);
-		assertEquals(STRIKE_RED, theGame.move(4, 1, 5, 1));
-	}
-	
-	@Test
-	void marshalStrikingSpy()
-	{
-		theGame.move(3, 1, 4, 1);
-		theGame.move(6, 1, 5, 1);
-		theGame.move(3, 0, 4, 0);
-		assertEquals(STRIKE_BLUE, theGame.move(5, 1, 4, 1));
-	}
-	
-	@Test
-	void spyStrikingOther()
-	{
-		theGame.move(3, 1, 4, 1);
-		theGame.move(6, 0, 5, 0);
-		theGame.move(3, 5, 4, 5);
-		theGame.move(5, 0, 4, 0);
-		assertEquals(STRIKE_BLUE, theGame.move(4, 1, 4, 0));
-	}
-	
-	@Test
-	void anyStrikingBomb()
+	void depetingBomb()
 	{
 		theGame.move(3, 0, 4, 0);
 		theGame.move(6, 9, 5, 9);
 		theGame.move(4, 0, 5, 0);
 		theGame.move(5, 9, 4, 9);
-		theGame.move(5, 0, 4, 0);
+		theGame.move(5, 0, 5, 1);
 		assertEquals(STRIKE_RED, theGame.move(4, 9, 3, 9));
+		theGame.move(5, 1, 5, 0);
+		theGame.move(6, 8, 6, 9);
+		theGame.move(5, 0, 4, 0);
+		theGame.move(6, 9, 5, 9);
+		theGame.move(4, 0, 4, 1);
+		theGame.move(5, 9, 4, 9);
+		theGame.move(4, 1, 5, 1);
+		theGame.move(4, 9, 3, 9);
+		theGame.move(3, 8, 4, 8);
+		assertEquals(OK, theGame.move(7, 9, 6, 9));
+		theGame.move(5, 1, 5, 0);
+		theGame.move(6, 9, 5, 9);
+		theGame.move(5, 0, 4, 0);
+		theGame.move(5, 9, 4, 9);
+		theGame.move(4, 0, 4, 1);
+		assertEquals(OK, theGame.move(4, 9, 3, 9));
 	}
 	
 	@Test
-	void minerStrikingBomb()
+	void redAgressorAdvantage()
 	{
 		theGame.move(3, 0, 4, 0);
-		theGame.move(6, 4, 5, 4);
-		theGame.move(4, 0, 5, 0);
-		theGame.move(5, 4, 4, 4);
-		theGame.move(5, 0, 4, 0);
-		assertEquals(STRIKE_BLUE, theGame.move(4, 4, 3, 4));
-	}
-	
-	
-	@Test
-	void scoutMoveMultipleSpacesUp()
-	{
-		assertEquals(OK, theGame.move(3, 8, 5, 8));
-	}
-	
-	
-	@Test
-	void scoutMoveMultipleSpacesDown()
-	{
-		theGame.move(3, 8, 5, 8);
-		theGame.move(6, 4, 5, 4);
-		assertEquals(OK, theGame.move(5, 8, 3, 8));
+		theGame.move(6, 0, 5, 0);
+		assertEquals(STRIKE_RED, theGame.move(4, 0, 5, 0));
 	}
 	
 	@Test
-	void scoutCantMoveThroughChoke()
+	void blueAgressorAdvantage()
 	{
-		theGame.move(3, 8, 4, 8);
-		theGame.move(6, 4, 5, 4);
-		assertEquals(OK, theGame.move(4, 8, 4, 9));
-		theGame.move(5, 4, 4, 4);
-		theGame.move(4, 9, 4, 8);
-		theGame.move(6, 9, 5, 9);
-		assertEquals(BLUE_WINS, theGame.move(4, 8, 4, 4));
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(3, 1, 4, 1);
+		assertEquals(STRIKE_BLUE, theGame.move(5, 0, 4, 0));
 	}
 	
-	@Test
-	void scoutCantgoRightThroughChoke()
-	{
-		theGame.move(3, 8, 5, 8);
-		assertEquals(RED_WINS,  theGame.move(6, 2, 3, 2));
-	}
+	
+	
 	
 	
 	

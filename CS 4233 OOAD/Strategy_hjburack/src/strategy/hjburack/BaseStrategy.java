@@ -6,6 +6,7 @@ import static strategy.StrategyGame.MoveResult.OK;
 import static strategy.StrategyGame.MoveResult.RED_WINS;
 import static strategy.StrategyGame.MoveResult.STRIKE_BLUE;
 import static strategy.StrategyGame.MoveResult.STRIKE_RED;
+import java.util.ArrayList;
 import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
 import strategy.StrategyGame;
@@ -19,9 +20,15 @@ public abstract class BaseStrategy implements StrategyGame
 	protected int moveCount = 1; //8 move limit
 	protected boolean gameOver = false;
 	
+	protected boolean eightTurnLimitApplied;
 	protected boolean allPiecesApplied;
 	protected boolean repetitionApplied;
+	protected boolean attackerAdvantageApplied;
+	protected boolean scoutDiagonalAttackApplied;
+	
+	//depleting BOMBs
 	protected boolean depletingBombApplied;
+	ArrayList<CoordinateImpl> explodedBombs = new ArrayList<CoordinateImpl>();
 	
 	//repetition rule
 	//previous move location storage
@@ -39,10 +46,7 @@ public abstract class BaseStrategy implements StrategyGame
 		protected int blueConsecutiveCount = 1;
 		
 		protected boolean consecutiveMoveHit;
-		
-	
-		
-	
+			
 	/**
 	 * instantiated the BASE Strategy
 	 * @param board
@@ -70,11 +74,17 @@ public abstract class BaseStrategy implements StrategyGame
 		}
 		
 		//will automatically end the game if there have been more than 8 turns
-		if(this.moveCount >= 8 && turn == PieceColor.BLUE)
+		//TODO: MAJOR BUG: NOT SENSING IT TO BE FALSE
+		/*
+		if(eightTurnLimitApplied = true)
 		{
-			gameOver = true;
-			return RED_WINS;
+			if(this.moveCount >= 8 && turn == PieceColor.BLUE)
+			{
+				gameOver = true;
+				return RED_WINS;
+			}
 		}
+		*/
 		
 		consecutiveMoveHit = this.isConsecutiveMove(fr, fc, tr, tc);
 		//if move is invalid, the opponent will win the game
@@ -114,6 +124,26 @@ public abstract class BaseStrategy implements StrategyGame
 						this.movePiece(fr, fc, tr, tc);
 						
 						return returnVal;
+					}
+					
+					//for detecting bomb explosions, make an empty arrayList.
+					//when a bomb is exploded for the first time, add the coordinate of that bomb to the arrayList
+					//if the bomb's coordinate is already in the arrayList, remove both the bomb and the attacker
+					if(depletingBombApplied)
+					{
+						CoordinateImpl bombCoordinate = new CoordinateImpl(tr, tc);
+						if(!explodedBombs.contains(bombCoordinate))
+						{
+							explodedBombs.add(bombCoordinate);
+						}
+						
+						else
+						{
+							board.removePiece(fr, fc);
+							board.removePiece(tr, tc);
+							this.swapTurn();
+							return OK;
+						}
 					}
 					
 					returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
@@ -167,8 +197,14 @@ public abstract class BaseStrategy implements StrategyGame
 			//if they are the same rank, remove both pieces 
 			if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
 			{
-				board.removePiece(fr, fc);
 				board.removePiece(tr, tc);
+				if(attackerAdvantageApplied)
+				{
+					returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+					this.movePiece(fr, fc, tr, tc);
+					return returnVal;
+				}
+				board.removePiece(fr, fc);
 				this.swapTurn();
 				return OK;
 			}
@@ -241,6 +277,23 @@ public abstract class BaseStrategy implements StrategyGame
 		//making diagonal move
 		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
 		{
+			//TODO: test orthogonal striking
+			if(scoutDiagonalAttackApplied == true)
+			{
+				if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
+				{
+					if(Math.abs(fr-fc) <= 3 && Math.abs(tr-tc) == Math.abs(fr-fc))
+					{
+						if(this.checkInterference(fr, fc, tr, tc) == true)
+						{
+							if(board.getPieceAt(tr, tc).getPieceColor() != board.getPieceAt(fr, fc).getPieceColor())
+							{
+								return true;
+							}
+						}
+					}
+				}
+			}
 			return true;
 		}
 		//making the same consistent move
@@ -452,7 +505,7 @@ public abstract class BaseStrategy implements StrategyGame
 			{
 				for(int i = fc+1; i <= tc; i++)
 				{
-					if(board.getPieceAt(fr, i) != null)
+					if(board.getPieceAt(fr, i) != null || board.getSquareTypeAt(fr, i) == SquareType.CHOKE)
 					{
 						return true;
 					}
@@ -464,7 +517,7 @@ public abstract class BaseStrategy implements StrategyGame
 			{
 				for(int i = fc - 1; i >= tc; i--)
 				{
-					if(board.getPieceAt(fr, i) != null)
+					if(board.getPieceAt(fr, i) != null || board.getSquareTypeAt(fr, i) == SquareType.CHOKE)
 					{
 						return true;
 					}
@@ -480,7 +533,7 @@ public abstract class BaseStrategy implements StrategyGame
 			{
 				for(int i = fr+1; i <= tr; i++)
 				{
-					if(board.getPieceAt(i, fc) != null)
+					if(board.getPieceAt(i, fc) != null || board.getSquareTypeAt(i, fc) == SquareType.CHOKE)
 					{
 						return true;
 					}
@@ -492,7 +545,7 @@ public abstract class BaseStrategy implements StrategyGame
 			{
 				for(int i = fr-1; i >= tr; i--)
 				{
-					if(board.getPieceAt(i, fc) != null)
+					if(board.getPieceAt(i, fc) != null || board.getSquareTypeAt(i, fc) == SquareType.CHOKE)
 					{
 						return true;
 					}

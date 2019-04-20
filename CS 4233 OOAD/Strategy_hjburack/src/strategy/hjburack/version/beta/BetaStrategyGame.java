@@ -1,12 +1,8 @@
 package strategy.hjburack.version.beta;
 
-import strategy.StrategyGame;
 import strategy.hjburack.*;
-import static strategy.StrategyGame.MoveResult.*;
-import strategy.Piece.PieceColor;
-import strategy.Piece.PieceType;
 
-
+//implements the BaseStrategy super class that contains the methods with toggles to pick features
 public class BetaStrategyGame extends BaseStrategy
 {
 	/**
@@ -16,8 +12,12 @@ public class BetaStrategyGame extends BaseStrategy
 	public BetaStrategyGame(BoardImpl board)
 	{
 		super(board);
+		eightTurnLimitApplied = true;
 		repetitionApplied = false;
 		allPiecesApplied = false;
+		depletingBombApplied = false;
+		attackerAdvantageApplied = false;
+		scoutDiagonalAttackApplied = false;
 	}
 	
 }
