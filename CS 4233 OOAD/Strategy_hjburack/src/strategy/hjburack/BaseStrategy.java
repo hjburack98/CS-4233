@@ -280,19 +280,7 @@ public abstract class BaseStrategy implements StrategyGame
 			//TODO: test orthogonal striking
 			if(scoutDiagonalAttackApplied == true)
 			{
-				if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
-				{
-					if(Math.abs(fr-fc) <= 3 && Math.abs(tr-tc) == Math.abs(fr-fc))
-					{
-						if(this.checkInterference(fr, fc, tr, tc) == true)
-						{
-							if(board.getPieceAt(tr, tc).getPieceColor() != board.getPieceAt(fr, fc).getPieceColor())
-							{
-								return true;
-							}
-						}
-					}
-				}
+				
 			}
 			return true;
 		}

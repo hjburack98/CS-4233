@@ -41,8 +41,8 @@ public class EpsilonStrategyMasterTests
 		blueLineup = theBoard.makeLineup(BLUE,
 				SPY, SCOUT, BOMB, MINER, SERGEANT, BOMB, MINER, SCOUT, FLAG, SPY,
 				MINER, MAJOR, SERGEANT, CAPTAIN, SCOUT, CAPTAIN, MINER, SCOUT, BOMB, MAJOR, 
-				SCOUT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, SCOUT, BOMB,
-				SERGEANT, CAPTAIN, SCOUT, BOMB, LIEUTENANT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
+				SERGEANT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, SCOUT, BOMB,
+				SCOUT, CAPTAIN, SCOUT, BOMB, LIEUTENANT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
 		
 		theBoard.placeChokeAt(4, 2);
 		theBoard.placeChokeAt(4, 3);
@@ -101,6 +101,18 @@ public class EpsilonStrategyMasterTests
 		theGame.move(6, 0, 5, 0);
 		theGame.move(3, 1, 4, 1);
 		assertEquals(STRIKE_BLUE, theGame.move(5, 0, 4, 0));
+	}
+	
+	@Test
+	void scoutDiagonalOneStrike()
+	{
+		System.out.println(theBoard.getPieceAt(6, 9).getPieceType());
+		System.out.println(theBoard.getPieceAt(3, 8).getPieceType());
+		assertEquals(OK,theGame.move(3, 8, 4, 8));
+		theGame.move(6, 9, 5, 9);
+		theGame.move(4, 8, 5, 8);
+		assertEquals(STRIKE_BLUE, theGame.move(5, 9, 4, 8));
+		
 	}
 	
 	
