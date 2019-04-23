@@ -58,7 +58,7 @@ public class EpsilonStrategyMasterTests
 		
 		theGame = makeGame(EPSILON, theBoard);
 	}
-	
+	/*
 	@Test
 	void depetingBomb()
 	{
@@ -102,7 +102,7 @@ public class EpsilonStrategyMasterTests
 		theGame.move(3, 1, 4, 1);
 		assertEquals(STRIKE_BLUE, theGame.move(5, 0, 4, 0));
 	}
-	
+	*/
 	@Test
 	void scoutDiagonalOneStrike()
 	{
@@ -114,6 +114,7 @@ public class EpsilonStrategyMasterTests
 		assertEquals(STRIKE_BLUE, theGame.move(5, 9, 4, 8));
 		
 	}
+	
 	
 	
 	

@@ -24,7 +24,7 @@ public abstract class BaseStrategy implements StrategyGame
 	protected boolean allPiecesApplied;
 	protected boolean repetitionApplied;
 	protected boolean attackerAdvantageApplied;
-	protected boolean scoutDiagonalAttackApplied;
+	protected boolean scoutOrthogonalAttackApplied;
 	
 	//depleting BOMBs
 	protected boolean depletingBombApplied;
@@ -113,6 +113,35 @@ public abstract class BaseStrategy implements StrategyGame
 			}
 			if(allPiecesApplied == true)
 			{
+				//if a scout is striking someone from a distance TODO:
+				if(scoutOrthogonalAttackApplied && attackerAdvantageApplied)
+				{
+					if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
+					{
+						if(board.getPieceAt(tr, tc) != null)
+						{
+							if(Math.abs(tr-fr) <= 3 || Math.abs(tc-fc) <= 3)
+							{
+								if(this.checkInterference(fr, fc, tr, tc) == false)
+								{
+									if(board.getPieceAt(fr, fc).getRank() >= board.getPieceAt(tr, tc).getRank())
+									{
+										returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
+										board.removePiece(tr, tc);
+										this.movePiece(fr, fc, tr, tc);
+									}
+									else
+									{
+										returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
+										board.removePiece(fr	, fr);
+										this.movePiece(tr, tc, fr, fc); //TODO: Make sure this is legal
+									}
+								}
+							}
+						}
+					}
+				}
+			
 				//if you are striking a bomb
 				if(board.getPieceAt(tr, tc).getPieceType() == PieceType.BOMB)
 				{
@@ -277,11 +306,6 @@ public abstract class BaseStrategy implements StrategyGame
 		//making diagonal move
 		else if(Math.abs(tr-fr) > 0 && Math.abs(tc-fc) > 0)
 		{
-			//TODO: test orthogonal striking
-			if(scoutDiagonalAttackApplied == true)
-			{
-				
-			}
 			return true;
 		}
 		//making the same consistent move
@@ -297,10 +321,18 @@ public abstract class BaseStrategy implements StrategyGame
 		//target is more than one block away
 		else if(Math.abs(tr-fr) > 1 || Math.abs(tc-fc) > 1)
 		{
-		
+			
 			if(allPiecesApplied == true && board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
 			{
-				if(this.checkInterference(fr, fc, tr, tc) == true)
+				if(board.getPieceAt(tr, tc) == null)
+				{
+					return true;
+				}
+				else if(Math.abs(tr-fr) > 3 || Math.abs(tc-fc) > 3)
+				{
+					return true;
+				}
+				else if(this.checkInterference(fr, fc, tr, tc) == true)
 				{
 					return true;
 				}
@@ -540,7 +572,7 @@ public abstract class BaseStrategy implements StrategyGame
 				}
 			}
 		}
-		
+	
 		return false;
 	}
 }
