@@ -59,6 +59,7 @@ public class DeltaStrategyMasterTests
 		theGame = makeGame(DELTA, theBoard);
 	}
 	
+	
 	@Test
 	void spyStrikingMarshal()
 	{
@@ -123,6 +124,7 @@ public class DeltaStrategyMasterTests
 		theGame.move(6, 4, 5, 4);
 		assertEquals(OK, theGame.move(5, 8, 3, 8));
 	}
+	
 	
 	@Test
 	void scoutCantMoveThroughChoke()

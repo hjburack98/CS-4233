@@ -58,7 +58,7 @@ public class EpsilonStrategyMasterTests
 		
 		theGame = makeGame(EPSILON, theBoard);
 	}
-	/*
+	
 	@Test
 	void depetingBomb()
 	{
@@ -102,18 +102,27 @@ public class EpsilonStrategyMasterTests
 		theGame.move(3, 1, 4, 1);
 		assertEquals(STRIKE_BLUE, theGame.move(5, 0, 4, 0));
 	}
-	*/
+	
+	
 	@Test
-	void scoutDiagonalOneStrike()
+	void scoutOrthogonalLoss()
+	{
+		assertEquals(STRIKE_BLUE, theGame.move(3, 8, 6, 8));
+	}
+	
+	
+	@Test
+	void scoutOrthogonalWin()
 	{
 		System.out.println(theBoard.getPieceAt(6, 9).getPieceType());
 		System.out.println(theBoard.getPieceAt(3, 8).getPieceType());
 		assertEquals(OK,theGame.move(3, 8, 4, 8));
-		theGame.move(6, 9, 5, 9);
-		theGame.move(4, 8, 5, 8);
-		assertEquals(STRIKE_BLUE, theGame.move(5, 9, 4, 8));
+		theGame.move(6, 0, 5, 0);
+		theGame.move(4, 8, 4, 9);
+		assertEquals(STRIKE_BLUE, theGame.move(6, 9, 4, 9));
 		
 	}
+	
 	
 	
 	

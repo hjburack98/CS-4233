@@ -16,8 +16,7 @@ public class GammaStrategyGame extends BaseStrategy
 		repetitionApplied = true;
 		allPiecesApplied = false;
 		depletingBombApplied = false;
-		attackerAdvantageApplied = false;
-		scoutDiagonalAttackApplied = false;
+		attackerAdvantageApplied = false; 
 	}
 		
 }
