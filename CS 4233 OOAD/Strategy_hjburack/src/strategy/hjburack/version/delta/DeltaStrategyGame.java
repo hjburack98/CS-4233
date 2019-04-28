@@ -17,6 +17,7 @@ public class DeltaStrategyGame extends BaseStrategy
 		allPiecesApplied = true;
 		depletingBombApplied = false;
 		attackerAdvantageApplied = false;
+		scoutOrthogonalAttackApplied = false;
 	}
 
 	

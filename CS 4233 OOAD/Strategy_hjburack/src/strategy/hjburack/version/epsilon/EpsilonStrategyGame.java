@@ -17,6 +17,7 @@ public class EpsilonStrategyGame extends BaseStrategy
 		allPiecesApplied = true;
 		depletingBombApplied = true;
 		attackerAdvantageApplied = true;
+		scoutOrthogonalAttackApplied = true;
 	}
 
 }

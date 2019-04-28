@@ -113,34 +113,6 @@ public abstract class BaseStrategy implements StrategyGame
 			}
 			if(allPiecesApplied == true)
 			{
-				//if a scout is striking someone from a distance TODO:
-				if(scoutOrthogonalAttackApplied && attackerAdvantageApplied)
-				{
-					if(board.getPieceAt(fr, fc).getPieceType() == PieceType.SCOUT)
-					{
-						if(board.getPieceAt(tr, tc) != null)
-						{
-							if(Math.abs(tr-fr) <= 3 || Math.abs(tc-fc) <= 3)
-							{
-								if(this.checkInterference(fr, fc, tr, tc) == false)
-								{
-									if(board.getPieceAt(fr, fc).getRank() >= board.getPieceAt(tr, tc).getRank())
-									{
-										returnVal = this.getStrikeResult(board.getPieceAt(fr, fc).getPieceColor());
-										board.removePiece(tr, tc);
-										this.movePiece(fr, fc, tr, tc);
-									}
-									else
-									{
-										returnVal = this.getStrikeResult(board.getPieceAt(tr, tc).getPieceColor());
-										board.removePiece(fr	, fr);
-										this.movePiece(tr, tc, fr, fc); //TODO: Make sure this is legal
-									}
-								}
-							}
-						}
-					}
-				}
 			
 				//if you are striking a bomb
 				if(board.getPieceAt(tr, tc).getPieceType() == PieceType.BOMB)
@@ -326,16 +298,30 @@ public abstract class BaseStrategy implements StrategyGame
 			{
 				if(board.getPieceAt(tr, tc) == null)
 				{
-					return true;
+					if(this.checkInterference(fr, fc, tr, tc) == true)
+					{
+						return true;
+					}
 				}
-				else if(Math.abs(tr-fr) > 3 || Math.abs(tc-fc) > 3)
+				
+				else if(scoutOrthogonalAttackApplied == true)
+				{
+					if(Math.abs(tr-fr) > 3 || Math.abs(tc-fc) > 3)
+					{
+						return true;
+					}
+					else if(this.checkInterference(fr, fc, tr, tc) == true)
+					{
+						return true;
+					}
+				}
+				
+				else
 				{
 					return true;
 				}
-				else if(this.checkInterference(fr, fc, tr, tc) == true)
-				{
-					return true;
-				}
+				
+				
 			}
 			
 			//if not all pieces are applied
@@ -523,7 +509,7 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is to the right of the origin
 			if(tc - fc > 0)
 			{
-				for(int i = fc+1; i <= tc; i++)
+				for(int i = fc+1; i < tc; i++)
 				{
 					if(board.getPieceAt(fr, i) != null || board.getSquareTypeAt(fr, i) == SquareType.CHOKE)
 					{
@@ -535,7 +521,7 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is to the left of the origin
 			else
 			{
-				for(int i = fc - 1; i >= tc; i--)
+				for(int i = fc - 1; i > tc; i--)
 				{
 					if(board.getPieceAt(fr, i) != null || board.getSquareTypeAt(fr, i) == SquareType.CHOKE)
 					{
@@ -551,7 +537,7 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is above the origin
 			if(tr-fr > 0)
 			{
-				for(int i = fr+1; i <= tr; i++)
+				for(int i = fr+1; i < tr; i++)
 				{
 					if(board.getPieceAt(i, fc) != null || board.getSquareTypeAt(i, fc) == SquareType.CHOKE)
 					{
@@ -563,7 +549,7 @@ public abstract class BaseStrategy implements StrategyGame
 			//if the target is below the origin
 			else
 			{
-				for(int i = fr-1; i >= tr; i--)
+				for(int i = fr-1; i > tr; i--)
 				{
 					if(board.getPieceAt(i, fc) != null || board.getSquareTypeAt(i, fc) == SquareType.CHOKE)
 					{
@@ -572,6 +558,7 @@ public abstract class BaseStrategy implements StrategyGame
 				}
 			}
 		}
+		
 	
 		return false;
 	}

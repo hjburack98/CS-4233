@@ -17,7 +17,7 @@ public class BetaStrategyGame extends BaseStrategy
 		allPiecesApplied = false;
 		depletingBombApplied = false;
 		attackerAdvantageApplied = false;
-		scoutDiagonalAttackApplied = false;
+		scoutOrthogonalAttackApplied = false;
 	}
 	
 }

@@ -124,8 +124,7 @@ public class DeltaStrategyMasterTests
 		theGame.move(6, 4, 5, 4);
 		assertEquals(OK, theGame.move(5, 8, 3, 8));
 	}
-	
-	
+
 	@Test
 	void scoutCantMoveThroughChoke()
 	{
@@ -138,17 +137,12 @@ public class DeltaStrategyMasterTests
 		assertEquals(BLUE_WINS, theGame.move(4, 8, 4, 4));
 	}
 	
+	
 	@Test
 	void scoutCantgoRightThroughChoke()
 	{
 		theGame.move(3, 8, 5, 8);
 		assertEquals(RED_WINS,  theGame.move(6, 2, 3, 2));
 	}
-	
-	
-	
-	
-	
-	
 	
 }
