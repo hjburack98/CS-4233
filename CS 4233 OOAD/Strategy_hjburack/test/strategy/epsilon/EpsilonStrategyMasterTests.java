@@ -114,8 +114,6 @@ public class EpsilonStrategyMasterTests
 	@Test
 	void scoutOrthogonalWin()
 	{
-		System.out.println(theBoard.getPieceAt(6, 9).getPieceType());
-		System.out.println(theBoard.getPieceAt(3, 8).getPieceType());
 		assertEquals(OK,theGame.move(3, 8, 4, 8));
 		theGame.move(6, 0, 5, 0);
 		theGame.move(4, 8, 4, 9);

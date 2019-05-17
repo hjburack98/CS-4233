@@ -144,5 +144,5 @@ public class DeltaStrategyMasterTests
 		theGame.move(3, 8, 5, 8);
 		assertEquals(RED_WINS,  theGame.move(6, 2, 3, 2));
 	}
-	
+
 }

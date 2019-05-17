@@ -72,7 +72,6 @@ public class GammaStrategyMasterTests
 	@Test
 	void cantGoToChoke()
 	{
-		System.out.println(theBoard.getSquareTypeAt(2, 2));
 		theGame.move(1, 1, 2, 1);
 		theGame.move(4, 0, 3, 0);
 		assertEquals(BLUE_WINS, theGame.move(2, 1, 2, 2));

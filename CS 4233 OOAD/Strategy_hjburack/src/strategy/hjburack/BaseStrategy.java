@@ -11,7 +11,6 @@ import strategy.Piece.PieceColor;
 import strategy.Piece.PieceType;
 import strategy.StrategyGame;
 import strategy.Board.SquareType;
-import strategy.StrategyGame.MoveResult;
 
 public abstract class BaseStrategy implements StrategyGame
 {
@@ -73,10 +72,7 @@ public abstract class BaseStrategy implements StrategyGame
 			return GAME_OVER;
 		}
 		
-		//will automatically end the game if there have been more than 8 turns
-		//TODO: MAJOR BUG: NOT SENSING IT TO BE FALSE
-		/*
-		if(eightTurnLimitApplied = true)
+		if(eightTurnLimitApplied == true)
 		{
 			if(this.moveCount >= 8 && turn == PieceColor.BLUE)
 			{
@@ -84,7 +80,7 @@ public abstract class BaseStrategy implements StrategyGame
 				return RED_WINS;
 			}
 		}
-		*/
+		
 		
 		consecutiveMoveHit = this.isConsecutiveMove(fr, fc, tr, tc);
 		//if move is invalid, the opponent will win the game
