@@ -206,7 +206,7 @@ public class DeltaStrategyMasterTests
 		theGame.move(3, 0, 4, 0);
 		theGame.move(6, 8, 5, 8);
 		theGame.move(4, 0, 4, 1);
-		assertEquals(RED_WINS, theGame.move(6, 5, 6, 8));
+		assertEquals(RED_WINS, theGame.move(6, 5, 6, 8)); 
 	}
 	
 	@Test
