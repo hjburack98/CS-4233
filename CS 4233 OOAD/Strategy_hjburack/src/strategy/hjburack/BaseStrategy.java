@@ -192,7 +192,7 @@ public abstract class BaseStrategy implements StrategyGame
 			}
 				
 			//if they are the same rank, remove both pieces 
-			if(board.getPieceAt(fr, fc).getRank() == board.getPieceAt(tr, tc).getRank())
+			else
 			{
 				board.removePiece(tr, tc);
 				if(attackerAdvantageApplied)
@@ -206,8 +206,6 @@ public abstract class BaseStrategy implements StrategyGame
 				return OK;
 			}
 		}
-		
-	return this.opponentWins(turn);
 	}
 	
 	/**
