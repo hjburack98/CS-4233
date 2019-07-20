@@ -41,8 +41,8 @@ public class DeltaStrategyMasterTests
 		blueLineup = theBoard.makeLineup(BLUE,
 				SPY, SCOUT, BOMB, MINER, SERGEANT, BOMB, MINER, SCOUT, FLAG, SPY,
 				MINER, MAJOR, SERGEANT, CAPTAIN, SCOUT, CAPTAIN, MINER, SCOUT, BOMB, MAJOR, 
-				SCOUT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, SCOUT, BOMB,
-				SERGEANT, CAPTAIN, SCOUT, BOMB, LIEUTENANT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
+				SCOUT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, COLONEL, BOMB,
+				SERGEANT, CAPTAIN, SCOUT, BOMB, SCOUT, MINER, CAPTAIN, LIEUTENANT, MARSHAL, LIEUTENANT);
 		
 		theBoard.placeChokeAt(4, 2);
 		theBoard.placeChokeAt(4, 3);
@@ -52,7 +52,7 @@ public class DeltaStrategyMasterTests
 		theBoard.placeChokeAt(4, 6);
 		theBoard.placeChokeAt(4, 7);
 		theBoard.placeChokeAt(5, 6);
-		theBoard.placeChokeAt(5, 6);
+		theBoard.placeChokeAt(5, 7);
 		
 		theBoard.initialize(10, 10, redLineup, blueLineup);
 		
@@ -144,5 +144,77 @@ public class DeltaStrategyMasterTests
 		theGame.move(3, 8, 5, 8);
 		assertEquals(RED_WINS,  theGame.move(6, 2, 3, 2));
 	}
+	
+	@Test
+	void scoutMoveMultipleLeft()
+	{
+		theGame.move(3, 5, 4, 5);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(4, 5, 5, 5);
+		theGame.move(5, 0, 4, 0);
+		theGame.move(3, 6, 3, 5);
+		theGame.move(4, 0, 4, 1);
+		theGame.move(3, 5, 4, 5);
+		theGame.move(4, 1, 5, 1);
+		theGame.move(3, 7, 3, 6);
+		theGame.move(5, 1, 4, 1);
+		theGame.move(3, 6, 3, 5);
+		theGame.move(4, 1, 4, 0);
+		assertEquals(OK, theGame.move(3, 8, 3, 6));
+	}
+	
+	@Test
+	void scoutCantMoveLeftThroughPlayer()
+	{
+		theGame.move(3, 5, 4, 5);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(4, 5, 5, 5);
+		theGame.move(5, 0, 4, 0);
+		theGame.move(3, 6, 3, 5);
+		theGame.move(4, 0, 4, 1);
+		assertEquals(BLUE_WINS, theGame.move(3, 8, 3, 6));
+	}
+	
+	@Test
+	void scoutCantMoveLeftThroughChoke()
+	{
+		theGame.move(3, 8, 4, 8);
+		theGame.move(6, 0, 5, 0);
+		assertEquals(BLUE_WINS, theGame.move(4, 8, 4, 5));
+	}
+	
+	@Test
+	void scoutMoveMultipleRight()
+	{
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 4, 5, 4);
+		theGame.move(4, 0, 5, 0);
+		theGame.move(6, 5, 6, 4);
+		theGame.move(5, 0, 5, 1);
+		theGame.move(6, 6, 6, 5);
+		theGame.move(5, 1, 4, 1);
+		theGame.move(6, 5, 5, 5);
+		theGame.move(4, 1, 4, 0);
+		theGame.move(6, 4, 6, 6);
+		theGame.move(4, 0, 4, 1);
+		assertEquals(OK, theGame.move(6, 6, 6, 4));
+	}
 
+	@Test
+	void scoutCantMoveRightThroughPlayer()
+	{
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 8, 5, 8);
+		theGame.move(4, 0, 4, 1);
+		assertEquals(RED_WINS, theGame.move(6, 5, 6, 8));
+	}
+	
+	@Test
+	void scoutCantMoveRightThroughChoke()
+	{
+		theGame.move(3, 0, 4, 0);
+		theGame.move(6, 5, 5, 5);
+		theGame.move(4, 0, 5, 0);
+		assertEquals(RED_WINS, theGame.move(5, 5, 5, 8));
+	}
 }
