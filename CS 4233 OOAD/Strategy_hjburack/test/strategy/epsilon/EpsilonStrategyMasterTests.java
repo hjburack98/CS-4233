@@ -41,8 +41,8 @@ public class EpsilonStrategyMasterTests
 		blueLineup = theBoard.makeLineup(BLUE,
 				SPY, SCOUT, BOMB, MINER, SERGEANT, BOMB, MINER, SCOUT, FLAG, SPY,
 				MINER, MAJOR, SERGEANT, CAPTAIN, SCOUT, CAPTAIN, MINER, SCOUT, BOMB, MAJOR, 
-				SERGEANT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, SCOUT, BOMB,
-				SCOUT, CAPTAIN, SCOUT, BOMB, LIEUTENANT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
+				SERGEANT, COLONEL, LIEUTENANT, BOMB, SERGEANT, GENERAL, MINER, MAJOR, LIEUTENANT, BOMB,
+				SCOUT, CAPTAIN, SCOUT, BOMB, SCOUT, MINER, CAPTAIN, COLONEL, MARSHAL, LIEUTENANT);
 		
 		theBoard.placeChokeAt(4, 2);
 		theBoard.placeChokeAt(4, 3);
@@ -118,7 +118,24 @@ public class EpsilonStrategyMasterTests
 		theGame.move(6, 0, 5, 0);
 		theGame.move(4, 8, 4, 9);
 		assertEquals(STRIKE_BLUE, theGame.move(6, 9, 4, 9));
-		
+	}
+	
+	@Test
+	void scoutOrthogonalGreaterThree()
+	{
+		theGame.move(3, 5, 4, 5);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(4, 5, 4, 4);
+		assertEquals(RED_WINS, theGame.move(6, 5, 2, 5));
+	}
+	
+	@Test
+	void scoutOrthogonalAttackInterference()
+	{
+		theGame.move(3, 5, 4, 5);
+		theGame.move(6, 0, 5, 0);
+		theGame.move(2, 5, 3, 5);
+		assertEquals(RED_WINS, theGame.move(6, 5, 3, 5));
 	}
 	
 	
